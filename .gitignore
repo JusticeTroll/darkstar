@@ -146,3 +146,10 @@ src/common/stamp-h1
 
 navmeshes/*.nav
 tags
+/DSGame-server.bsc
+/log/DSP.leaks
+/scripts/globals/fishing/fish.lua
+/scripts/globals/fishing/items.lua
+/scripts/globals/fishing/monsters.lua
+/scripts/globals/fishing/rods.lua
+/scripts/globals/fishing/zones.lua
