@@ -3984,7 +3984,8 @@ void SmallPacket0x0B5(map_session_data_t* session, CCharEntity* PChar, CBasicPac
         {
             switch (data.ref<uint8>(0x04))
             {
-            case MESSAGE_SAY:
+            
+/*            case MESSAGE_SAY:
             {
                 if (map_config.audit_chat == 1 && map_config.audit_say == 1)
                 {
@@ -4003,6 +4004,30 @@ void SmallPacket0x0B5(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                 PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CChatMessagePacket(PChar, MESSAGE_SAY, (const char*)data[6]));
             }
             break;
+*/
+                    
+//WORLD CHAT START
+            case MESSAGE_SAY:
+            {
+                    int8 packetData[4]{};
+                    ref<uint32>(packetData, 0) = PChar->id;
+
+                    message::send(MSG_CHAT_UNITY, packetData, sizeof packetData, new CChatMessagePacket(PChar, MESSAGE_UNITY, (const char*)data[6]));
+
+                    if (map_config.audit_chat == 1 && map_config.audit_yell == 1)
+                    {
+                        std::string qStr = ("INSERT into audit_chat (speaker,type,message,datetime) VALUES('");
+                        qStr += (const char*)PChar->GetName();
+                        qStr += "','SAY','";
+                        qStr += escape((const char*)data[6]);
+                        qStr += "',current_timestamp());";
+                        const char * cC = qStr.c_str();
+                        Sql_QueryStr(SqlHandle, cC);
+                    }
+            }
+            break;
+//WORLD CHAT END
+                    
             case MESSAGE_EMOTION:    PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CChatMessagePacket(PChar, MESSAGE_EMOTION, (const char*)data[6])); break;
             case MESSAGE_SHOUT:
             {
