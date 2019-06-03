@@ -787,7 +787,6 @@ namespace charutils
         }
 
         charutils::LoadInventory(PChar);
-        PChar->m_event.EventID = luautils::OnZoneIn(PChar);
 
         CalculateStats(PChar);
         blueutils::LoadSetSpells(PChar);
@@ -804,6 +803,7 @@ namespace charutils
         PChar->health.hp = zoneutils::IsResidentialArea(PChar) ? PChar->GetMaxHP() : HP;
         PChar->health.mp = zoneutils::IsResidentialArea(PChar) ? PChar->GetMaxMP() : MP;
         PChar->UpdateHealth();
+        PChar->m_event.EventID = luautils::OnZoneIn(PChar);
         luautils::OnGameIn(PChar, zoning == 1);
     }
 
@@ -1344,7 +1344,7 @@ namespace charutils
 
     /************************************************************************
     *                                                                       *
-    *  Обновляем количество предметов в указанных контейнере и ячейке       *
+    *  Update the number of items in the specified container and slot       *
     *                                                                       *
     ************************************************************************/
 
@@ -1358,9 +1358,12 @@ namespace charutils
             PChar->pushPacket(new CInventoryItemPacket(nullptr, LocationID, slotID));
             return 0;
         }
+
+        uint16 ItemID = PItem->getID();
+
         if ((int32)(PItem->getQuantity() - PItem->getReserve() + quantity) < 0)
         {
-            ShowDebug("UpdateItem: Trying to move too much quantity\n");
+            ShowDebug("UpdateItem: %s trying to move invalid quantity %u of itemID %u\n", PChar->GetName(), quantity, ItemID);
             return 0;
         }
 
@@ -1373,7 +1376,6 @@ namespace charutils
                 return 0;
         }
 
-        uint32 ItemID = PItem->getID();
         uint32 newQuantity = PItem->getQuantity() + quantity;
 
         if (newQuantity > PItem->getStackSize()) newQuantity = PItem->getStackSize();
@@ -1435,7 +1437,7 @@ namespace charutils
 
     /************************************************************************
     *                                                                       *
-    *  Check the possibility of trade between the characters             *
+    *  Check the possibility of trade between the characters                *
     *                                                                       *
     ************************************************************************/
 
@@ -3151,6 +3153,29 @@ namespace charutils
             gil += gil * PChar->getMod(Mod::GILFINDER) / 100;
             UpdateItem(PChar, LOC_INVENTORY, 0, static_cast<int32>(gil));
             PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, static_cast<int32>(gil), 0, 565));
+        }
+    }
+
+    void DistributeItem(CCharEntity* PChar, CBaseEntity* PEntity, uint16 itemid, uint16 droprate)
+    {
+        uint8 tries = 0;
+        uint8 maxTries = 1;
+        uint8 bonus = 0;
+        if (auto PMob = dynamic_cast<CMobEntity*>(PEntity))
+        {
+            //THLvl is the number of 'extra chances' at an item. If the item is obtained, then break out.
+            tries = 0;
+            maxTries = 1 + (PMob->m_THLvl > 2 ? 2 : PMob->m_THLvl);
+            bonus = (PMob->m_THLvl > 2 ? (PMob->m_THLvl - 2) * 10 : 0);
+        }
+        while (tries < maxTries)
+        {
+            if (droprate > 0 && dsprand::GetRandomNumber(1000) < droprate * map_config.drop_rate_multiplier + bonus)
+            {
+                PChar->PTreasurePool->AddItem(itemid, PEntity);
+                break;
+            }
+            tries++;
         }
     }
 
