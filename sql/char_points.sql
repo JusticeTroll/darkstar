@@ -1,24 +1,18 @@
-/*
-Navicat MySQL Data Transfer
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.7.14-log - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL Version:             10.1.0.5464
+-- --------------------------------------------------------
 
-Source Server         : oo
-Source Server Version : 50136
-Source Host           : localhost:3306
-Source Database       : dspdb
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-Target Server Type    : MYSQL
-Target Server Version : 50136
-File Encoding         : 65001
-
-Date: 2012-07-17 14:50:32
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
--- ----------------------------
--- Table structure for `char_points`
--- ----------------------------
-DROP TABLE IF EXISTS `char_points`;
-CREATE TABLE `char_points` (
+-- Dumping structure for table dspdb.char_points
+CREATE TABLE IF NOT EXISTS `char_points` (
   `charid` int(10) unsigned NOT NULL,
   `sandoria_cp` int(10) unsigned NOT NULL DEFAULT '0',
   `bastok_cp` int(10) unsigned NOT NULL DEFAULT '0',
@@ -97,10 +91,10 @@ CREATE TABLE `char_points` (
   `kupofried_corundums` int(10) unsigned NOT NULL DEFAULT '0',
   `imprimaturs` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `pheromone_sacks` tinyint(3) unsigned NOT NULL DEFAULT '0',
-
   PRIMARY KEY (`charid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- ----------------------------
--- Records of char_points
--- ----------------------------
+-- Data exporting was unselected.
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
