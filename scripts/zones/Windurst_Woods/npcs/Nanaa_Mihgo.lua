@@ -45,9 +45,15 @@ function onTrigger(player,npc)
     local hittingTheMarquisateNanaaCS = player:getVar("hittingTheMarquisateNanaaCS")
     local job = player:getMainJob()
     local lvl = player:getMainLvl()
+	local rank3 = player:getRank(BASTOK) >= 3 and 3 or player:getRank(SANDORIA) >= 3 and 3 or player:getRank(WINDURST) >= 3 and 3 or math.random(0, 2);
 
+
+	-- TRUST   
+	if (mihgosAmigo == QUEST_COMPLETED and player:hasKeyItem(dsp.ki.WINDURST_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.NANAA_MIHGO) == false) then			
+		player:startEvent(865,0,0,0,TrustMemory(player),0,0,0,rank3);
+		
     -- WINDURST 2-1: LOST FOR WORDS
-    if player:getCurrentMission(WINDURST) == dsp.mission.id.windurst.LOST_FOR_WORDS and missionStatus > 0 and missionStatus < 5 then
+    elseif player:getCurrentMission(WINDURST) == dsp.mission.id.windurst.LOST_FOR_WORDS and missionStatus > 0 and missionStatus < 5 then
         if missionStatus == 1 then
             player:startEvent(165, 0, dsp.ki.LAPIS_CORAL, dsp.ki.LAPIS_MONOCLE)
         elseif missionStatus == 2 then
@@ -130,8 +136,13 @@ function onEventUpdate(player,csid,option)
 end
 
 function onEventFinish(player,csid,option)
+	--TRUST
+    if csid == 865 and option == 2 then
+		player:addSpell(dsp.trust.NANAA_MIHGO, true);
+		player:PrintToPlayer("You learned Trust: Nanaa Mihgo!", 0xD);
+		
     -- WINDURST 2-1: LOST FOR WORDS
-    if csid == 165 and option == 1 then
+    elseif csid == 165 and option == 1 then
         npcUtil.giveKeyItem(player, dsp.ki.LAPIS_MONOCLE)
         player:setVar("MissionStatus", 2)
     elseif csid == 169 then
@@ -192,4 +203,33 @@ function onEventFinish(player,csid,option)
         player:addGil(GIL_RATE*200)
         player:addFame(NORG, 30)
     end
+end
+
+function TrustMemory(player)
+	local memories = 0;
+	--2 - Saw her at the start of the game(dont know how the check for the beginning)
+	if (player:getNation() == WINDURST) then
+		memories = memories + 2;
+	end
+	--4 - ROCK_RACKETEER
+	if(player:hasCompletedQuest(WINDURST, dsp.quest.id.windurst.ROCK_RACKETEER)) then
+		memories = memories + 4;
+	end
+	--8 - HITTING_THE_MARQUISATE
+	if(player:hasCompletedQuest(WINDURST, dsp.quest.id.windurst.HITTING_THE_MARQUISATE)) then
+		memories = memories + 8;
+	end
+	--16 - CRYING_OVER_ONIONS
+	if(player:hasCompletedQuest(WINDURST, dsp.quest.id.windurst.CRYING_OVER_ONIONS)) then
+		memories = memories + 16;
+	end
+	--32 - hasItem(286) Nanaa Mihgo statue
+	if(player:hasItem(286)) then
+		memories = memories + 32;
+	end
+	--64 - ROAR_A_CAT_BURGLAR_BARES_HER_FANGS
+	if(player:hasCompletedMission(AMK, dsp.quest.id.windurst.ROAR_A_CAT_BURGLAR_BARES_HER_FANGS)) then
+		memories = memories + 64;
+	end
+	return memories;
 end

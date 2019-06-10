@@ -1,28 +1,18 @@
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
---
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version'  ',5.6.21-log
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.7.14-log - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL Version:             10.1.0.5464
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `mob_pools`
---
-
-DROP TABLE IF EXISTS `mob_pools`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mob_pools` (
+-- Dumping structure for table dspdb.mob_pools
+CREATE TABLE IF NOT EXISTS `mob_pools` (
   `poolid` int(10) unsigned NOT NULL,
   `name` varchar(24) DEFAULT NULL,
   `packet_name` varchar(24) DEFAULT NULL,
@@ -50,14 +40,10 @@ CREATE TABLE `mob_pools` (
   `skill_list_id` smallint(5) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`poolid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `mob_pools`
---
-
-LOCK TABLES `mob_pools` WRITE;
+-- Dumping data for table dspdb.mob_pools: 5,911 rows
 /*!40000 ALTER TABLE `mob_pools` DISABLE KEYS */;
+
 INSERT INTO `mob_pools` VALUES (1,'1st_Gold_Musketeer','1st_Gold_Musketeer',149,0x01000D02DE104820483048404850B76000703B80,5,11,3,240,100,0,0,0,0,0,0,0,0,0,0,0,3,1,0,149);
 INSERT INTO `mob_pools` VALUES (2,'1st_Iron_Musketeer','1st_Iron_Musketeer',149,0x010005019510A220A230A240A250BC60B7703A80,5,5,3,240,100,0,0,0,0,0,0,0,0,0,0,0,3,1,0,149);
 INSERT INTO `mob_pools` VALUES (3,'1st_Legionnaire','1st_Legionnaire',146,0x01000508061006200630064006500A6122703480,11,11,3,240,100,0,0,0,0,0,0,0,0,3,0,0,0,1,0,146);
@@ -6122,15 +6108,7 @@ INSERT INTO `mob_pools` VALUES (6066,'Hitaume','Hitaume',359,0x05002F02486974617
 INSERT INTO `mob_pools` VALUES (6067,'Cavanneche','Cavanneche',359,0x05002C0200000000000000000000000000000000,8,8,7,240,100,0,7,0,1,16,0,0,7,157,0,0,5,1,0,0);
 
 /*!40000 ALTER TABLE `mob_pools` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2016-10-29 22:28:48

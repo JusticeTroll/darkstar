@@ -1,124 +1,84 @@
-/*
-Navicat MySQL Data Transfer
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.7.14-log - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL Version:             10.1.0.5464
+-- --------------------------------------------------------
 
-Source Server         : DarkStar
-Source Server Version : 50515
-Source Host           : localhost:3306
-Source Database       : dspdb
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-Target Server Type    : MYSQL
-Target Server Version : 50515
-File Encoding         : 65001
-
-Date: 2011-10-28 20:17:52
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for `bcnm_treasure_chests`
--- ----------------------------
-DROP TABLE IF EXISTS `bcnm_treasure_chests`;
-CREATE TABLE `bcnm_treasure_chests` (
+-- Dumping structure for table dspdb.bcnm_treasure_chests
+CREATE TABLE IF NOT EXISTS `bcnm_treasure_chests` (
   `bcnmId` smallint(5) unsigned NOT NULL,
-  `battlefieldNumber` tinyint(3),
+  `battlefieldNumber` tinyint(3) DEFAULT NULL,
   `npcId` int(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=56;
 
--- ----------------------------
--- Records of instance
--- ----------------------------
+-- Dumping data for table dspdb.bcnm_treasure_chests: 56 rows
+/*!40000 ALTER TABLE `bcnm_treasure_chests` DISABLE KEYS */;
+INSERT INTO `bcnm_treasure_chests` (`bcnmId`, `battlefieldNumber`, `npcId`) VALUES
+	(4, 1, 17346675),
+	(4, 2, 17346679),
+	(4, 3, 17346683),
+	(10, 1, 17346687),
+	(10, 2, 17346691),
+	(10, 3, 17346695),
+	(11, 1, 17346597),
+	(11, 2, 17346601),
+	(11, 3, 17346605),
+	(12, 1, 17346653),
+	(12, 2, 17346662),
+	(12, 3, 17346671),
+	(15, 1, 17346608),
+	(15, 2, 17346611),
+	(15, 3, 17346614),
+	(17, 1, 17346624),
+	(17, 2, 17346634),
+	(17, 3, 17346644),
+	(34, 1, 17350932),
+	(35, 1, 17350935),
+	(36, 1, 17350938),
+	(81, 1, 17367089),
+	(81, 2, 17367093),
+	(81, 3, 17367097),
+	(76, 1, 17367101),
+	(76, 2, 17367105),
+	(76, 3, 17367109),
+	(79, 1, 17367138),
+	(79, 2, 17367155),
+	(79, 3, 17367172),
+	(82, 1, 17367113),
+	(82, 2, 17367117),
+	(82, 3, 17367121),
+	(73, 1, 17367182),
+	(73, 2, 17367192),
+	(73, 3, 17367202),
+	(100, 1, 17375293),
+	(100, 2, 17375300),
+	(100, 3, 17375307),
+	(104, 1, 17375316),
+	(104, 2, 17375325),
+	(104, 3, 17375334),
+	(105, 1, 17375272),
+	(105, 2, 17375276),
+	(105, 3, 17375280),
+	(107, 1, 17375282),
+	(107, 2, 17375284),
+	(107, 3, 17375286),
+	(129, 1, 17444884),
+	(129, 2, 17444891),
+	(129, 3, 17444898),
+	(130, 1, 17444929),
+	(130, 2, 17444934),
+	(130, 3, 17444939),
+	(673, 1, 16810019),
+	(643, 1, 16801802);
+/*!40000 ALTER TABLE `bcnm_treasure_chests` ENABLE KEYS */;
 
--- Horlais Peak
-INSERT INTO `bcnm_treasure_chests` VALUES ('4', '1', '17346675');
-INSERT INTO `bcnm_treasure_chests` VALUES ('4', '2', '17346679');
-INSERT INTO `bcnm_treasure_chests` VALUES ('4', '3', '17346683');
-INSERT INTO `bcnm_treasure_chests` VALUES ('10', '1', '17346687');
-INSERT INTO `bcnm_treasure_chests` VALUES ('10', '2', '17346691');
-INSERT INTO `bcnm_treasure_chests` VALUES ('10', '3', '17346695');
-INSERT INTO `bcnm_treasure_chests` VALUES ('11', '1', '17346597');
-INSERT INTO `bcnm_treasure_chests` VALUES ('11', '2', '17346601');
-INSERT INTO `bcnm_treasure_chests` VALUES ('11', '3', '17346605');
-INSERT INTO `bcnm_treasure_chests` VALUES ('12', '1', '17346653');
-INSERT INTO `bcnm_treasure_chests` VALUES ('12', '2', '17346662');
-INSERT INTO `bcnm_treasure_chests` VALUES ('12', '3', '17346671');
-INSERT INTO `bcnm_treasure_chests` VALUES ('15', '1', '17346608');
-INSERT INTO `bcnm_treasure_chests` VALUES ('15', '2', '17346611');
-INSERT INTO `bcnm_treasure_chests` VALUES ('15', '3', '17346614');
-INSERT INTO `bcnm_treasure_chests` VALUES ('17', '1', '17346624');
-INSERT INTO `bcnm_treasure_chests` VALUES ('17', '2', '17346634');
-INSERT INTO `bcnm_treasure_chests` VALUES ('17', '3', '17346644');
-
--- Ghelsba Outpost
-INSERT INTO `bcnm_treasure_chests` VALUES ('34', '1', '17350932');
-INSERT INTO `bcnm_treasure_chests` VALUES ('35', '1', '17350935');
-INSERT INTO `bcnm_treasure_chests` VALUES ('36', '1', '17350938');
-
--- Waughroon Shrine
-INSERT INTO `bcnm_treasure_chests` VALUES ('81', '1', '17367089');
-INSERT INTO `bcnm_treasure_chests` VALUES ('81', '2', '17367093');
-INSERT INTO `bcnm_treasure_chests` VALUES ('81', '3', '17367097');
-INSERT INTO `bcnm_treasure_chests` VALUES ('76', '1', '17367101');
-INSERT INTO `bcnm_treasure_chests` VALUES ('76', '2', '17367105');
-INSERT INTO `bcnm_treasure_chests` VALUES ('76', '3', '17367109');
-INSERT INTO `bcnm_treasure_chests` VALUES ('79', '1', '17367138');
-INSERT INTO `bcnm_treasure_chests` VALUES ('79', '2', '17367155');
-INSERT INTO `bcnm_treasure_chests` VALUES ('79', '3', '17367172');
-INSERT INTO `bcnm_treasure_chests` VALUES ('82', '1', '17367113');
-INSERT INTO `bcnm_treasure_chests` VALUES ('82', '2', '17367117');
-INSERT INTO `bcnm_treasure_chests` VALUES ('82', '3', '17367121');
-INSERT INTO `bcnm_treasure_chests` VALUES ('73', '1', '17367182');
-INSERT INTO `bcnm_treasure_chests` VALUES ('73', '2', '17367192');
-INSERT INTO `bcnm_treasure_chests` VALUES ('73', '3', '17367202');
-
-
-
--- Balga's Dais
-INSERT INTO `bcnm_treasure_chests` VALUES ('100', '1', '17375293');
-INSERT INTO `bcnm_treasure_chests` VALUES ('100', '2', '17375300'); 
-INSERT INTO `bcnm_treasure_chests` VALUES ('100', '3', '17375307');
-INSERT INTO `bcnm_treasure_chests` VALUES ('104', '1', '17375316');
-INSERT INTO `bcnm_treasure_chests` VALUES ('104', '2', '17375325');
-INSERT INTO `bcnm_treasure_chests` VALUES ('104', '3', '17375334');
-INSERT INTO `bcnm_treasure_chests` VALUES ('105', '1', '17375272');
-INSERT INTO `bcnm_treasure_chests` VALUES ('105', '2', '17375276'); 
-INSERT INTO `bcnm_treasure_chests` VALUES ('105', '3', '17375280');
-INSERT INTO `bcnm_treasure_chests` VALUES ('107', '1', '17375282');
-INSERT INTO `bcnm_treasure_chests` VALUES ('107', '2', '17375284'); 
-INSERT INTO `bcnm_treasure_chests` VALUES ('107', '3', '17375286');
-
--- Sacrificial Chamber
-INSERT INTO `bcnm_treasure_chests` VALUES ('129', '1', '17444884');
-INSERT INTO `bcnm_treasure_chests` VALUES ('129', '2', '17444891');
-INSERT INTO `bcnm_treasure_chests` VALUES ('129', '3', '17444898');
-INSERT INTO `bcnm_treasure_chests` VALUES ('130', '1', '17444929');
-INSERT INTO `bcnm_treasure_chests` VALUES ('130', '2', '17444934');
-INSERT INTO `bcnm_treasure_chests` VALUES ('130', '3', '17444939');
-
--- Boneyard Gully
-INSERT INTO `bcnm_treasure_chests` VALUES ('673', '1', '16810019');
-
--- Bearclaw Pinnacle
-INSERT INTO `bcnm_treasure_chests` VALUES ('643', '1', '16801802');
-
--- Throne Room
-
--- Chamber of Oracles
-
--- Full Moon Fountain
-
--- Stellar Fulcrum
-
--- Cloister of Gales
-
--- Cloister of Storms
-
--- Cloister of Frost
-
--- Qu'Bia Arena
-
--- Cloister of Flames
-
--- Cloister of Tremors
-
--- Cloister of Tides
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

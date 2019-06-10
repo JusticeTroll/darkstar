@@ -27,8 +27,27 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
+    local TrustSandoria = player:getQuestStatus(SANDORIA,TRUST_SANDORIA);
+	local TrustBastok   = player:getQuestStatus(BASTOK,TRUST_BASTOK);
+	local TrustWindurst = player:getQuestStatus(WINDURST,TRUST_WINDURST);
+	local Level = player:getMainLvl();
+	local rank3 = player:getRank(BASTOK) >= 3 and 1 or player:getRank(SANDORIA) >= 3 and 1 or player:getRank(WINDURST) >= 3 and 1 or 0;
 
-    if (player:hasKeyItem(dsp.ki.YASINS_SWORD)) then -- The Doorman, WAR AF1
+	--TRUST
+	if (Level >= 5 and TrustBastok == QUEST_ACCEPTED and (TrustSandoria == QUEST_COMPLETED or TrustWindurst == QUEST_COMPLETED)) then
+		if (player:hasKeyItem(dsp.keyItem.BLUE_INSTITUTE_CARD) == true and player:hasSpell(dsp.trust.NAJI) == false) then
+			player:startEvent(984,0,0,0,TrustMemory(player),0,0,0,rank3);	
+		end
+	elseif (Level >= 5 and TrustBastok == QUEST_ACCEPTED) then
+		if (player:hasKeyItem(dsp.keyItem.BLUE_INSTITUTE_CARD) == true and player:hasSpell(dsp.trust.NAJI) == false) then
+			player:startEvent(980,0,0,0,TrustMemory(player),0,0,0,rank3);	
+		elseif (player:hasSpell(dsp.trust.NAJI) == true and player:getVar("BastokFirstTrust") == 1) then
+			player:startEvent(981);
+		elseif (player:getVar("BastokFirstTrust") == 2) then
+			player:startEvent(982);
+		end
+		
+    elseif (player:hasKeyItem(dsp.ki.YASINS_SWORD)) then -- The Doorman, WAR AF1
         player:startEvent(750);
     elseif (player:getCurrentMission(BASTOK) ~= dsp.mission.id.bastok.NONE) then
         local currentMission = player:getCurrentMission(BASTOK);
@@ -64,6 +83,10 @@ function onTrigger(player,npc)
         end
     elseif (player:hasKeyItem(dsp.ki.YASINS_SWORD)) then -- The Doorman
         player:startEvent(750);
+		
+	--TRUST END	
+	elseif(TrustBastok == QUEST_COMPLETED and player:hasSpell(dsp.trust.AYAME) == false) then
+		player:startEvent(983,0,0,0,0,0,0,0,rank3);	
     else
         player:startEvent(700);
     end
@@ -107,6 +130,50 @@ function onEventFinish(player,csid,option)
         player:setVar("MissionStatus",1);
     elseif (csid == 714 or csid == 722 or csid == 762) then
         finishMissionTimeline(player,1,csid,option);
+    
+	--TRUST	
+	elseif (csid == 980) then
+		player:addSpell(dsp.trust.NAJI, true);
+		player:addVar("BastokFirstTrust", 1);
+		player:PrintToPlayer("You learned Trust: Naji!", 0xD);
+	elseif (csid == 982) then
+		player:messageSpecial(ID.text.KEYITEM_LOST,dsp.keyItem.BLUE_INSTITUTE_CARD);
+		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.keyItem.BASTOK_TRUST_PERMIT);
+		player:setVar("BastokFirstTrust", 0);
+		player:addTitle(dsp.title.THE_TRUSTWORTHY);
+		player:completeQuest(BASTOK,TRUST_BASTOK);
+		player:delKeyItem(dsp.keyItem.BLUE_INSTITUTE_CARD);
+		player:addKeyItem(dsp.keyItem.BASTOK_TRUST_PERMIT);
+		player:PrintToPlayer("You are now able to call multiple alter egos.", 0xD);
+    elseif (csid == 984) then
+		player:addSpell(dsp.trust.NAJI, true);
+		player:PrintToPlayer("You learned Trust: Naji!", 0xD);
+		player:completeQuest(BASTOK,TRUST_BASTOK);
+		player:delKeyItem(dsp.keyItem.BLUE_INSTITUTE_CARD);
+		player:addKeyItem(dsp.keyItem.BASTOK_TRUST_PERMIT);
+		player:messageSpecial(ID.text.KEYITEM_LOST,dsp.keyItem.BLUE_INSTITUTE_CARD);
+		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.keyItem.BASTOK_TRUST_PERMIT);
     end
 
 end;
+
+function TrustMemory(player)
+	local memories = 0;
+	--2 - THE_EMISSARY
+	if (player:hasCompletedMission(BASTOK, THE_EMISSARY)) then
+		memories = memories + 2;
+	end
+	--4 - THE_DOORMAN
+	if(player:hasCompletedQuest(BASTOK, THE_DOORMAN)) then
+		memories = memories + 4;
+	end
+	--8 - LIGHT_OF_JUDGMENT
+	if(player:hasCompletedMission(TOAU, LIGHT_OF_JUDGMENT)) then
+		memories = memories + 8;
+	end
+	--16 - Chocobo racing
+	--if() then
+	--	memories = memories + 16;
+	--end
+	return memories;
+end
