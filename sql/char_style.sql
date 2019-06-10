@@ -25,7 +25,26 @@ CREATE TABLE IF NOT EXISTS `char_style` (
   PRIMARY KEY (`charid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=20;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.char_style: 15 rows
+/*!40000 ALTER TABLE `char_style` DISABLE KEYS */;
+INSERT INTO `char_style` (`charid`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
+	(21832, 0, 0, 0, 0, 0, 0, 0, 0),
+	(21829, 0, 0, 0, 0, 0, 0, 0, 0),
+	(21830, 0, 0, 0, 0, 0, 0, 0, 0),
+	(21831, 0, 0, 0, 0, 0, 0, 0, 0),
+	(21833, 0, 0, 0, 0, 0, 0, 0, 0),
+	(21834, 52685, 52685, 52685, 52685, 52685, 52685, 52685, 52685),
+	(21835, 0, 0, 0, 0, 0, 0, 0, 0),
+	(21836, 0, 0, 0, 0, 0, 0, 0, 0),
+	(21837, 52685, 52685, 52685, 52685, 52685, 52685, 52685, 52685),
+	(21838, 52685, 52685, 52685, 52685, 52685, 52685, 52685, 52685),
+	(21839, 0, 0, 0, 0, 0, 0, 0, 0),
+	(21840, 0, 0, 0, 0, 0, 0, 0, 0),
+	(21841, 0, 0, 0, 0, 0, 0, 0, 0),
+	(21842, 52685, 52685, 52685, 52685, 52685, 52685, 52685, 52685),
+	(21843, 52685, 52685, 52685, 52685, 52685, 52685, 52685, 52685);
+/*!40000 ALTER TABLE `char_style` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

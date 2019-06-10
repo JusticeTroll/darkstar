@@ -28,7 +28,26 @@ CREATE TABLE IF NOT EXISTS `char_look` (
   PRIMARY KEY (`charid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=24;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.char_look: 15 rows
+/*!40000 ALTER TABLE `char_look` DISABLE KEYS */;
+INSERT INTO `char_look` (`charid`, `face`, `race`, `size`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
+	(21829, 6, 6, 0, 112, 309, 149, 149, 149, 292, 0, 0),
+	(21830, 13, 1, 2, 65, 65, 65, 65, 65, 252, 0, 0),
+	(21831, 11, 5, 2, 0, 0, 0, 0, 0, 21, 0, 0),
+	(21832, 2, 1, 1, 0, 0, 0, 0, 0, 334, 0, 0),
+	(21833, 5, 1, 2, 15, 15, 15, 21, 15, 21, 0, 0),
+	(21834, 12, 7, 2, 0, 8, 8, 8, 8, 159, 0, 0),
+	(21835, 6, 7, 2, 0, 8, 8, 8, 8, 208, 0, 0),
+	(21836, 9, 6, 0, 5, 104, 104, 104, 104, 729, 0, 0),
+	(21837, 0, 8, 0, 0, 8, 8, 8, 8, 21, 0, 0),
+	(21838, 10, 5, 2, 0, 8, 8, 8, 8, 292, 0, 0),
+	(21839, 10, 5, 1, 20, 8, 8, 20, 21, 293, 0, 0),
+	(21840, 3, 2, 2, 0, 138, 138, 138, 138, 271, 41, 0),
+	(21841, 2, 1, 1, 0, 8, 8, 8, 8, 21, 0, 0),
+	(21842, 2, 5, 2, 0, 8, 8, 8, 8, 0, 0, 0),
+	(21843, 4, 1, 1, 0, 8, 8, 8, 8, 0, 0, 0);
+/*!40000 ALTER TABLE `char_look` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

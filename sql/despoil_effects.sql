@@ -18,7 +18,18 @@ CREATE TABLE IF NOT EXISTS `despoil_effects` (
   PRIMARY KEY (`itemId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.despoil_effects: ~7 rows (approximately)
+/*!40000 ALTER TABLE `despoil_effects` DISABLE KEYS */;
+INSERT INTO `despoil_effects` (`itemId`, `effectId`) VALUES
+	(644, 149),
+	(842, 146),
+	(881, 149),
+	(955, 167),
+	(2334, 175),
+	(4376, 147),
+	(4400, 13);
+/*!40000 ALTER TABLE `despoil_effects` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

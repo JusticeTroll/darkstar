@@ -28,7 +28,17 @@ CREATE TABLE IF NOT EXISTS `instance_list` (
   PRIMARY KEY (`instanceid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.instance_list: ~6 rows (approximately)
+/*!40000 ALTER TABLE `instance_list` DISABLE KEYS */;
+INSERT INTO `instance_list` (`instanceid`, `instance_name`, `entrance_zone`, `time_limit`, `start_x`, `start_y`, `start_z`, `start_rot`, `music_day`, `music_night`, `battlesolo`, `battlemulti`) VALUES
+	(0, 'TEST', 0, 0, 0.000, 0.000, 0.000, 0, -1, -1, -1, -1),
+	(53, 'the_black_coffin', 54, 30, 0.000, -22.000, 24.000, 64, -1, -1, -1, -1),
+	(54, 'against_all_odds', 54, 30, -9.000, -22.000, 17.000, 252, -1, -1, -1, -1),
+	(58, 'path_of_darkness', 72, 30, 500.000, 0.000, -572.000, 192, 143, 143, 143, 143),
+	(59, 'nashmeira\'s_plea', 72, 45, -444.000, -4.000, 420.000, 127, 143, 143, 143, 143),
+	(79, 'shades_of_vengeance', 79, 30, 127.000, -15.000, -303.000, 0, -1, -1, -1, -1);
+/*!40000 ALTER TABLE `instance_list` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

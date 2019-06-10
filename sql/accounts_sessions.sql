@@ -30,7 +30,10 @@ CREATE TABLE IF NOT EXISTS `accounts_sessions` (
   UNIQUE KEY `accid` (`accid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.accounts_sessions: ~0 rows (approximately)
+/*!40000 ALTER TABLE `accounts_sessions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `accounts_sessions` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

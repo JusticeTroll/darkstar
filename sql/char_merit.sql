@@ -20,7 +20,10 @@ CREATE TABLE IF NOT EXISTS `char_merit` (
   KEY `char_merits_charid_index` (`charid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.char_merit: ~0 rows (approximately)
+/*!40000 ALTER TABLE `char_merit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `char_merit` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -21,7 +21,39 @@ CREATE TABLE IF NOT EXISTS `trust_skill_lists` (
   PRIMARY KEY (`skill_list_id`,`mob_skill_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.trust_skill_lists: 28 rows
+/*!40000 ALTER TABLE `trust_skill_lists` DISABLE KEYS */;
+INSERT INTO `trust_skill_lists` (`skill_list_name`, `skill_list_id`, `mob_skill_id`, `min_level`, `max_level`) VALUES
+	('Trust_Curilla', 7, 34, 16, 255),
+	('Trust_Curilla', 7, 37, 41, 255),
+	('Trust_Curilla', 7, 41, 65, 255),
+	('Trust_Kupipi', 3, 163, 34, 255),
+	('Trust_Kupipi', 3, 164, 43, 255),
+	('Trust_Nanaa_Mihgo', 6, 2469, 1, 255),
+	('Trust_Nanaa_Mihgo', 6, 2470, 60, 255),
+	('Trust_Nanaa_Mihgo', 6, 2468, 75, 255),
+	('Trust_Excenmille', 4, 112, 1, 255),
+	('Trust_Excenmille', 4, 115, 33, 255),
+	('Trust_Excenmille', 4, 116, 49, 255),
+	('Trust_Naji', 2, 40, 62, 255),
+	('Trust_Naji', 2, 34, 17, 255),
+	('Trust_Naji', 2, 33, 10, 255),
+	('Trust_Ayame', 5, 144, 1, 255),
+	('Trust_Ayame', 5, 145, 9, 255),
+	('Trust_Ayame', 5, 146, 23, 255),
+	('Trust_Ayame', 5, 147, 33, 255),
+	('Trust_Ayame', 5, 148, 49, 255),
+	('Trust_Ayame', 5, 149, 55, 255),
+	('Trust_Ayame', 5, 150, 60, 255),
+	('Trust_Ayame', 5, 151, 65, 255),
+	('Trust_Ayame', 5, 152, 70, 255),
+	('Trust_Trion_RedLotusBlade', 10, 34, 16, 255),
+	('Trust_Trion_FlatBlade', 10, 35, 24, 255),
+	('Trust_Trion_SavageBlade', 10, 41, 65, 255),
+	('Trust_Trion_RoyalBash', 10, 971, 25, 255),
+	('Trust_Trion_RoyalSavior', 10, 972, 25, 255);
+/*!40000 ALTER TABLE `trust_skill_lists` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

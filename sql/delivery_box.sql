@@ -28,7 +28,15 @@ CREATE TABLE IF NOT EXISTS `delivery_box` (
   PRIMARY KEY (`charid`,`box`,`slot`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.delivery_box: ~4 rows (approximately)
+/*!40000 ALTER TABLE `delivery_box` DISABLE KEYS */;
+INSERT INTO `delivery_box` (`charid`, `charname`, `box`, `slot`, `itemid`, `itemsubid`, `quantity`, `extra`, `senderid`, `sender`, `received`, `sent`) VALUES
+	(21829, 'Sata', 1, 8, 17383, 0, 1, NULL, 0, 'AH-Jeuno', 0, 0),
+	(21829, 'Sata', 1, 9, 17388, 0, 1, NULL, 0, 'AH-Jeuno', 0, 0),
+	(21829, 'Sata', 1, 10, 17389, 0, 1, NULL, 0, 'AH-Jeuno', 0, 0),
+	(21829, 'Sata', 1, 11, 17344, 0, 1, NULL, 0, 'AH-Jeuno', 0, 0);
+/*!40000 ALTER TABLE `delivery_box` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

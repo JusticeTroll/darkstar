@@ -20,7 +20,10 @@ CREATE TABLE IF NOT EXISTS `audit_gm` (
   PRIMARY KEY (`date_time`,`gm_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.audit_gm: ~0 rows (approximately)
+/*!40000 ALTER TABLE `audit_gm` DISABLE KEYS */;
+/*!40000 ALTER TABLE `audit_gm` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

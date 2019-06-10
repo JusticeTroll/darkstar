@@ -27,7 +27,26 @@ CREATE TABLE IF NOT EXISTS `char_unlocks` (
   PRIMARY KEY (`charid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.char_unlocks: 15 rows
+/*!40000 ALTER TABLE `char_unlocks` DISABLE KEYS */;
+INSERT INTO `char_unlocks` (`charid`, `sandoria_supply`, `bastok_supply`, `windurst_supply`, `mog_locker`, `runic_portal`, `maw`, `past_sandoria_tp`, `past_bastok_tp`, `past_windurst_tp`, `homepoints`) VALUES
+	(21832, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21829, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21831, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21830, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21833, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21834, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21835, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21836, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21837, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21838, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21839, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21840, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21841, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21842, 12582880, 12582880, 12582880, 0, 0, 0, 0, 0, 0, NULL),
+	(21843, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);
+/*!40000 ALTER TABLE `char_unlocks` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

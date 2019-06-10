@@ -18,7 +18,20 @@ CREATE TABLE IF NOT EXISTS `guilds` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 PACK_KEYS=1;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.guilds: 9 rows
+/*!40000 ALTER TABLE `guilds` DISABLE KEYS */;
+INSERT INTO `guilds` (`id`, `points_name`) VALUES
+	(0, 'guild_fishing'),
+	(1, 'guild_woodworking'),
+	(2, 'guild_smithing'),
+	(3, 'guild_goldsmithing'),
+	(4, 'guild_weaving'),
+	(5, 'guild_leathercraft'),
+	(6, 'guild_bonecraft'),
+	(7, 'guild_alchemy'),
+	(8, 'guild_cooking');
+/*!40000 ALTER TABLE `guilds` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -23,7 +23,12 @@ CREATE TABLE IF NOT EXISTS `water_points` (
   PRIMARY KEY (`waterid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.water_points: 1 rows
+/*!40000 ALTER TABLE `water_points` DISABLE KEYS */;
+INSERT INTO `water_points` (`waterid`, `zoneid`, `type`, `pointid`, `pos_x`, `pos_y`, `pos_z`) VALUES
+	(1, 100, 0, 0, 0.00, 0.00, 0.00);
+/*!40000 ALTER TABLE `water_points` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

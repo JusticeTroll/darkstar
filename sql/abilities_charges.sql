@@ -22,7 +22,18 @@ CREATE TABLE IF NOT EXISTS `abilities_charges` (
   PRIMARY KEY (`recastId`,`job`,`level`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=56;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.abilities_charges: 7 rows
+/*!40000 ALTER TABLE `abilities_charges` DISABLE KEYS */;
+INSERT INTO `abilities_charges` (`recastId`, `job`, `level`, `maxCharges`, `chargeTime`, `meritModID`) VALUES
+	(231, 20, 10, 1, 240, 0),
+	(231, 20, 30, 2, 120, 0),
+	(231, 20, 50, 3, 80, 0),
+	(231, 20, 70, 4, 60, 0),
+	(231, 20, 90, 5, 48, 0),
+	(195, 17, 40, 2, 60, 1410),
+	(102, 9, 25, 3, 30, 0);
+/*!40000 ALTER TABLE `abilities_charges` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

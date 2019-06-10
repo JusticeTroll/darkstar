@@ -34,7 +34,26 @@ CREATE TABLE IF NOT EXISTS `char_stats` (
   PRIMARY KEY (`charid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.char_stats: 15 rows
+/*!40000 ALTER TABLE `char_stats` DISABLE KEYS */;
+INSERT INTO `char_stats` (`charid`, `hp`, `mp`, `nameflags`, `mhflag`, `mjob`, `sjob`, `death`, `2h`, `title`, `bazaar_message`, `zoning`, `mlvl`, `slvl`, `pet_id`, `pet_type`, `pet_hp`, `pet_mp`) VALUES
+	(21829, 213, 354, 0, 0, 15, 4, 0, 0, 111, NULL, 0, 23, 11, 12, 0, 0, 0),
+	(21830, 1287, 0, 117440512, 0, 1, 0, 0, 0, 894, NULL, 0, 75, 0, 0, 0, 0, 0),
+	(21831, 999, 872, 0, 0, 5, 13, 0, 0, 206, NULL, 0, 99, 15, 0, 0, 0, 0),
+	(21832, 1314, 780, 117440512, 0, 5, 3, 0, 0, 450, NULL, 0, 99, 49, 0, 0, 0, 0),
+	(21833, 484, 0, 0, 0, 2, 1, 0, 0, 206, NULL, 0, 26, 10, 0, 0, 0, 0),
+	(21834, 220, 0, 0, 0, 6, 0, 0, 0, 115, NULL, 0, 16, 0, 0, 0, 0, 0),
+	(21835, 140, 3, 0, 0, 14, 6, 0, 0, 115, NULL, 0, 10, 5, 48, 0, 0, 0),
+	(21836, 183, 106, 0, 0, 7, 1, 0, 0, 115, NULL, 0, 13, 6, 0, 0, 0, 0),
+	(21837, 104, 0, 0, 0, 1, 0, 0, 0, 206, NULL, 0, 5, 0, 0, 0, 0, 0),
+	(21838, 87, 132, 0, 0, 4, 0, 0, 0, 206, NULL, 0, 10, 0, 0, 0, 0, 0),
+	(21839, 7073, 9999, 0, 0, 15, 3, 0, 0, 115, NULL, 0, 75, 20, 18, 0, 0, 0),
+	(21840, 9684, 2332, 0, 0, 7, 1, 0, 0, 450, NULL, 0, 50, 25, 0, 0, 0, 0),
+	(21841, 1168, 0, 0, 0, 6, 0, 0, 0, 206, NULL, 0, 99, 0, 0, 0, 0, 0),
+	(21842, 21, 30, 0, 0, 4, 0, 0, 0, 206, NULL, 0, 1, 0, 0, 0, 0, 0),
+	(21843, 25, 24, 0, 0, 4, 0, 0, 0, 206, NULL, 0, 1, 0, 0, 0, 0, 0);
+/*!40000 ALTER TABLE `char_stats` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

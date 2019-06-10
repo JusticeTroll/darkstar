@@ -24,7 +24,22 @@ CREATE TABLE IF NOT EXISTS `trust_list` (
   PRIMARY KEY (`trustid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.trust_list: 11 rows
+/*!40000 ALTER TABLE `trust_list` DISABLE KEYS */;
+INSERT INTO `trust_list` (`trustid`, `name`, `spellid`, `poolid`, `minLevel`, `maxLevel`, `time`, `element`) VALUES
+	(1, 'Shantotto', 896, 5896, 1, 99, 0, 0),
+	(2, 'Naji', 897, 5897, 1, 99, 0, 0),
+	(3, 'Kupipi', 898, 5898, 1, 99, 0, 0),
+	(4, 'Excenmille', 899, 5899, 1, 99, 0, 0),
+	(5, 'Ayame', 900, 5900, 1, 99, 0, 0),
+	(6, 'Nanaa_Mihgo', 901, 5901, 1, 99, 0, 0),
+	(7, 'Curilla', 902, 5902, 1, 99, 0, 0),
+	(124, 'Shantotto_II', 1019, 6019, 1, 99, 0, 0),
+	(8, 'Volker', 903, 5903, 1, 99, 0, 0),
+	(9, 'Ajido-Marujido', 904, 5904, 1, 99, 0, 0),
+	(10, 'Trion', 905, 5905, 1, 99, 0, 0);
+/*!40000 ALTER TABLE `trust_list` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

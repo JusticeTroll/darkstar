@@ -27,7 +27,26 @@ CREATE TABLE IF NOT EXISTS `char_storage` (
   PRIMARY KEY (`charid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
+-- Dumping data for table dspdb.char_storage: 15 rows
+/*!40000 ALTER TABLE `char_storage` DISABLE KEYS */;
+INSERT INTO `char_storage` (`charid`, `inventory`, `safe`, `locker`, `satchel`, `sack`, `case`, `wardrobe`, `wardrobe2`, `wardrobe3`, `wardrobe4`) VALUES
+	(21832, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21829, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21830, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21831, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21833, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21834, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21835, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21836, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21837, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21838, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21839, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21840, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21841, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21842, 80, 50, 0, 80, 30, 80, 80, 80, 80, 80),
+	(21843, 30, 50, 0, 30, 30, 80, 80, 80, 80, 80);
+/*!40000 ALTER TABLE `char_storage` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
