@@ -130,6 +130,17 @@ void message_server_parse(MSGSERVTYPE type, zmq::message_t* extra, zmq::message_
             ipstring = true;
             break;
         }
+        
+        //World Chat Start
+        case MSG_CHAT_UNITY:
+        {
+            const char* query = "SELECT zoneip, zoneport FROM zone_settings GROUP BY zoneip, zoneport;";
+            ret = Sql_Query(ChatSqlHandle, query);
+            ipstring = true;
+            break;
+        }
+        //World Chat End
+            
         case MSG_CHAT_SERVMES:
         {
             const char* query = "SELECT zoneip, zoneport FROM zone_settings GROUP BY zoneip, zoneport;";
