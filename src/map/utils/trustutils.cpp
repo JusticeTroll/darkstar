@@ -620,6 +620,10 @@ namespace trustutils
         PTrust->setModifier(Mod::DEF, battleutils::GetMaxSkill(SKILL_THROWING, JOB_WHM, PTrust->GetMLevel()));
         //set C magic evasion
         PTrust->setModifier(Mod::MEVA, battleutils::GetMaxSkill(SKILL_ELEMENTAL_MAGIC, JOB_RDM, PTrust->GetMLevel()));
+
+        //load weapon delay
+        ((CItemWeapon*)PTrust->m_Weapons[SLOT_MAIN])->setDelay((trust->cmbDelay * 1000) / 60);
+
         // HP/MP STR/DEX/etc..
         LoadTrustStats(PTrust);
 

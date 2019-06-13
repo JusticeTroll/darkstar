@@ -69,6 +69,6 @@ CTrustSyncPacket::CTrustSyncPacket(CCharEntity* PChar, CTrustEntity* PTrust)
     //memcpy(data + (0x18), PTrust->GetName(), PTrust->name.size());
 
     // Unknown
-    //ref<uint8>(0x10) = 0x04;
+    ref<uint8>(0x10) = 0x04;
 
 }

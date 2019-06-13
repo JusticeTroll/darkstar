@@ -874,7 +874,7 @@ bool CTrustController::TryAbilitySkill()
         {
             PAbilityTarget = PTrust;
         }
-        if (luautils::OnTrustSkillCheck(PTrust, PAbilityTarget, PAbilitySkill) != 0)
+        if (luautils::OnTrustSkillCheck(PAbilityTarget, PTrust, PAbilitySkill) != 0)
         {
             continue;
         }
