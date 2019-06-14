@@ -1,6 +1,7 @@
 ---------------------------------------------------------------------------------------------------
 -- func: setskill <skill name or ID> <skill level> <target>
 -- desc: sets target's level of specified skill
+-- Dante's Toolkit
 ---------------------------------------------------------------------------------------------------
 require("scripts/globals/status")
 
