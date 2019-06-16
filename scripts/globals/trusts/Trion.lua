@@ -6,7 +6,12 @@ require("scripts/globals/magic")
 require("scripts/globals/utils")
 require("scripts/globals/trusts")
 require("scripts/globals/msg")
+require("scripts/globals/ability")
 
+
+-----------------------------------------------------------------------------------
+--  Spawn/Despawn Functions
+-----------------------------------------------------------------------------------
 function onTrustSpawn(trust)
 	trust:addMobMod(dsp.mobMod.SKILL_LIST, dsp.trust.TRION);
     trust:addMobMod(dsp.mobMod.SPECIAL_SKILL, dsp.trust.TRION);
@@ -38,15 +43,6 @@ function onTrustSpawn(trust)
 	end
 end
 
-function onTrustEngaged(trust,target)
-end
-
-function onTrustDisengage(trust,target)
-end
-
-function onTrustFight(trust,target)
-end
-
 function onTrustDeath(trust, player)
     trust:PrintToArea("There was nothing further I could have done!", dsp.msg.channel.PARTY, dsp.msg.area.PARTY, trust:getName());
 end
@@ -55,6 +51,25 @@ function onTrustDespawn(trust)
 	trust:PrintToArea("Sweet will be the aroma of the 812 Rolanberry I sip tonight!", dsp.msg.channel.PARTY, dsp.msg.area.PARTY, trust:getName());
 end
 
+-----------------------------------------------------------------------------------
+--  Battle Functions
+-----------------------------------------------------------------------------------
+function onTrustEngaged(trust,target)
+	if(not trust:hasRecast(dsp.recast.RECAST_ABILITY, dsp.jobAbility.PROVOKE, 0)) then
+		trust:useTrustAbility(dsp.jobAbility.PROVOKE)
+	end
+end
+
+function onTrustFight(trust,target)
+end
+
+function onTrustDisengage(trust,target)
+end
+
+
+-----------------------------------------------------------------------------------
+--  Action Check Functions
+-----------------------------------------------------------------------------------
 function onSpellPrecast(trust, spell)
 
 end;
@@ -64,9 +79,11 @@ function onTrustSkillCheck(target, trust, skill)
 end;
 
 function onTrustWeaponSkillCheck(target, trust, skill)
-
-	--if Royal Savior
-	--master:PrintToArea(trustPrefix .. "O great kings of the noble line of d'Oraguille, shield me from harm!", 0xF);
-
-	return 1
+	
+	if(skill:getID() == 972) then -- Royal Savior
+		if(trust:hasStatusEffect(dsp.effect.DEFENSE_BOOST)) then
+			return 1
+		end
+	end
+	return 0
 end;

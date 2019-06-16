@@ -53,3 +53,7 @@ end;
 function onTrustSkillCheck(target, trust, skill)
 	return 0
 end;
+
+function onTrustWeaponSkillCheck(target, trust, skill)
+	return 0
+end

@@ -64,27 +64,26 @@ end
 function onTrustSkillCheck(target, trust, skill)
 	local master = trust:getMaster();
 	local mob = trust:getTarget();
-	
-	if(skill:getID() == dsp.ja.HASSO) then -- Hasso
-		if(not trust:hasRecast(dsp.recast.RECAST_ABILITY, dsp.ja.HASSO, 0))then
+	if(skill:getID() == dsp.jobAbility.MEDITATE) then -- Meditate
+		if(master:getTP() >= 1000 and trust:getTP() < 1000) then	
+			if(not trust:hasRecast(dsp.recast.RECAST_ABILITY, dsp.jobAbility.MEDITATE, 0))then
+				return 0
+			end
+		end
+	end
+	if(skill:getID() == dsp.jobAbility.HASSO) then -- Hasso
+		if(not trust:hasRecast(dsp.recast.RECAST_ABILITY, dsp.jobAbility.HASSO, 0))then
 			return 0
 		end
-		
-	elseif(skill:getID() == dsp.ja.MEDITATE) then -- Meditate
-		if(master:getTP() >= 1000 and trust:getTP() < 1000) then	
-			if(not trust:hasRecast(dsp.recast.RECAST_ABILITY, dsp.ja.MEDITATE, 0))then
-				return 0
-			end
-		end
-
-	elseif(skill:getID() == dsp.ja.THIRD_EYE) then -- Third Eye
+	end
+	if(skill:getID() == dsp.jobAbility.THIRD_EYE) then -- Third Eye
 		if(trust:getID() ~= mob:getID()) then
-			if(mob:isAlive() and trust:hasTopEnmity(mob) and not trust:hasRecast(dsp.recast.RECAST_ABILITY, dsp.ja.THIRD_EYE, 0)) then	
+			if(trust:hasTopEnmity(mob) and not trust:hasRecast(dsp.recast.RECAST_ABILITY, dsp.jobAbility.THIRD_EYE, 0)) then	
 				return 0
 			end
 		end
-		
-	elseif(skill:getID() >= 144 and skill:getID() <= 152) then -- WS
+	end
+	if(skill:getID() >= 144 and skill:getID() <= 152) then -- WS
 		return 0
 	end
 	return 1
@@ -111,10 +110,10 @@ function onTrustWeaponSkillCheck(target, trust, skill)
 		end
 		
 		if(chainTier ~= 0 and skillId == skill:getID()) then
-			return 1
+			return 0
 		end
 	end
-	return 0
+	return 1
 end
 
 function onSpellPrecast(trust, spell)
