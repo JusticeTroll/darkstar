@@ -25,3 +25,4 @@ function onTrigger(player, ID)
     -- put on costume
     player:costume2(ID);
 end
+

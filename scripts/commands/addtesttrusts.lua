@@ -17,7 +17,7 @@ end
 function onTrigger(player, target)
     local ValidSpells =
     {
-        896,897,898,899,900,901,902,905,1019
+        896,887,898,899,900,901,902,905,1019
     }
 --896 Shantotto
 --887 Naji
