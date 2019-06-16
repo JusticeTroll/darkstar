@@ -4014,7 +4014,7 @@ void SmallPacket0x0B5(map_session_data_t* session, CCharEntity* PChar, CBasicPac
         {
             switch (data.ref<uint8>(0x04))
             {
- /*
+/*
             case MESSAGE_SAY:
             {
                 if (map_config.audit_chat == 1 && map_config.audit_say == 1)
@@ -4034,7 +4034,7 @@ void SmallPacket0x0B5(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                 PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CChatMessagePacket(PChar, MESSAGE_SAY, (const char*)data[6]));
             }
             break;
-*/                    
+*/
 //WORLD CHAT START     
             case MESSAGE_SAY:
             {
@@ -4056,7 +4056,7 @@ void SmallPacket0x0B5(map_session_data_t* session, CCharEntity* PChar, CBasicPac
             }
             break;
 //WORLD CHAT END   
-                   
+     
             case MESSAGE_EMOTION:    PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CChatMessagePacket(PChar, MESSAGE_EMOTION, (const char*)data[6])); break;
             case MESSAGE_SHOUT:
             {
