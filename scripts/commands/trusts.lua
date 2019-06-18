@@ -1,7 +1,7 @@
 ---------------------------------------------------------------------------------------------------
--- func: Help Command (Commands List)
--- auth: Tagban
--- desc: Spits out a list of commands (obviously can be changed)
+-- func: Trust Details
+-- auth: DanteMccloud#2418
+-- desc: Trust related information
 ---------------------------------------------------------------------------------------------------
 
 cmdprops =
