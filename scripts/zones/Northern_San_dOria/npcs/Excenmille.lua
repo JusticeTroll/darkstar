@@ -88,11 +88,11 @@ function TrustMemory(player)
 	--	memories = memories + 4;
 	--end
 	--8 - CLAWS_OF_THE_GRIFFON
-	if(player:hasCompletedMission(WOTG, dsp.mission.id.wotg.CLAWS_OF_THE_GRIFFON)) then
+	if(player:hasCompletedQuest(CRYSTAL_WAR, dsp.quest.id.crystalwar.CLAWS_OF_THE_GRIFFON)) then
 		memories = memories + 8;
 	end
 	--16 - BLOOD_OF_HEROES
-	if(player:hasCompletedQuest(WOTG, dsp.quest.id.wotg.BLOOD_OF_HEROES)) then
+	if(player:hasCompletedQuest(CRYSTAL_WAR, dsp.quest.id.crystalwar.BLOOD_OF_HEROES)) then
 		memories = memories + 16;
 	end
 	return memories;
