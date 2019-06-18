@@ -49,7 +49,7 @@ function onTrigger(player,npc)
 
 
 	-- TRUST   
-	if (mihgosAmigo == QUEST_COMPLETED and player:hasKeyItem(dsp.ki.WINDURST_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.NANAA_MIHGO) == false) then			
+	if (mihgosAmigo == QUEST_COMPLETED and player:hasKeyItem(dsp.keyItem.WINDURST_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.NANAA_MIHGO) == false) then			
 		player:startEvent(865,0,0,0,TrustMemory(player),0,0,0,rank3);
 		
     -- WINDURST 2-1: LOST FOR WORDS
@@ -228,7 +228,7 @@ function TrustMemory(player)
 		memories = memories + 32;
 	end
 	--64 - ROAR_A_CAT_BURGLAR_BARES_HER_FANGS
-	if(player:hasCompletedMission(AMK, dsp.quest.id.windurst.ROAR_A_CAT_BURGLAR_BARES_HER_FANGS)) then
+	if(player:hasCompletedMission(AMK, dsp.mission.id.amk.ROAR_A_CAT_BURGLAR_BARES_HER_FANGS)) then
 		memories = memories + 64;
 	end
 	return memories;

@@ -11,12 +11,7 @@ require("scripts/globals/settings")
 require("scripts/globals/status")
 require("scripts/globals/msg")
 
-function onTrustSkillCheck(target,trust,skill)
-    --trust:messageBasic(dsp.msg.basic.READIES_WS, 0, 37)
-    return 0
-end
-
-function onTrustWeaponSkill(target, trust, skill)
+function onTrustWeaponSkill(target, trust, skill, action)
     local dmgmod = 1.25
     local info = MobMagicalMove(trust,target,skill,trust:getWeaponDmg()*4,dsp.magic.ele.LIGHT,dmgmod,TP_DMG_BONUS,1)
     local dmg = MobFinalAdjustments(info.dmg,trust,skill,target,dsp.attackType.MAGICAL,dsp.damageType.LIGHT,MOBPARAM_1_SHADOW)

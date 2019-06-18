@@ -5,19 +5,20 @@
 require("scripts/globals/monstertpmoves")
 require("scripts/globals/settings")
 require("scripts/globals/status")
+require("scripts/globals/msg")
 ---------------------------------------------
 
-function onTrustSkillCheck(target,mob,skill)
-    return 0
-end
+function onTrustWeaponSkill(target, trust, skill, action)
+	
+	trust:PrintToArea("O great kings of the noble line of d'Oraguille, shield me from harm!", dsp.msg.channel.PARTY, dsp.msg.area.PARTY, trust:getName());
 
-function onTrustWeaponSkill(target, mob, skill)
     local power = 175
     local duration = 300
 
-    local typeEffect = dsp.effect.PROTECT
+    local typeEffect = dsp.effect.DEFENSE_BOOST
 
-    skill:setMsg(MobBuffMove(mob, typeEffect, power, 0, duration))
+    MobBuffMove(trust, typeEffect, power, 0, duration)
+	skill:setMsg(dsp.msg.basic.SKILL_GAIN_EFFECT)
 
     return typeEffect
 end

@@ -11,16 +11,7 @@ require("scripts/globals/settings")
 require("scripts/globals/status")
 require("scripts/globals/msg")
 
-function onTrustSkillCheck(target,trust,skill)
-    --trust:messageBasic(dsp.msg.basic.READIES_WS, 0, 40)
-    return 0
-end
-
-function onTrustWeaponSkill(target, trust, skill)
-    --if (mob:getPool() == 4249) then -- Volker@Throne_Room only
-    --    target:showText(mob,zones[dsp.zone.THRONE_ROOM].text.BLADE_ANSWER)
-    --end
-
+function onTrustWeaponSkill(target, trust, skill, action)
     local numhits = 4
     local accmod = 1
     local dmgmod = 1.25

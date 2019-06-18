@@ -22,9 +22,9 @@ end;
 
 function onTrigger(player,npc)
 
-    TrustSandoria = player:getQuestStatus(SANDORIA,TRUST_SANDORIA);
-	TrustBastok   = player:getQuestStatus(BASTOK,TRUST_BASTOK);
-	TrustWindurst = player:getQuestStatus(WINDURST,TRUST_WINDURST);
+    TrustSandoria = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.TRUST_SANDORIA);
+	TrustBastok   = player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRUST_BASTOK);
+	TrustWindurst = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.TRUST_WINDURST);
 	local Level = player:getMainLvl();
 	
 	if (Level >= 5 and TrustSandoria == QUEST_AVAILABLE and (TrustBastok == QUEST_COMPLETED or TrustWindurst == QUEST_COMPLETED)) then
@@ -58,7 +58,7 @@ function onEventFinish(player,csid,option)
     --printf("RESULT: %u",option1);
 	if ((csid == 0x0dac or csid == 0x0db0) and option == 2) then
 		player:addKeyItem(dsp.keyItem.RED_INSTITUTE_CARD);
-		player:addQuest(SANDORIA,TRUST_SANDORIA);
+		player:addQuest(SANDORIA,dsp.quest.id.sandoria.TRUST_SANDORIA);
 		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.keyItem.RED_INSTITUTE_CARD);
     end
 end;

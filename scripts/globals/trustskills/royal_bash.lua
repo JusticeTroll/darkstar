@@ -6,21 +6,17 @@ require("scripts/globals/settings")
 require("scripts/globals/status")
 ---------------------------------------------
 
-function onTrustSkillCheck(target,mob,skill)
-    return 0
-end
-
-function onTrustWeaponSkill(target, mob, skill)
+function onTrustWeaponSkill(target, trust, skill, action)
     local numhits = 1
     local accmod = 1
     local dmgmod = 1.2
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,1,2,3)
-    local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.BLUNT,info.hitslanded)
+    local info = MobPhysicalMove(trust,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,1,2,3)
+    local dmg = MobFinalAdjustments(info.dmg,trust,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.BLUNT,info.hitslanded)
 
     local typeEffect = dsp.effect.STUN
 
-    MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, 1, 0, 4)
+    MobPhysicalStatusEffectMove(trust, target, skill, typeEffect, 1, 0, 4)
 
-    target:takeDamage(dmg, mob, dsp.attackType.PHYSICAL, dsp.damageType.BLUNT)
+    target:takeDamage(dmg, trust, dsp.attackType.PHYSICAL, dsp.damageType.BLUNT)
     return dmg
 end

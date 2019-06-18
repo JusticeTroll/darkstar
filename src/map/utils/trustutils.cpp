@@ -603,6 +603,7 @@ namespace trustutils
         PTrust->m_TrustID = TrustID;
         PTrust->status = STATUS_NORMAL;
         PTrust->m_ModelSize = trust->size;
+        PTrust->m_name_prefix = trust->name_prefix;
         PTrust->m_EcoSystem = trust->EcoSystem;
         PTrust->m_Behaviour = trust->m_Behaviour;
         PTrust->m_HasSpellScript = trust->hasSpellScript;

@@ -12,15 +12,15 @@ require("scripts/globals/quests");
 require("scripts/globals/keyitems");
 require("scripts/globals/trusts");
 require("scripts/globals/titles");
-
+require("scripts/globals/missions");
 
 function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    TrustSandoria = player:getQuestStatus(SANDORIA,TRUST_SANDORIA);
-	TrustBastok   = player:getQuestStatus(BASTOK,TRUST_BASTOK);
-	TrustWindurst = player:getQuestStatus(WINDURST,TRUST_WINDURST);
+	local TrustSandoria = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.TRUST_SANDORIA);
+	local TrustBastok   = player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRUST_BASTOK);
+	local TrustWindurst = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.TRUST_WINDURST);
 	local Level = player:getMainLvl();
 	local rank3 = player:getRank(BASTOK) >= 3 and 1 or player:getRank(SANDORIA) >= 3 and 1 or player:getRank(WINDURST) >= 3 and 1 or 0;
 
@@ -28,11 +28,11 @@ function onTrigger(player,npc)
 	--TRUST
 	if (Level >= 5 and TrustSandoria == QUEST_ACCEPTED and (TrustBastok == QUEST_COMPLETED or TrustWindurst == QUEST_COMPLETED)) then
 		if (player:hasKeyItem(dsp.keyItem.RED_INSTITUTE_CARD) == true and player:hasSpell(dsp.trust.EXCENMILLE) == false) then
-			player:startEvent(897,0,0,0,TrustMemory(player),0,0,0,rank3);	
+			player:startEvent(897,0,0,0,TrustMemory(player),0,0,0,0);	
 		end
 	elseif (Level >= 5 and TrustSandoria == QUEST_ACCEPTED) then
 		if (player:hasKeyItem(dsp.keyItem.RED_INSTITUTE_CARD) == true and player:hasSpell(dsp.trust.EXCENMILLE) == false) then
-			player:startEvent(893,0,0,0,TrustMemory(player),0,0,0,rank3);
+			player:startEvent(893,0,0,0,TrustMemory(player),0,0,0,0);
 		elseif (player:hasSpell(dsp.trust.EXCENMILLE) == true and player:getVar("SandoriaFirstTrust") == 1) then
 			player:startEvent(894);
 		elseif (player:getVar("SandoriaFirstTrust") == 2) then
@@ -61,14 +61,14 @@ function onEventFinish(player,csid,option)
 		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.keyItem.SAN_DORIA_TRUST_PERMIT);
 		player:setVar("SandoriaFirstTrust", 0);
 		player:addTitle(dsp.title.THE_TRUSTWORTHY);
-		player:completeQuest(SANDORIA,TRUST_SANDORIA);
+		player:completeQuest(SANDORIA,dsp.quest.id.sandoria.TRUST_SANDORIA);
 		player:delKeyItem(dsp.keyItem.RED_INSTITUTE_CARD);
 		player:addKeyItem(dsp.keyItem.SAN_DORIA_TRUST_PERMIT);
 		player:PrintToPlayer("You are now able to call multiple alter egos.", 0xD);
     elseif (csid == 897) then
 		player:addSpell(dsp.trust.EXCENMILLE, true);
 		player:PrintToPlayer("You learned Trust: Excenmille!", 0xD);
-		player:completeQuest(SANDORIA,TRUST_SANDORIA);
+		player:completeQuest(SANDORIA,dsp.quest.id.sandoria.TRUST_SANDORIA);
 		player:delKeyItem(dsp.keyItem.RED_INSTITUTE_CARD);
 		player:addKeyItem(dsp.keyItem.SAN_DORIA_TRUST_PERMIT);
 		player:messageSpecial(ID.text.KEYITEM_LOST,dsp.keyItem.RED_INSTITUTE_CARD);
@@ -88,11 +88,11 @@ function TrustMemory(player)
 	--	memories = memories + 4;
 	--end
 	--8 - CLAWS_OF_THE_GRIFFON
-	if(player:hasCompletedMission(WOTG, CLAWS_OF_THE_GRIFFON)) then
+	if(player:hasCompletedMission(WOTG, dsp.mission.id.wotg.CLAWS_OF_THE_GRIFFON)) then
 		memories = memories + 8;
 	end
 	--16 - BLOOD_OF_HEROES
-	if(player:hasCompletedQuest(WOTG, BLOOD_OF_HEROES)) then
+	if(player:hasCompletedQuest(WOTG, dsp.quest.id.wotg.BLOOD_OF_HEROES)) then
 		memories = memories + 16;
 	end
 	return memories;

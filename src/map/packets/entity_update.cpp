@@ -156,7 +156,7 @@ CEntityUpdatePacket::CEntityUpdatePacket(CBaseEntity* PEntity, ENTITYUPDATE type
                     ref<uint8>(0x1F) = PEntity->animation;
                     ref<uint8>(0x2A) |= PEntity->animationsub;
                     ref<uint8>(0x25) = PMob->health.hp > 0 ? 0x08 : 0;
-                    ref<uint8>(0x27) = 0;
+                    ref<uint8>(0x27) = PMob->m_name_prefix;
                     if (PMob->PMaster != nullptr && PMob->PMaster->objtype == TYPE_PC)
                         ref<uint8>(0x27) |= 0x08;
                     ref<uint8>(0x28) |= (PMob->StatusEffectContainer->HasStatusEffect(EFFECT_TERROR) ? 0x10 : 0x00);

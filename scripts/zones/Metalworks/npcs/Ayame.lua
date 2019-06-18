@@ -41,7 +41,7 @@ function onTrigger(player,npc)
         player:startEvent(748); -- Start Quest "True Strength"
 		
 	--TRUST
-	elseif (player:hasKeyItem(dsp.keyItem.BASTOK_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.AYAME) == false) then			
+	elseif (player:hasKeyItem(dsp.keyItem.BASTOK_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.AYAME) == false) then				
 		player:startEvent(985,0,0,0,TrustMemory(player),0,0,0,rank3);
     else
         player:startEvent(701); -- Standard dialog
@@ -83,27 +83,27 @@ end;
 function TrustMemory(player)
 	local memories = 0;
 	--2 - the three kingdoms
-	if (player:hasCompletedMission(SANDORIA, JOURNEY_TO_BASTOK2) or player:hasCompletedMission(WINDURST, THE_THREE_KINGDOMS_BASTOK2)) then
+	if (player:hasCompletedMission(SANDORIA, JOURNEY_TO_BASTOK2) or player:hasCompletedMission(WINDURST, dsp.mission.id.sandoria.THE_THREE_KINGDOMS_BASTOK2)) then
 		memories = memories + 2;
 	end
 	--4 - where two paths converge
-	if(player:hasCompletedMission(BASTOK, WHERE_TWO_PATHS_CONVERGE)) then
+	if(player:hasCompletedMission(BASTOK, dsp.mission.id.bastok.WHERE_TWO_PATHS_CONVERGE)) then
 		memories = memories + 4;
 	end
 	--8 - The Pirate's Cove
-	if(player:hasCompletedMission(BASTOK, THE_PIRATE_S_COVE)) then
+	if(player:hasCompletedMission(BASTOK, dsp.mission.id.bastok.THE_PIRATE_S_COVE)) then
 		memories = memories + 8;
 	end
 	--16 - Ayame and Kaede
-	if(player:hasCompletedQuest(BASTOK, AYAME_AND_KAEDE)) then
+	if(player:hasCompletedQuest(BASTOK, dsp.quest.id.bastok.AYAME_AND_KAEDE)) then
 		memories = memories + 16;
 	end
 	--32 - Light of Judgement
-	if(player:hasCompletedMission(TOAU, LIGHT_OF_JUDGMENT)) then
+	if(player:hasCompletedMission(TOAU, dsp.mission.id.toau.LIGHT_OF_JUDGMENT)) then
 		memories = memories + 32;
 	end
 	--64 - True Strength
-	if(player:hasCompletedQuest(BASTOK, TRUE_STRENGTH)) then
+	if(player:hasCompletedQuest(BASTOK, dsp.quest.id.bastok.TRUE_STRENGTH)) then
 		memories = memories + 64;
 	end
 	return memories;

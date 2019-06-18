@@ -11,11 +11,7 @@ require("scripts/globals/settings")
 require("scripts/globals/status")
 require("scripts/globals/msg")
 
-function onTrustSkillCheck(target,trust,skill)
-    return 0
-end
-
-function onTrustWeaponSkill(target,trust,skill)
+function onTrustWeaponSkill(target, trust, skill, action)
     local numhits = 1
     local accmod = 1
     local dmgmod = 3.5

@@ -27,20 +27,20 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    local TrustSandoria = player:getQuestStatus(SANDORIA,TRUST_SANDORIA);
-	local TrustBastok   = player:getQuestStatus(BASTOK,TRUST_BASTOK);
-	local TrustWindurst = player:getQuestStatus(WINDURST,TRUST_WINDURST);
+	local TrustSandoria = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.TRUST_SANDORIA);
+	local TrustBastok   = player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRUST_BASTOK);
+	local TrustWindurst = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.TRUST_WINDURST);
 	local Level = player:getMainLvl();
 	local rank3 = player:getRank(BASTOK) >= 3 and 1 or player:getRank(SANDORIA) >= 3 and 1 or player:getRank(WINDURST) >= 3 and 1 or 0;
 
 	--TRUST
 	if (Level >= 5 and TrustBastok == QUEST_ACCEPTED and (TrustSandoria == QUEST_COMPLETED or TrustWindurst == QUEST_COMPLETED)) then
 		if (player:hasKeyItem(dsp.keyItem.BLUE_INSTITUTE_CARD) == true and player:hasSpell(dsp.trust.NAJI) == false) then
-			player:startEvent(984,0,0,0,TrustMemory(player),0,0,0,rank3);	
+			player:startEvent(984,0,0,0,TrustMemory(player),0,0,0,0);	
 		end
 	elseif (Level >= 5 and TrustBastok == QUEST_ACCEPTED) then
 		if (player:hasKeyItem(dsp.keyItem.BLUE_INSTITUTE_CARD) == true and player:hasSpell(dsp.trust.NAJI) == false) then
-			player:startEvent(980,0,0,0,TrustMemory(player),0,0,0,rank3);	
+			player:startEvent(980,0,0,0,TrustMemory(player),0,0,0,0);	
 		elseif (player:hasSpell(dsp.trust.NAJI) == true and player:getVar("BastokFirstTrust") == 1) then
 			player:startEvent(981);
 		elseif (player:getVar("BastokFirstTrust") == 2) then
@@ -141,14 +141,14 @@ function onEventFinish(player,csid,option)
 		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.keyItem.BASTOK_TRUST_PERMIT);
 		player:setVar("BastokFirstTrust", 0);
 		player:addTitle(dsp.title.THE_TRUSTWORTHY);
-		player:completeQuest(BASTOK,TRUST_BASTOK);
+		player:completeQuest(BASTOK,dsp.quest.id.bastok.TRUST_BASTOK);
 		player:delKeyItem(dsp.keyItem.BLUE_INSTITUTE_CARD);
 		player:addKeyItem(dsp.keyItem.BASTOK_TRUST_PERMIT);
 		player:PrintToPlayer("You are now able to call multiple alter egos.", 0xD);
     elseif (csid == 984) then
 		player:addSpell(dsp.trust.NAJI, true);
 		player:PrintToPlayer("You learned Trust: Naji!", 0xD);
-		player:completeQuest(BASTOK,TRUST_BASTOK);
+		player:completeQuest(BASTOK,dsp.quest.id.bastok.TRUST_BASTOK);
 		player:delKeyItem(dsp.keyItem.BLUE_INSTITUTE_CARD);
 		player:addKeyItem(dsp.keyItem.BASTOK_TRUST_PERMIT);
 		player:messageSpecial(ID.text.KEYITEM_LOST,dsp.keyItem.BLUE_INSTITUTE_CARD);
@@ -160,15 +160,15 @@ end;
 function TrustMemory(player)
 	local memories = 0;
 	--2 - THE_EMISSARY
-	if (player:hasCompletedMission(BASTOK, THE_EMISSARY)) then
+	if (player:hasCompletedMission(BASTOK, dsp.mission.id.bastok.THE_EMISSARY)) then
 		memories = memories + 2;
 	end
 	--4 - THE_DOORMAN
-	if(player:hasCompletedQuest(BASTOK, THE_DOORMAN)) then
+	if(player:hasCompletedQuest(BASTOK, dsp.quest.id.bastok.THE_DOORMAN)) then
 		memories = memories + 4;
 	end
 	--8 - LIGHT_OF_JUDGMENT
-	if(player:hasCompletedMission(TOAU, LIGHT_OF_JUDGMENT)) then
+	if(player:hasCompletedMission(TOAU, dsp.mission.id.toau.LIGHT_OF_JUDGMENT)) then
 		memories = memories + 8;
 	end
 	--16 - Chocobo racing

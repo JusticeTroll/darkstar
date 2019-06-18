@@ -16,12 +16,7 @@ require("scripts/globals/settings")
 require("scripts/globals/status")
 require("scripts/globals/msg")
 
-function onTrustSkillCheck(target,trust,skill)
-    --trust:messageBasic(dsp.msg.basic.READIES_WS, 0, 41)
-    return 0
-end
-
-function onTrustWeaponSkill(target,trust,skill)
+function onTrustWeaponSkill(target, trust, skill, action)
     local numhits = 1
     local accmod = 1
     local dmgmod = 1

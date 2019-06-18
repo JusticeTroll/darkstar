@@ -5940,7 +5940,7 @@ INSERT INTO `mob_pools` VALUES (5893,'Gloombound_Lurker','Gloombound_Lurker',221
 INSERT INTO `mob_pools` VALUES (5894,'Lesath','Lesath',217,0x00001C0100000000000000000000000000000000,1,1,7,280,100,0,1,0,1,2,7,0,0,129,0,0,0,1,0,370);
 INSERT INTO `mob_pools` VALUES (5895,'Donggu','Donggu',116,0x0000780100000000000000000000000000000000,1,1,11,240,100,0,0,0,1,2,7,0,0,3,0,0,0,1,0,116);
 --Trusts
-INSERT INTO `mob_pools` VALUES (5896,'Shantotto','Shantotto',153,0x0000B80B00000000000000000000000000000000,4,5,2,240,100,0,2,0,0,0,0,32,0,3,0,0,276,1,0,750);
+INSERT INTO `mob_pools` VALUES (5896,'Shantotto','Shantotto',153,0x0000B80B00000000000000000000000000000000,4,5,0,100,100,2,0,0,0,0,0,32,0,3,0,0,1,1,0,0);
 INSERT INTO `mob_pools` VALUES (5897, 'Naji', 'Naji', 149, 0x0000B90B00000000000000000000000000000000, 1, 0, 3, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 0, 1, 0, 2);
 INSERT INTO `mob_pools` VALUES (5898, 'Kupipi', 'Kupipi', 153, 0x0000BA0B00000000000000000000000000000000, 3, 0, 11, 240, 100, 2, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 3, 1, 0, 3);
 INSERT INTO `mob_pools` VALUES (5899, 'Excenmille', 'Excenmille', 145,0x0000BB0B00000000000000000000000000000000, 7, 0, 8, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 4, 1, 0, 4);
@@ -5952,15 +5952,6 @@ INSERT INTO `mob_pools` VALUES (5902, 'Curilla', 'Curilla', 145, 0x0000BE0B00000
 INSERT INTO `mob_pools` VALUES (5903, 'Volker', 'Volker', 149, 0x0000BF0B00000000000000000000000000000000, 1, 0, 3, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 8, 1, 0, 8);
 INSERT INTO `mob_pools` VALUES (5904, 'Ajido-Marujido', 'Ajido-Marujido', 153, 0x0000C00B00000000000000000000000000000000, 4, 5, 1, 100, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 9, 1, 0, 0);
 INSERT INTO `mob_pools` VALUES (5905, 'Trion', 'Trion', 145, 0x0000C10B00000000000000000000000000000000, 7, 1, 3, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 10, 1, 0, 10);
--- INSERT INTO `mob_pools` VALUES (5897,'naji',
--- INSERT INTO `mob_pools` VALUES (5898,'kupipi',
--- INSERT INTO `mob_pools` VALUES (5899,'excenmille',
--- INSERT INTO `mob_pools` VALUES (5900,'ayame',
--- INSERT INTO `mob_pools` VALUES (5901,'nanaa_mihgo',
--- INSERT INTO `mob_pools` VALUES (5902,'curilla',
--- INSERT INTO `mob_pools` VALUES (5903,'volker',
--- INSERT INTO `mob_pools` VALUES (5904,'ajido-marujido',
--- INSERT INTO `mob_pools` VALUES (5905,'trion',
 -- INSERT INTO `mob_pools` VALUES (5906,'zeid',
 -- INSERT INTO `mob_pools` VALUES (5907,'lion',
 -- INSERT INTO `mob_pools` VALUES (5908,'tenzen',
@@ -5968,7 +5959,6 @@ INSERT INTO `mob_pools` VALUES (5905, 'Trion', 'Trion', 145, 0x0000C10B000000000
 -- INSERT INTO `mob_pools` VALUES (5910,'valaineral',
 -- INSERT INTO `mob_pools` VALUES (5911,'joachim',
 -- INSERT INTO `mob_pools` VALUES (5912,'naja_salaheem',
--- INSERT INTO `mob_pools` VALUES (5913,'prishe',
 -- INSERT INTO `mob_pools` VALUES (5914,'ulmia',
 -- INSERT INTO `mob_pools` VALUES (5915,'shikaree_z',
 -- INSERT INTO `mob_pools` VALUES (5916,'cherukiki',
@@ -6075,7 +6065,6 @@ INSERT INTO `mob_pools` VALUES (5905, 'Trion', 'Trion', 145, 0x0000C10B000000000
 -- INSERT INTO `mob_pools` VALUES (6017,'arciela_ii',
 -- INSERT INTO `mob_pools` VALUES (6018,'iroha_ii',
 INSERT INTO `mob_pools` VALUES (6019, 'Shantotto_II', 'Shantotto_II', 153, 0x0000260C00000000000000000000000000000000, 4, 5, 2, 240, 100, 2, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 124, 1, 0, 0);
--- INSERT INTO `mob_pools` VALUES (6019,'shantotto_ii','shantotto_ii',153,0x0000260C00000000000000000000000000000000,4,5,2,240,100,0,2,0,0,0,0,32,0,3,0,0,276,1,0,750),
 -- Reserved for future Trust 6020
 -- Reserved for future Trust 6021
 -- Reserved for future Trust 6022

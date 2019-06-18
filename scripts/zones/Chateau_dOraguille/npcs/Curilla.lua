@@ -11,6 +11,7 @@ require("scripts/globals/settings")
 require("scripts/globals/wsquest")
 require("scripts/globals/quests")
 require("scripts/globals/status")
+require("scripts/globals/missions");
 -----------------------------------
 
 local wsQuest = dsp.wsquest.savage_blade
@@ -111,15 +112,15 @@ end
 function TrustMemory(player)
 	local memories = 0;
 	--2 - PEACE_FOR_THE_SPIRIT
-	if(player:hasCompletedQuest(SANDORIA, PEACE_FOR_THE_SPIRIT)) then
+	if(player:hasCompletedQuest(SANDORIA, dsp.quest.id.sandoria.PEACE_FOR_THE_SPIRIT)) then
 		memories = memories + 2;
 	end
 	--4 - OLD_WOUNDS
-	if(player:hasCompletedQuest(SANDORIA, OLD_WOUNDS)) then
+	if(player:hasCompletedQuest(SANDORIA, dsp.quest.id.sandoria.OLD_WOUNDS)) then
 		memories = memories + 4;
 	end
 	--8 - THE_HEIR_TO_THE_LIGHT
-	if(player:hasCompletedMission(SANDORIA,THE_HEIR_TO_THE_LIGHT)) then
+	if(player:hasCompletedMission(SANDORIA, dsp.mission.id.sandoria.THE_HEIR_TO_THE_LIGHT)) then
 		memories = memories + 8;
 	end
 	--16 - Heroine's Combat BCNM
@@ -127,7 +128,7 @@ function TrustMemory(player)
 	--	memories = memories + 16;
 	--end
 	--32 - FIT_FOR_A_PRINCE
-	if(player:hasCompletedQuest(SANDORIA, FIT_FOR_A_PRINCE)) then
+	if(player:hasCompletedQuest(SANDORIA, dsp.quest.id.sandoria.FIT_FOR_A_PRINCE)) then
 		memories = memories + 32;
 	end
 	return memories;

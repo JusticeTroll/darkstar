@@ -11,12 +11,7 @@ require("scripts/globals/settings")
 require("scripts/globals/status")
 require("scripts/globals/msg")
 
-function onTrustSkillCheck(target,trust,skill)
-    --trust:messageBasic(dsp.msg.basic.READIES_WS, 0, 34)
-    return 0
-end
-
-function onTrustWeaponSkill(target, trust, skill)
+function onTrustWeaponSkill(target, trust, skill, action)
     --if (trust:getPool() == 4006) then -- Trion@QuBia_Arena only
     --    target:showText(trust,zones[dsp.zone.QUBIA_ARENA].text.RLB_LAND)
 

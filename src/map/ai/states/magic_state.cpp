@@ -124,7 +124,7 @@ CMagicState::CMagicState(CBattleEntity* PEntity, uint16 targid, SpellID spellid,
     actionTarget.speceffect = SPECEFFECT_NONE;
     actionTarget.animation = 0;
     actionTarget.param = static_cast<uint16>(m_PSpell->getID());
-    if (m_PEntity->objtype == TYPE_TRUST && m_PSpell->isBuff() || m_PSpell->isHeal() || m_PSpell->isCure())
+    if (m_PEntity->objtype == TYPE_TRUST && (m_PSpell->isBuff() || m_PSpell->isHeal() || m_PSpell->isCure()))
     {
         actionTarget.messageID = 3; // starts casting
     }

@@ -7,12 +7,7 @@ require("scripts/globals/settings")
 require("scripts/globals/status")
 require("scripts/globals/msg")
 
-function onTrustSkillCheck(target,trust,skill)
-	--trust:messageBasic(dsp.msg.basic.READIES_WS, 0, 163)
-    return 0
-end
-
-function onTrustWeaponSkill(target,trust,skill)
+function onTrustWeaponSkill(target, trust, skill, action)
     local lvl = trust:getMaxSkillLevel(trust:getMainLvl(),dsp.job.WHM,11) -- get club skill
     local damage = (lvl-10)/9
     local damagemod = damage * (skill:getTP()/1000)
