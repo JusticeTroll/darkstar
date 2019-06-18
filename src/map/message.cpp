@@ -174,8 +174,8 @@ namespace message
             });
             break;
         }
-                
-//WORLD CHAT START
+		                
+        //world chat start
         case MSG_CHAT_UNITY:
         {
             zoneutils::ForEachZone([&packet, &extra](CZone* PZone)
@@ -193,9 +193,9 @@ namespace message
                     });
             });
             break;
-        }
-//WORLD CHAT END  
-                
+        }                
+        //world chat end
+            
         case MSG_CHAT_SERVMES:
         {
             zoneutils::ForEachZone([&packet](CZone* PZone)

@@ -874,6 +874,6 @@ namespace spell
     bool    CanUseSpell(CBattleEntity* PCaster, CSpell* PSpell);
     bool    CanUseSpellWith(SpellID spellId, JOBTYPE job, uint8 level);
     float   GetSpellRadius(CSpell* spellId, CBattleEntity* PCaster);
-};
+    uint32   GetEnfeebleEffect(CSpell* spellId);};
 
 #endif

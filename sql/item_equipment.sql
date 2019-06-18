@@ -1,28 +1,18 @@
--- MySQL dump 10.14  Distrib 5.5.52-MariaDB, for debian-linux-gnu (x86_64)
---
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version   5.5.52-MariaDB-1ubuntu0.14.04.1
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.7.14-log - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL Version:             10.1.0.5464
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `item_equipment`
---
-
-DROP TABLE IF EXISTS `item_equipment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `item_equipment` (
+-- Dumping structure for table dspdb.item_equipment
+CREATE TABLE IF NOT EXISTS `item_equipment` (
   `itemId` smallint(5) unsigned NOT NULL DEFAULT '0',
   `name` tinytext,
   `level` tinyint(3) unsigned NOT NULL DEFAULT '0',
@@ -35,14 +25,10 @@ CREATE TABLE `item_equipment` (
   `rslot` smallint(5) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`itemId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=37 PACK_KEYS=1 CHECKSUM=1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `item_equipment`
---
-
-LOCK TABLES `item_equipment` WRITE;
+-- Dumping data for table dspdb.item_equipment: 13,720 rows
 /*!40000 ALTER TABLE `item_equipment` DISABLE KEYS */;
+
 INSERT INTO `item_equipment` VALUES (10240,'hexed_haubert',99,0,8641,5,0,0,32,0);
 INSERT INTO `item_equipment` VALUES (10241,'hexed_domaru',99,0,137218,4,0,0,32,0);
 INSERT INTO `item_equipment` VALUES (10242,'hexed_jacket',99,0,2462754,171,0,0,32,0);
@@ -14042,16 +14028,9 @@ INSERT INTO `item_equipment` VALUES (28668,'matamata_shield_+1',99,101,2385,31,1
 INSERT INTO `item_equipment` VALUES (28669,'butznar_shield_+1',99,101,193,25,3,0,2,0);
 INSERT INTO `item_equipment` VALUES (28670,'leafkin_shield',1,0,4194303,641,1,0,2,0);
 INSERT INTO `item_equipment` VALUES (28671,'butznar_shield',99,100,193,25,3,0,2,0);
+
 /*!40000 ALTER TABLE `item_equipment` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2016-10-25  0:02:04

@@ -1,28 +1,18 @@
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
---
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version'  ',5.6.21-log
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.7.14-log - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL Version:             10.1.0.5464
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `mob_pools`
---
-
-DROP TABLE IF EXISTS `mob_pools`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mob_pools` (
+-- Dumping structure for table dspdb.mob_pools
+CREATE TABLE IF NOT EXISTS `mob_pools` (
   `poolid` int(10) unsigned NOT NULL,
   `name` varchar(24) DEFAULT NULL,
   `packet_name` varchar(24) DEFAULT NULL,
@@ -50,14 +40,10 @@ CREATE TABLE `mob_pools` (
   `skill_list_id` smallint(5) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`poolid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `mob_pools`
---
-
-LOCK TABLES `mob_pools` WRITE;
+-- Dumping data for table dspdb.mob_pools: 5,911 rows
 /*!40000 ALTER TABLE `mob_pools` DISABLE KEYS */;
+
 INSERT INTO `mob_pools` VALUES (1,'1st_Gold_Musketeer','1st_Gold_Musketeer',149,0x01000D02DE104820483048404850B76000703B80,5,11,3,240,100,0,0,0,0,0,0,0,0,0,0,0,3,1,0,149);
 INSERT INTO `mob_pools` VALUES (2,'1st_Iron_Musketeer','1st_Iron_Musketeer',149,0x010005019510A220A230A240A250BC60B7703A80,5,5,3,240,100,0,0,0,0,0,0,0,0,0,0,0,3,1,0,149);
 INSERT INTO `mob_pools` VALUES (3,'1st_Legionnaire','1st_Legionnaire',146,0x01000508061006200630064006500A6122703480,11,11,3,240,100,0,0,0,0,0,0,0,0,3,0,0,0,1,0,146);
@@ -5953,16 +5939,19 @@ INSERT INTO `mob_pools` VALUES (5892,'Euryale','Euryale',171,0x06007506000000000
 INSERT INTO `mob_pools` VALUES (5893,'Gloombound_Lurker','Gloombound_Lurker',221,0x0000230200000000000000000000000000000000,6,6,5,360,100,0,1,0,1,2,7,0,0,155,0,0,0,1,0,0);
 INSERT INTO `mob_pools` VALUES (5894,'Lesath','Lesath',217,0x00001C0100000000000000000000000000000000,1,1,7,280,100,0,1,0,1,2,7,0,0,129,0,0,0,1,0,370);
 INSERT INTO `mob_pools` VALUES (5895,'Donggu','Donggu',116,0x0000780100000000000000000000000000000000,1,1,11,240,100,0,0,0,1,2,7,0,0,3,0,0,0,1,0,116);
-INSERT INTO `mob_pools` VALUES (5896,'Shantotto','Shantotto',153,0x0000B80B00000000000000000000000000000000,4,5,2,240,100,0,2,0,0,0,0,32,0,3,0,0,276,1,0,750);
--- INSERT INTO `mob_pools` VALUES (5897,'naji',
--- INSERT INTO `mob_pools` VALUES (5898,'kupipi',
--- INSERT INTO `mob_pools` VALUES (5899,'excenmille',
--- INSERT INTO `mob_pools` VALUES (5900,'ayame',
--- INSERT INTO `mob_pools` VALUES (5901,'nanaa_mihgo',
--- INSERT INTO `mob_pools` VALUES (5902,'curilla',
--- INSERT INTO `mob_pools` VALUES (5903,'volker',
--- INSERT INTO `mob_pools` VALUES (5904,'ajido-marujido',
--- INSERT INTO `mob_pools` VALUES (5905,'trion',
+--Trusts
+INSERT INTO `mob_pools` VALUES (5896,'Shantotto','Shantotto',153,0x0000B80B00000000000000000000000000000000,4,5,0,100,100,2,0,0,0,0,0,32,0,3,0,0,1,1,0,0);
+INSERT INTO `mob_pools` VALUES (5897, 'Naji', 'Naji', 149, 0x0000B90B00000000000000000000000000000000, 1, 0, 3, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 0, 1, 0, 2);
+INSERT INTO `mob_pools` VALUES (5898, 'Kupipi', 'Kupipi', 153, 0x0000BA0B00000000000000000000000000000000, 3, 0, 11, 240, 100, 2, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 3, 1, 0, 3);
+INSERT INTO `mob_pools` VALUES (5899, 'Excenmille', 'Excenmille', 145,0x0000BB0B00000000000000000000000000000000, 7, 0, 8, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 4, 1, 0, 4);
+INSERT INTO `mob_pools` VALUES (6004, 'excenmille_s', 'excenmille_s', 502, 0x0000240C00000000000000000000000000000000, 7, 1, 3, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 1, 0, 1000);
+INSERT INTO `mob_pools` VALUES (5913, 'prishe', 'prishe', 503, 0x0000C90B00000000000000000000000000000000, 2, 3, 1, 360, 100, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 1, 0, 476);
+INSERT INTO `mob_pools` VALUES (5900, 'Ayame', 'Ayame', 149, 0x0000BC0B00000000000000000000000000000000, 12, 0, 10, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 0, 1, 0, 5);
+INSERT INTO `mob_pools` VALUES (5901, 'NanaaMihgo', 'Nanaa_Mihgo', 152, 0x0000BD0B00000000000000000000000000000000, 6, 0, 2, 100, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 0, 1, 0, 6);
+INSERT INTO `mob_pools` VALUES (5902, 'Curilla', 'Curilla', 145, 0x0000BE0B00000000000000000000000000000000, 7, 0, 3, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 7, 1, 0, 7);
+INSERT INTO `mob_pools` VALUES (5903, 'Volker', 'Volker', 149, 0x0000BF0B00000000000000000000000000000000, 1, 0, 3, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 8, 1, 0, 8);
+INSERT INTO `mob_pools` VALUES (5904, 'Ajido-Marujido', 'Ajido-Marujido', 153, 0x0000C00B00000000000000000000000000000000, 4, 5, 1, 100, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 9, 1, 0, 0);
+INSERT INTO `mob_pools` VALUES (5905, 'Trion', 'Trion', 145, 0x0000C10B00000000000000000000000000000000, 7, 1, 3, 240, 100, 0, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 10, 1, 0, 10);
 -- INSERT INTO `mob_pools` VALUES (5906,'zeid',
 -- INSERT INTO `mob_pools` VALUES (5907,'lion',
 -- INSERT INTO `mob_pools` VALUES (5908,'tenzen',
@@ -5970,7 +5959,6 @@ INSERT INTO `mob_pools` VALUES (5896,'Shantotto','Shantotto',153,0x0000B80B00000
 -- INSERT INTO `mob_pools` VALUES (5910,'valaineral',
 -- INSERT INTO `mob_pools` VALUES (5911,'joachim',
 -- INSERT INTO `mob_pools` VALUES (5912,'naja_salaheem',
--- INSERT INTO `mob_pools` VALUES (5913,'prishe',
 -- INSERT INTO `mob_pools` VALUES (5914,'ulmia',
 -- INSERT INTO `mob_pools` VALUES (5915,'shikaree_z',
 -- INSERT INTO `mob_pools` VALUES (5916,'cherukiki',
@@ -6076,7 +6064,7 @@ INSERT INTO `mob_pools` VALUES (5896,'Shantotto','Shantotto',153,0x0000B80B00000
 -- INSERT INTO `mob_pools` VALUES (6016,'ingrid_ii',
 -- INSERT INTO `mob_pools` VALUES (6017,'arciela_ii',
 -- INSERT INTO `mob_pools` VALUES (6018,'iroha_ii',
-INSERT INTO `mob_pools` VALUES (6019,'shantotto_ii','shantotto_ii',153,0x0000260C00000000000000000000000000000000,4,5,2,240,100,0,2,0,0,0,0,32,0,3,0,0,276,1,0,750);
+INSERT INTO `mob_pools` VALUES (6019, 'Shantotto_II', 'Shantotto_II', 153, 0x0000260C00000000000000000000000000000000, 4, 5, 2, 240, 100, 2, 0, 0, 0, 0, 0, 32, 0, 3, 0, 0, 124, 1, 0, 0);
 -- Reserved for future Trust 6020
 -- Reserved for future Trust 6021
 -- Reserved for future Trust 6022
@@ -6109,15 +6097,7 @@ INSERT INTO `mob_pools` VALUES (6066,'Hitaume','Hitaume',359,0x05002F02486974617
 INSERT INTO `mob_pools` VALUES (6067,'Cavanneche','Cavanneche',359,0x05002C0200000000000000000000000000000000,8,8,7,240,100,0,7,0,1,16,0,0,7,157,0,0,5,1,0,0);
 
 /*!40000 ALTER TABLE `mob_pools` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2016-10-29 22:28:48

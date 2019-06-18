@@ -47,6 +47,8 @@ function onTrigger(player,npc)
     local FoiledAGolem = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.CURSES_FOILED_A_GOLEM)
     local golemdelivery = player:getVar("foiledagolemdeliverycomplete")
     local WildcatWindurst = player:getVar("WildcatWindurst")
+	local rank6 = player:getRank(BASTOK) >= 6 and 1 or player:getRank(SANDORIA) >= 6 and 1 or player:getRank(WINDURST) >= 6 and 1 or 0;
+
 
     if wsQuestEvent ~= nil then
         player:startEvent(wsQuestEvent)
@@ -104,6 +106,10 @@ function onTrigger(player,npc)
         player:startEvent(184)     -- New standard dialog after CFA2
     elseif (player:hasCompletedMission(WINDURST,dsp.mission.id.windurst.THE_JESTER_WHO_D_BE_KING) and player:getVar("ShantottoCS") == 1) then
         player:startEvent(399,0,0,282)
+		
+	--TRUST
+	elseif (player:hasKeyItem(dsp.keyItem.WINDURST_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.SHANTOTTO) == false) then				
+		player:startEvent(529,0,0,0,0,0,0,0,rank6);
     else
         player:startEvent(164)
     end
@@ -179,7 +185,13 @@ function onEventFinish(player,csid,option)
         player:setVar("MissionStatus",8)
     elseif (csid == 399) then
         player:setVar("ShantottoCS",0)
-    else
+    --TRUST
+	elseif (csid == 529 and option == 2) then
+		player:addSpell(dsp.trust.SHANTOTTO, true);
+		player:PrintToPlayer("You learned Trust: Shantotto!", 0xD);
+
+	else
         dsp.wsquest.handleEventFinish(wsQuest,player,csid,option,ID.text.RETRIBUTION_LEARNED)
-    end
+	
+	end
 end
