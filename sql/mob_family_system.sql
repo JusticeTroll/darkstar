@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.29-76.2, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version   5.6.29-76.2-log
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -64,8 +64,8 @@ CREATE TABLE `mob_family_system` (
 --
 -- Dumping data for table `mob_family_system`
 --
+-- ORDER BY:  `familyid`
 
-LOCK TABLES `mob_family_system` WRITE;
 /*!40000 ALTER TABLE `mob_family_system` DISABLE KEYS */;
 INSERT INTO `mob_family_system` VALUES (1,'Acrolith',3,'Arcana',1,40,90,90,1,3,4,3,6,6,5,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,0,34,0);
 INSERT INTO `mob_family_system` VALUES (2,'Adamantoise',14,'Lizard',3,30,120,90,2,5,1,6,6,4,3,3,2,3,4,1,1,1,1,1,1.25,1,0.875,1.125,0.875,1,1,4,2,0);
@@ -334,8 +334,8 @@ INSERT INTO `mob_family_system` VALUES (269,'Xzomit',15,'Luminian',0,50,100,110,
 INSERT INTO `mob_family_system` VALUES (270,'Yagudo',7,'Beastmen',0,40,85,120,2,2,5,2,4,5,2,3,3,3,3,1,1,1,1,1,1.25,1,1,1,1,1,1,3,1,0);
 INSERT INTO `mob_family_system` VALUES (271,'Yovra',15,'Luminian',3,40,80,140,4,3,5,3,1,2,2,3,3,3,3,1,1,1,1,1,1,1,1,0.5,1,1,1.125,0,2,0);
 INSERT INTO `mob_family_system` VALUES (272,'Zdei',16,'Luminion',0,40,100,140,3,3,3,3,1,3,4,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0);
-INSERT INTO `mob_family_system` VALUES (274,'KingV',20,'Vermin',3,40,90,120,4,3,4,3,3,6,5,3,2,3,3,1,1,1,1,1,1.25,1,1,1,0.875,1.25,0.875,4,2,0);
 INSERT INTO `mob_family_system` VALUES (273,'Serket',20,'Vermin',3,40,90,120,3,3,4,3,3,6,5,3,2,3,3,1,1,1,1,1,1.25,1,1,1,0.875,1.25,0.875,4,258,0);
+INSERT INTO `mob_family_system` VALUES (274,'KingV',20,'Vermin',3,40,90,120,4,3,4,3,3,6,5,3,2,3,3,1,1,1,1,1,1.25,1,1,1,0.875,1.25,0.875,4,2,0);
 INSERT INTO `mob_family_system` VALUES (275,'MiniAdam',14,'Lizard',5,40,120,90,2,5,1,6,6,4,3,3,3,3,3,1,1,1,1,1,1.25,1,0.875,1.125,0.875,1,1,4,2,0);
 INSERT INTO `mob_family_system` VALUES (276,'BigWorm',1,'Amorph',3,0,70,180,6,3,6,3,1,2,4,3,3,3,3,1,1,1,1,1,1,1.25,0.875,1,1,1.25,0.875,4,2,0);
 INSERT INTO `mob_family_system` VALUES (277,'Genbu',14,'Lizard',5,30,120,90,2,5,1,6,6,4,3,3,2,3,3,1,1,1,1,0.75,1,1,0.5,1.125,0.5,1,1,4,1,0);
@@ -529,11 +529,7 @@ INSERT INTO `mob_family_system` VALUES (499,'Stray',12,'Empty',0,40,20,90,1,3,4,
 INSERT INTO `mob_family_system` VALUES (500,'Mokkurkalfi',3,'Arcana',1,40,130,130,2,3,3,3,3,6,5,3,2,3,3,1,1,1,1,1,1,1,1,1.125,1,1,1,7,34,0);
 INSERT INTO `mob_family_system` VALUES (501,'NioA_NioHum',3,'Arcana',1,40,108,90,1,3,4,3,6,6,5,3,3,3,3,1,1,1,1,1,1,1,1,1.25,1,1,1,2,34,0);
 INSERT INTO `mob_family_system` VALUES (502,'Shikigami_Weapon',3,'Arcana',0,40,105,120,1,3,4,3,3,3,4,3,5,3,3,1,1,1,1,1.25,0.9,0.9,0.9,0.9,0.9,1.25,0.9,3,32,0);
-
--- 10,22,50,96,111,317-318,405,411-434,439-443 available for use
-
 /*!40000 ALTER TABLE `mob_family_system` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -544,4 +540,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-08 19:41:32
+-- Dump completed on 2019-06-20  8:27:33

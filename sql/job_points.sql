@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.6.21-log
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -36,7 +36,6 @@ CREATE TABLE `job_points` (
 --
 -- ORDER BY:  `job_pointid`
 
-LOCK TABLES `job_points` WRITE;
 /*!40000 ALTER TABLE `job_points` DISABLE KEYS */;
 INSERT INTO `job_points` VALUES (64,'mighty_strikes_effect',2,1);
 INSERT INTO `job_points` VALUES (66,'berserk_effect',4,1);
@@ -213,7 +212,7 @@ INSERT INTO `job_points` VALUES (1160,'repair_effect',3,18);
 INSERT INTO `job_points` VALUES (1162,'deus_ex_automata_recast',1,18);
 INSERT INTO `job_points` VALUES (1164,'tactical_switch',1,18);
 INSERT INTO `job_points` VALUES (1166,'cooldown_effect',1,18);
-INSERT INTO `job_points` VALUES (1168,'deactivate_effect',-10,18);
+INSERT INTO `job_points` VALUES (1168,'deactivate_effect',0,18);
 INSERT INTO `job_points` VALUES (1170,'martial_arts_effect',1,18);
 INSERT INTO `job_points` VALUES (1216,'trance_effect',100,19);
 INSERT INTO `job_points` VALUES (1218,'step_duration',1,19);
@@ -256,7 +255,6 @@ INSERT INTO `job_points` VALUES (1422,'vivacious_pulse',1,22);
 INSERT INTO `job_points` VALUES (1424,'one_for_all_effect_duration',1,22);
 INSERT INTO `job_points` VALUES (1426,'gambit_effect_duration',1,22);
 /*!40000 ALTER TABLE `job_points` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -267,4 +265,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-03  2:18:14
+-- Dump completed on 2019-06-20  8:27:31

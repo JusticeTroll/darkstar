@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.2.7-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	10.2.7-MariaDB
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,13 +25,13 @@ DROP TABLE IF EXISTS `traits`;
 CREATE TABLE `traits` (
   `traitid` tinyint(3) unsigned NOT NULL,
   `name` text NOT NULL,
-  `job` tinyint(2) unsigned NOT NULL DEFAULT 0,
-  `level` tinyint(2) unsigned NOT NULL DEFAULT 99,
-  `rank` tinyint(2) unsigned NOT NULL DEFAULT 1,
-  `modifier` smallint(5) unsigned NOT NULL DEFAULT 0,
-  `value` smallint(5) NOT NULL DEFAULT 0,
+  `job` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `level` tinyint(2) unsigned NOT NULL DEFAULT '99',
+  `rank` tinyint(2) unsigned NOT NULL DEFAULT '1',
+  `modifier` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `value` smallint(5) NOT NULL DEFAULT '0',
   `content_tag` varchar(7) DEFAULT NULL,
-  `meritid` smallint(5) NOT NULL DEFAULT 0,
+  `meritid` smallint(5) NOT NULL DEFAULT '0',
   PRIMARY KEY (`traitid`,`job`,`level`,`rank`,`modifier`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -41,7 +41,6 @@ CREATE TABLE `traits` (
 --
 -- ORDER BY:  `traitid`,`job`,`level`,`rank`,`modifier`
 
-LOCK TABLES `traits` WRITE;
 /*!40000 ALTER TABLE `traits` DISABLE KEYS */;
 INSERT INTO `traits` VALUES (1,'accuracy bonus',11,10,1,25,10,NULL,0);
 INSERT INTO `traits` VALUES (1,'accuracy bonus',11,10,1,26,10,NULL,0);
@@ -197,7 +196,7 @@ INSERT INTO `traits` VALUES (14,'store tp',12,70,4,73,25,NULL,0);
 INSERT INTO `traits` VALUES (14,'store tp',12,90,5,73,30,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (15,'double attack',1,25,1,288,10,NULL,0);
 INSERT INTO `traits` VALUES (15,'double attack',1,50,2,288,12,'ROV',0);
-INSERT INTO `traits` VALUES (15,'double attack',1,75,3,288,14,'ABYSSEA',0); -- level 76 prior to ROV update (05/14/2015), set Abby tag so it's removed from 75-cap servers 
+INSERT INTO `traits` VALUES (15,'double attack',1,75,3,288,14,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (15,'double attack',1,85,4,288,16,'ROV',0);
 INSERT INTO `traits` VALUES (15,'double attack',1,99,5,288,18,'ROV',0);
 INSERT INTO `traits` VALUES (16,'triple attack',6,55,1,302,5,NULL,0);
@@ -449,15 +448,15 @@ INSERT INTO `traits` VALUES (98,'crit. atk. bonus',6,91,3,421,11,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (98,'crit. atk. bonus',6,97,4,421,14,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (98,'crit. atk. bonus',8,85,1,421,5,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (98,'crit. atk. bonus',8,95,2,421,8,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (99,'crit. def. bonus',7,79,1,908,5,'ABYSSEA',0);   -- Paladin
+INSERT INTO `traits` VALUES (99,'crit. def. bonus',7,79,1,908,5,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (99,'crit. def. bonus',7,85,2,908,8,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (99,'crit. def. bonus',7,91,3,908,11,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (99,'crit. def. bonus',7,96,4,908,14,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (99,'crit. def. bonus',10,80,1,908,5,'ABYSSEA',0);   -- Bard
+INSERT INTO `traits` VALUES (99,'crit. def. bonus',10,80,1,908,5,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (99,'crit. def. bonus',10,91,2,908,8,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (99,'crit. def. bonus',14,85,1,908,5,'ABYSSEA',0);   -- Dragoon
+INSERT INTO `traits` VALUES (99,'crit. def. bonus',14,85,1,908,5,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (99,'crit. def. bonus',14,95,2,908,8,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (99,'crit. def. bonus',18,85,1,908,5,'ABYSSEA',0);   -- Puppetmaster
+INSERT INTO `traits` VALUES (99,'crit. def. bonus',18,85,1,908,5,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (99,'crit. def. bonus',18,95,2,908,8,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (100,'tactical parry',8,88,1,486,20,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (100,'tactical parry',8,98,2,486,30,'ABYSSEA',0);
@@ -519,6 +518,16 @@ INSERT INTO `traits` VALUES (107,'fencer',1,84,4,903,450,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (107,'fencer',1,84,4,904,9,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (107,'fencer',1,97,5,903,500,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (107,'fencer',1,97,5,904,10,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (108,'conserve tp',11,80,1,944,15,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (108,'conserve tp',11,91,2,944,18,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (108,'conserve tp',14,45,1,944,15,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (108,'conserve tp',14,58,2,944,18,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (108,'conserve tp',14,71,3,944,21,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (108,'conserve tp',14,84,4,944,24,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (108,'conserve tp',14,97,4,944,26,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (108,'conserve tp',19,77,1,944,15,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (108,'conserve tp',19,87,2,944,18,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (108,'conserve tp',19,97,3,944,21,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (109,'occult acumen',4,85,1,902,25,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (109,'occult acumen',4,95,2,902,50,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (109,'occult acumen',8,45,1,902,25,'ABYSSEA',0);
@@ -609,18 +618,7 @@ INSERT INTO `traits` VALUES (127,'smite',8,95,5,898,76,'SOA',0);
 INSERT INTO `traits` VALUES (127,'smite',14,40,1,898,25,'SOA',0);
 INSERT INTO `traits` VALUES (127,'smite',14,80,2,898,38,'SOA',0);
 INSERT INTO `traits` VALUES (127,'smite',18,60,1,898,25,'SOA',0);
-INSERT INTO `traits` VALUES (108,'conserve tp',14,45,1,944,15,'ABYSSEA',0); -- Conserve TP I, DRG45, 15%
-INSERT INTO `traits` VALUES (108,'conserve tp',19,77,1,944,15,'ABYSSEA',0); -- Conserve TP I, DNC77, 15%
-INSERT INTO `traits` VALUES (108,'conserve tp',11,80,1,944,15,'ABYSSEA',0); -- Conserve TP I, RNG80, 15%
-INSERT INTO `traits` VALUES (108,'conserve tp',14,58,2,944,18,'ABYSSEA',0); -- Conserve TP II, DRG58, 18%
-INSERT INTO `traits` VALUES (108,'conserve tp',19,87,2,944,18,'ABYSSEA',0); -- Conserve TP II, DNC87, 18%
-INSERT INTO `traits` VALUES (108,'conserve tp',11,91,2,944,18,'ABYSSEA',0); -- Conserve TP II, RNG91, 18%
-INSERT INTO `traits` VALUES (108,'conserve tp',14,71,3,944,21,'ABYSSEA',0); -- Conserve TP III, DRG71, 21%
-INSERT INTO `traits` VALUES (108,'conserve tp',19,97,3,944,21,'ABYSSEA',0); -- Conserve TP III, DNC97, 21%
-INSERT INTO `traits` VALUES (108,'conserve tp',14,84,4,944,24,'ABYSSEA',0); -- Conserve TP IV, DRG84, 24%
-INSERT INTO `traits` VALUES (108,'conserve tp',14,97,4,944,26,'ABYSSEA',0); -- Conserve TP V, DRG97, 26%
 /*!40000 ALTER TABLE `traits` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -631,4 +629,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-02 10:14:01
+-- Dump completed on 2019-06-20  8:27:35

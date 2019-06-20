@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.2.7-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	10.2.7-MariaDB
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -36,7 +36,6 @@ CREATE TABLE `fishing_rod` (
 --
 -- ORDER BY:  `rodid`,`fishid`
 
-LOCK TABLES `fishing_rod` WRITE;
 /*!40000 ALTER TABLE `fishing_rod` DISABLE KEYS */;
 INSERT INTO `fishing_rod` VALUES (17011,'Ebisu Fishing Rod',90,1);
 INSERT INTO `fishing_rod` VALUES (17011,'Ebisu Fishing Rod',624,1);
@@ -813,7 +812,6 @@ INSERT INTO `fishing_rod` VALUES (17391,'Willow Fishing Rod',4515,5);
 INSERT INTO `fishing_rod` VALUES (17391,'Willow Fishing Rod',13454,1);
 INSERT INTO `fishing_rod` VALUES (17391,'Willow Fishing Rod',14117,1);
 /*!40000 ALTER TABLE `fishing_rod` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -824,4 +822,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-03 17:39:25
+-- Dump completed on 2019-06-20  8:27:34

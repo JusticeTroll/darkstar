@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.18, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version   5.7.18-log
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -42,17 +42,16 @@ CREATE TABLE `bcnm_info` (
 --
 -- Dumping data for table `bcnm_info`
 --
+-- ORDER BY:  `bcnmId`
 
-LOCK TABLES `bcnm_info` WRITE;
 /*!40000 ALTER TABLE `bcnm_info` DISABLE KEYS */;
-set autocommit=0;
 INSERT INTO `bcnm_info` VALUES (0,139,'rank_2_mission','nobody',0,1800,1800,25,6,0,5,1);
 INSERT INTO `bcnm_info` VALUES (1,139,'tails_of_woe','nobody',0,1800,1800,40,6,0,15,0);
 INSERT INTO `bcnm_info` VALUES (2,139,'dismemberment_brigade','nobody',0,1800,1800,60,6,0,15,0);
 INSERT INTO `bcnm_info` VALUES (3,139,'the_secret_weapon','nobody',0,1800,1800,99,6,0,5,1);
 INSERT INTO `bcnm_info` VALUES (4,139,'hostile_herbivores','nobody',0,1800,1800,50,6,14,15,0);
 INSERT INTO `bcnm_info` VALUES (5,139,'shattering_stars','nobody',0,600,600,99,1,0,22,0);
-INSERT INTO `bcnm_info` VALUES (6,139,'shattering_stars','nobody',0,600,600,99,1,0,22,0);
+INSERT INTO `bcnm_info` VALUES (6,139,'shattering_stars','Prophet',1,81,600,99,1,0,22,0);
 INSERT INTO `bcnm_info` VALUES (7,139,'shattering_stars','nobody',0,600,600,99,1,0,22,0);
 INSERT INTO `bcnm_info` VALUES (8,139,'carapace_combatants','nobody',0,900,900,30,3,0,15,0);
 INSERT INTO `bcnm_info` VALUES (9,139,'shooting_fish','nobody',0,900,900,20,3,0,15,0);
@@ -67,7 +66,7 @@ INSERT INTO `bcnm_info` VALUES (17,139,'contaminated_colosseum','nobody',0,1800,
 INSERT INTO `bcnm_info` VALUES (18,139,'kindergarten_cap','nobody',0,900,900,0,3,0,15,0);
 INSERT INTO `bcnm_info` VALUES (19,139,'last_orc-shunned_hero','nobody',0,1800,1800,0,6,0,15,0);
 INSERT INTO `bcnm_info` VALUES (20,139,'beyond_infinity','nobody',0,600,600,0,6,0,6,0);
-INSERT INTO `bcnm_info` VALUES (32,140,'save_the_children','nobody',0,600,600,0,6,0,5,0);
+INSERT INTO `bcnm_info` VALUES (32,140,'save_the_children','Fox',3,78,600,0,6,0,5,0);
 INSERT INTO `bcnm_info` VALUES (33,140,'holy_crest','nobody',0,600,600,75,6,0,7,0);
 INSERT INTO `bcnm_info` VALUES (34,140,'wings_of_fury','nobody',0,900,900,20,3,34,15,0);
 INSERT INTO `bcnm_info` VALUES (35,140,'petrifying_pair','nobody',0,900,900,30,3,35,15,0);
@@ -230,13 +229,13 @@ INSERT INTO `bcnm_info` VALUES (738,13,'bionic_bug','nobody',0,1800,1800,0,18,0,
 INSERT INTO `bcnm_info` VALUES (739,13,'pulling_the_strings','nobody',0,900,900,0,1,0,15,0);
 INSERT INTO `bcnm_info` VALUES (740,13,'automaton_assault','nobody',0,900,900,60,6,0,15,0);
 INSERT INTO `bcnm_info` VALUES (741,13,'mobline_comedy','nobody',0,900,900,0,6,0,15,0);
-INSERT INTO `bcnm_info` VALUES (768,17,'ancient_flames_beckon','nobody',0,1800,1800,30,6,0,5,1);
+INSERT INTO `bcnm_info` VALUES (768,17,'ancient_flames_beckon','Miniberg',4,98,1800,30,6,0,5,1);
 INSERT INTO `bcnm_info` VALUES (769,17,'simulant','nobody',0,1800,1800,30,18,0,15,0);
 INSERT INTO `bcnm_info` VALUES (770,17,'empty_hopes','nobody',0,900,900,0,6,0,5,0);
-INSERT INTO `bcnm_info` VALUES (800,19,'ancient_flames_beckon','nobody',0,1800,1800,30,6,0,5,1);
+INSERT INTO `bcnm_info` VALUES (800,19,'ancient_flames_beckon','Prophet',4,100,1800,30,6,0,5,1);
 INSERT INTO `bcnm_info` VALUES (801,19,'you_are_what_you_eat','nobody',0,1800,1800,30,18,0,15,0);
 INSERT INTO `bcnm_info` VALUES (802,19,'empty_dreams','nobody',0,900,900,0,6,0,5,0);
-INSERT INTO `bcnm_info` VALUES (832,21,'ancient_flames_backon','nobody',0,1800,1800,30,6,0,5,1);
+INSERT INTO `bcnm_info` VALUES (832,21,'ancient_flames_backon','Prophet',4,68,1800,30,6,0,5,1);
 INSERT INTO `bcnm_info` VALUES (833,21,'playing_host','nobody',0,1800,1800,30,18,0,15,0);
 INSERT INTO `bcnm_info` VALUES (834,21,'empty_desires','nobody',0,900,900,0,6,0,5,0);
 INSERT INTO `bcnm_info` VALUES (864,23,'desires_of_emptiness','nobody',0,1800,1800,50,6,0,5,1);
@@ -303,8 +302,6 @@ INSERT INTO `bcnm_info` VALUES (1305,37,'central_temenos_3rd_floor','nobody',0,2
 INSERT INTO `bcnm_info` VALUES (1306,37,'central_temenos_4th_floor','nobody',0,3600,3600,0,18,0,7,0);
 INSERT INTO `bcnm_info` VALUES (1307,37,'central_temenos_4th_floor_ii','nobody',0,3600,3600,0,18,0,7,0);
 /*!40000 ALTER TABLE `bcnm_info` ENABLE KEYS */;
-UNLOCK TABLES;
-commit;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -315,4 +312,4 @@ commit;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-28  7:44:05
+-- Dump completed on 2019-06-20  8:27:32

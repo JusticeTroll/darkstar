@@ -1,35 +1,365 @@
--- phpMyAdmin SQL Dump
--- version 3.3.8
--- http://www.phpmyadmin.net
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
--- Serveur: localhost
--- Généré le : Ven 24 Juin 2011 à 08:06
--- Version du serveur: 6.0.0
--- Version de PHP: 5.2.9-2
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
+-- Host: localhost    Database: dspdb
+-- ------------------------------------------------------
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Base de données: `dspdb`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `char_skills`
+-- Table structure for table `char_skills`
 --
 
 DROP TABLE IF EXISTS `char_skills`;
-CREATE TABLE IF NOT EXISTS `char_skills` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `char_skills` (
   `charid` int(10) unsigned NOT NULL,
   `skillid` tinyint(2) unsigned NOT NULL,
   `value` smallint(4) unsigned NOT NULL DEFAULT '0',
   `rank` tinyint(2) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`charid`,`skillid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=10;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `char_skills`
+--
+-- ORDER BY:  `charid`,`skillid`
+
+/*!40000 ALTER TABLE `char_skills` DISABLE KEYS */;
+INSERT INTO `char_skills` VALUES (1,2,229,0);
+INSERT INTO `char_skills` VALUES (1,9,996,0);
+INSERT INTO `char_skills` VALUES (1,29,468,0);
+INSERT INTO `char_skills` VALUES (1,31,222,0);
+INSERT INTO `char_skills` VALUES (1,34,47,0);
+INSERT INTO `char_skills` VALUES (1,35,178,0);
+INSERT INTO `char_skills` VALUES (1,36,1808,0);
+INSERT INTO `char_skills` VALUES (1,37,18,0);
+INSERT INTO `char_skills` VALUES (2,1,876,0);
+INSERT INTO `char_skills` VALUES (2,2,450,0);
+INSERT INTO `char_skills` VALUES (2,3,283,0);
+INSERT INTO `char_skills` VALUES (2,9,2760,0);
+INSERT INTO `char_skills` VALUES (2,25,6,0);
+INSERT INTO `char_skills` VALUES (2,28,711,0);
+INSERT INTO `char_skills` VALUES (2,29,2656,0);
+INSERT INTO `char_skills` VALUES (2,31,2690,0);
+INSERT INTO `char_skills` VALUES (2,36,264,0);
+INSERT INTO `char_skills` VALUES (2,39,2445,0);
+INSERT INTO `char_skills` VALUES (2,51,369,3);
+INSERT INTO `char_skills` VALUES (3,28,15,0);
+INSERT INTO `char_skills` VALUES (3,29,1702,0);
+INSERT INTO `char_skills` VALUES (3,30,995,0);
+INSERT INTO `char_skills` VALUES (3,33,1339,0);
+INSERT INTO `char_skills` VALUES (3,34,2560,0);
+INSERT INTO `char_skills` VALUES (3,35,2362,0);
+INSERT INTO `char_skills` VALUES (3,36,2210,0);
+INSERT INTO `char_skills` VALUES (3,37,9,0);
+INSERT INTO `char_skills` VALUES (4,2,247,0);
+INSERT INTO `char_skills` VALUES (4,29,281,0);
+INSERT INTO `char_skills` VALUES (4,30,6,0);
+INSERT INTO `char_skills` VALUES (4,31,142,0);
+INSERT INTO `char_skills` VALUES (4,33,322,0);
+INSERT INTO `char_skills` VALUES (4,34,220,0);
+INSERT INTO `char_skills` VALUES (4,35,27,0);
+INSERT INTO `char_skills` VALUES (4,36,107,0);
+INSERT INTO `char_skills` VALUES (5,5,21,0);
+INSERT INTO `char_skills` VALUES (5,6,242,0);
+INSERT INTO `char_skills` VALUES (5,29,232,0);
+INSERT INTO `char_skills` VALUES (5,31,240,0);
+INSERT INTO `char_skills` VALUES (6,2,108,0);
+INSERT INTO `char_skills` VALUES (6,34,45,0);
+INSERT INTO `char_skills` VALUES (6,35,81,0);
+INSERT INTO `char_skills` VALUES (6,36,162,0);
+INSERT INTO `char_skills` VALUES (7,1,5000,0);
+INSERT INTO `char_skills` VALUES (7,2,5000,0);
+INSERT INTO `char_skills` VALUES (7,3,5000,0);
+INSERT INTO `char_skills` VALUES (7,4,5000,0);
+INSERT INTO `char_skills` VALUES (7,5,5000,0);
+INSERT INTO `char_skills` VALUES (7,6,5000,0);
+INSERT INTO `char_skills` VALUES (7,7,5000,0);
+INSERT INTO `char_skills` VALUES (7,8,5000,0);
+INSERT INTO `char_skills` VALUES (7,9,5000,0);
+INSERT INTO `char_skills` VALUES (7,10,5000,0);
+INSERT INTO `char_skills` VALUES (7,11,5000,0);
+INSERT INTO `char_skills` VALUES (7,12,5000,0);
+INSERT INTO `char_skills` VALUES (7,13,5000,0);
+INSERT INTO `char_skills` VALUES (7,14,5000,0);
+INSERT INTO `char_skills` VALUES (7,15,5000,0);
+INSERT INTO `char_skills` VALUES (7,16,5000,0);
+INSERT INTO `char_skills` VALUES (7,17,5000,0);
+INSERT INTO `char_skills` VALUES (7,18,5000,0);
+INSERT INTO `char_skills` VALUES (7,19,5000,0);
+INSERT INTO `char_skills` VALUES (7,20,5000,0);
+INSERT INTO `char_skills` VALUES (7,21,5000,0);
+INSERT INTO `char_skills` VALUES (7,22,5000,0);
+INSERT INTO `char_skills` VALUES (7,23,5000,0);
+INSERT INTO `char_skills` VALUES (7,24,5000,0);
+INSERT INTO `char_skills` VALUES (7,25,5000,0);
+INSERT INTO `char_skills` VALUES (7,26,5000,0);
+INSERT INTO `char_skills` VALUES (7,27,5000,0);
+INSERT INTO `char_skills` VALUES (7,28,5000,0);
+INSERT INTO `char_skills` VALUES (7,29,5000,0);
+INSERT INTO `char_skills` VALUES (7,30,5000,0);
+INSERT INTO `char_skills` VALUES (7,31,5000,0);
+INSERT INTO `char_skills` VALUES (7,32,5000,0);
+INSERT INTO `char_skills` VALUES (7,33,5000,0);
+INSERT INTO `char_skills` VALUES (7,34,5000,0);
+INSERT INTO `char_skills` VALUES (7,35,5000,0);
+INSERT INTO `char_skills` VALUES (7,36,5000,0);
+INSERT INTO `char_skills` VALUES (7,37,5000,0);
+INSERT INTO `char_skills` VALUES (7,38,5000,0);
+INSERT INTO `char_skills` VALUES (7,39,5000,0);
+INSERT INTO `char_skills` VALUES (7,40,5000,0);
+INSERT INTO `char_skills` VALUES (7,41,5000,0);
+INSERT INTO `char_skills` VALUES (7,42,5000,0);
+INSERT INTO `char_skills` VALUES (7,43,5000,0);
+INSERT INTO `char_skills` VALUES (7,44,5000,0);
+INSERT INTO `char_skills` VALUES (8,1,75,0);
+INSERT INTO `char_skills` VALUES (8,3,721,0);
+INSERT INTO `char_skills` VALUES (8,29,196,0);
+INSERT INTO `char_skills` VALUES (8,30,150,0);
+INSERT INTO `char_skills` VALUES (8,31,190,0);
+INSERT INTO `char_skills` VALUES (8,32,225,0);
+INSERT INTO `char_skills` VALUES (8,33,57,0);
+INSERT INTO `char_skills` VALUES (12,1,87,0);
+INSERT INTO `char_skills` VALUES (12,28,21,0);
+INSERT INTO `char_skills` VALUES (12,29,48,0);
+INSERT INTO `char_skills` VALUES (13,1,25,0);
+INSERT INTO `char_skills` VALUES (13,3,2760,0);
+INSERT INTO `char_skills` VALUES (13,11,72,0);
+INSERT INTO `char_skills` VALUES (13,29,1990,0);
+INSERT INTO `char_skills` VALUES (13,30,1705,0);
+INSERT INTO `char_skills` VALUES (13,31,769,0);
+INSERT INTO `char_skills` VALUES (13,33,2225,0);
+INSERT INTO `char_skills` VALUES (13,34,1417,0);
+INSERT INTO `char_skills` VALUES (13,35,2213,0);
+INSERT INTO `char_skills` VALUES (13,36,2644,0);
+INSERT INTO `char_skills` VALUES (13,49,427,4);
+INSERT INTO `char_skills` VALUES (14,1,14,0);
+INSERT INTO `char_skills` VALUES (14,2,30,0);
+INSERT INTO `char_skills` VALUES (14,10,2760,0);
+INSERT INTO `char_skills` VALUES (14,29,1979,0);
+INSERT INTO `char_skills` VALUES (14,30,975,0);
+INSERT INTO `char_skills` VALUES (14,31,467,0);
+INSERT INTO `char_skills` VALUES (14,33,1337,0);
+INSERT INTO `char_skills` VALUES (14,34,1181,0);
+INSERT INTO `char_skills` VALUES (14,35,2100,0);
+INSERT INTO `char_skills` VALUES (14,36,2510,0);
+INSERT INTO `char_skills` VALUES (15,3,828,0);
+INSERT INTO `char_skills` VALUES (15,29,1780,0);
+INSERT INTO `char_skills` VALUES (15,30,509,0);
+INSERT INTO `char_skills` VALUES (15,33,2424,0);
+INSERT INTO `char_skills` VALUES (15,34,2129,0);
+INSERT INTO `char_skills` VALUES (15,35,2158,0);
+INSERT INTO `char_skills` VALUES (15,36,2492,0);
+INSERT INTO `char_skills` VALUES (16,3,250,0);
+INSERT INTO `char_skills` VALUES (16,25,90,0);
+INSERT INTO `char_skills` VALUES (16,29,220,0);
+INSERT INTO `char_skills` VALUES (16,30,200,0);
+INSERT INTO `char_skills` VALUES (16,31,210,0);
+INSERT INTO `char_skills` VALUES (16,33,138,0);
+INSERT INTO `char_skills` VALUES (16,34,21,0);
+INSERT INTO `char_skills` VALUES (16,35,177,0);
+INSERT INTO `char_skills` VALUES (16,36,57,0);
+INSERT INTO `char_skills` VALUES (16,37,69,0);
+INSERT INTO `char_skills` VALUES (17,1,5000,0);
+INSERT INTO `char_skills` VALUES (17,2,5000,0);
+INSERT INTO `char_skills` VALUES (17,3,5000,0);
+INSERT INTO `char_skills` VALUES (17,4,5000,0);
+INSERT INTO `char_skills` VALUES (17,5,5000,0);
+INSERT INTO `char_skills` VALUES (17,6,5000,0);
+INSERT INTO `char_skills` VALUES (17,7,5000,0);
+INSERT INTO `char_skills` VALUES (17,8,5000,0);
+INSERT INTO `char_skills` VALUES (17,9,5000,0);
+INSERT INTO `char_skills` VALUES (17,10,5000,0);
+INSERT INTO `char_skills` VALUES (17,11,5000,0);
+INSERT INTO `char_skills` VALUES (17,12,5000,0);
+INSERT INTO `char_skills` VALUES (17,13,5000,0);
+INSERT INTO `char_skills` VALUES (17,14,5000,0);
+INSERT INTO `char_skills` VALUES (17,15,5000,0);
+INSERT INTO `char_skills` VALUES (17,16,5000,0);
+INSERT INTO `char_skills` VALUES (17,17,5000,0);
+INSERT INTO `char_skills` VALUES (17,18,5000,0);
+INSERT INTO `char_skills` VALUES (17,19,5000,0);
+INSERT INTO `char_skills` VALUES (17,20,5000,0);
+INSERT INTO `char_skills` VALUES (17,21,5000,0);
+INSERT INTO `char_skills` VALUES (17,22,5000,0);
+INSERT INTO `char_skills` VALUES (17,23,5000,0);
+INSERT INTO `char_skills` VALUES (17,24,5000,0);
+INSERT INTO `char_skills` VALUES (17,25,5000,0);
+INSERT INTO `char_skills` VALUES (17,26,5000,0);
+INSERT INTO `char_skills` VALUES (17,27,5000,0);
+INSERT INTO `char_skills` VALUES (17,28,5000,0);
+INSERT INTO `char_skills` VALUES (17,29,5000,0);
+INSERT INTO `char_skills` VALUES (17,30,5000,0);
+INSERT INTO `char_skills` VALUES (17,31,5000,0);
+INSERT INTO `char_skills` VALUES (17,32,5000,0);
+INSERT INTO `char_skills` VALUES (17,33,5000,0);
+INSERT INTO `char_skills` VALUES (17,34,5000,0);
+INSERT INTO `char_skills` VALUES (17,35,5000,0);
+INSERT INTO `char_skills` VALUES (17,36,5000,0);
+INSERT INTO `char_skills` VALUES (17,37,5000,0);
+INSERT INTO `char_skills` VALUES (17,38,5000,0);
+INSERT INTO `char_skills` VALUES (17,39,5000,0);
+INSERT INTO `char_skills` VALUES (17,40,5000,0);
+INSERT INTO `char_skills` VALUES (17,41,5000,0);
+INSERT INTO `char_skills` VALUES (17,42,5000,0);
+INSERT INTO `char_skills` VALUES (17,43,5000,0);
+INSERT INTO `char_skills` VALUES (17,44,5000,0);
+INSERT INTO `char_skills` VALUES (18,1,1,0);
+INSERT INTO `char_skills` VALUES (18,2,25,0);
+INSERT INTO `char_skills` VALUES (18,29,22,0);
+INSERT INTO `char_skills` VALUES (18,31,14,0);
+INSERT INTO `char_skills` VALUES (19,1,5000,0);
+INSERT INTO `char_skills` VALUES (19,2,5000,0);
+INSERT INTO `char_skills` VALUES (19,3,5000,0);
+INSERT INTO `char_skills` VALUES (19,4,5000,0);
+INSERT INTO `char_skills` VALUES (19,5,5000,0);
+INSERT INTO `char_skills` VALUES (19,6,5000,0);
+INSERT INTO `char_skills` VALUES (19,7,5000,0);
+INSERT INTO `char_skills` VALUES (19,8,5000,0);
+INSERT INTO `char_skills` VALUES (19,9,5000,0);
+INSERT INTO `char_skills` VALUES (19,10,5000,0);
+INSERT INTO `char_skills` VALUES (19,11,5000,0);
+INSERT INTO `char_skills` VALUES (19,12,5000,0);
+INSERT INTO `char_skills` VALUES (19,13,5000,0);
+INSERT INTO `char_skills` VALUES (19,14,5000,0);
+INSERT INTO `char_skills` VALUES (19,15,5000,0);
+INSERT INTO `char_skills` VALUES (19,16,5000,0);
+INSERT INTO `char_skills` VALUES (19,17,5000,0);
+INSERT INTO `char_skills` VALUES (19,18,5000,0);
+INSERT INTO `char_skills` VALUES (19,19,5000,0);
+INSERT INTO `char_skills` VALUES (19,20,5000,0);
+INSERT INTO `char_skills` VALUES (19,21,5000,0);
+INSERT INTO `char_skills` VALUES (19,22,5000,0);
+INSERT INTO `char_skills` VALUES (19,23,5000,0);
+INSERT INTO `char_skills` VALUES (19,24,5000,0);
+INSERT INTO `char_skills` VALUES (19,25,5000,0);
+INSERT INTO `char_skills` VALUES (19,26,5000,0);
+INSERT INTO `char_skills` VALUES (19,27,5000,0);
+INSERT INTO `char_skills` VALUES (19,28,5000,0);
+INSERT INTO `char_skills` VALUES (19,29,5000,0);
+INSERT INTO `char_skills` VALUES (19,30,5000,0);
+INSERT INTO `char_skills` VALUES (19,31,5000,0);
+INSERT INTO `char_skills` VALUES (19,32,5000,0);
+INSERT INTO `char_skills` VALUES (19,33,5000,0);
+INSERT INTO `char_skills` VALUES (19,34,5000,0);
+INSERT INTO `char_skills` VALUES (19,35,5000,0);
+INSERT INTO `char_skills` VALUES (19,36,5000,0);
+INSERT INTO `char_skills` VALUES (19,37,5000,0);
+INSERT INTO `char_skills` VALUES (19,38,5000,0);
+INSERT INTO `char_skills` VALUES (19,39,5000,0);
+INSERT INTO `char_skills` VALUES (19,40,5000,0);
+INSERT INTO `char_skills` VALUES (19,41,5000,0);
+INSERT INTO `char_skills` VALUES (19,42,5000,0);
+INSERT INTO `char_skills` VALUES (19,43,5000,0);
+INSERT INTO `char_skills` VALUES (19,44,5000,0);
+INSERT INTO `char_skills` VALUES (20,1,2760,0);
+INSERT INTO `char_skills` VALUES (20,2,2760,0);
+INSERT INTO `char_skills` VALUES (20,3,2760,0);
+INSERT INTO `char_skills` VALUES (20,4,2760,0);
+INSERT INTO `char_skills` VALUES (20,5,2760,0);
+INSERT INTO `char_skills` VALUES (20,6,2760,0);
+INSERT INTO `char_skills` VALUES (20,12,2760,0);
+INSERT INTO `char_skills` VALUES (20,28,110,0);
+INSERT INTO `char_skills` VALUES (20,29,2760,0);
+INSERT INTO `char_skills` VALUES (20,30,2760,0);
+INSERT INTO `char_skills` VALUES (20,31,2760,0);
+INSERT INTO `char_skills` VALUES (20,32,2760,0);
+INSERT INTO `char_skills` VALUES (20,33,2760,0);
+INSERT INTO `char_skills` VALUES (20,34,2760,0);
+INSERT INTO `char_skills` VALUES (20,35,2760,0);
+INSERT INTO `char_skills` VALUES (20,36,2760,0);
+INSERT INTO `char_skills` VALUES (20,37,2760,0);
+INSERT INTO `char_skills` VALUES (20,40,2760,0);
+INSERT INTO `char_skills` VALUES (20,41,2760,0);
+INSERT INTO `char_skills` VALUES (20,42,2760,0);
+INSERT INTO `char_skills` VALUES (21,1,9,0);
+INSERT INTO `char_skills` VALUES (21,3,61,0);
+INSERT INTO `char_skills` VALUES (21,29,65,0);
+INSERT INTO `char_skills` VALUES (21,31,53,0);
+INSERT INTO `char_skills` VALUES (23,3,14,0);
+INSERT INTO `char_skills` VALUES (23,6,2760,0);
+INSERT INTO `char_skills` VALUES (23,29,31,0);
+INSERT INTO `char_skills` VALUES (23,31,38,0);
+INSERT INTO `char_skills` VALUES (24,1,5000,0);
+INSERT INTO `char_skills` VALUES (24,2,5000,0);
+INSERT INTO `char_skills` VALUES (24,3,5000,0);
+INSERT INTO `char_skills` VALUES (24,4,5000,0);
+INSERT INTO `char_skills` VALUES (24,5,5000,0);
+INSERT INTO `char_skills` VALUES (24,6,5000,0);
+INSERT INTO `char_skills` VALUES (24,7,5000,0);
+INSERT INTO `char_skills` VALUES (24,8,5000,0);
+INSERT INTO `char_skills` VALUES (24,9,5000,0);
+INSERT INTO `char_skills` VALUES (24,10,5000,0);
+INSERT INTO `char_skills` VALUES (24,11,5000,0);
+INSERT INTO `char_skills` VALUES (24,12,5000,0);
+INSERT INTO `char_skills` VALUES (24,13,5000,0);
+INSERT INTO `char_skills` VALUES (24,14,5000,0);
+INSERT INTO `char_skills` VALUES (24,15,5000,0);
+INSERT INTO `char_skills` VALUES (24,16,5000,0);
+INSERT INTO `char_skills` VALUES (24,17,5000,0);
+INSERT INTO `char_skills` VALUES (24,18,5000,0);
+INSERT INTO `char_skills` VALUES (24,19,5000,0);
+INSERT INTO `char_skills` VALUES (24,20,5000,0);
+INSERT INTO `char_skills` VALUES (24,21,5000,0);
+INSERT INTO `char_skills` VALUES (24,22,5000,0);
+INSERT INTO `char_skills` VALUES (24,23,5000,0);
+INSERT INTO `char_skills` VALUES (24,24,5000,0);
+INSERT INTO `char_skills` VALUES (24,25,5000,0);
+INSERT INTO `char_skills` VALUES (24,26,5000,0);
+INSERT INTO `char_skills` VALUES (24,27,5000,0);
+INSERT INTO `char_skills` VALUES (24,28,5000,0);
+INSERT INTO `char_skills` VALUES (24,29,5000,0);
+INSERT INTO `char_skills` VALUES (24,30,5000,0);
+INSERT INTO `char_skills` VALUES (24,31,5000,0);
+INSERT INTO `char_skills` VALUES (24,32,5000,0);
+INSERT INTO `char_skills` VALUES (24,33,5000,0);
+INSERT INTO `char_skills` VALUES (24,34,5000,0);
+INSERT INTO `char_skills` VALUES (24,35,5000,0);
+INSERT INTO `char_skills` VALUES (24,36,5000,0);
+INSERT INTO `char_skills` VALUES (24,37,5000,0);
+INSERT INTO `char_skills` VALUES (24,38,5000,0);
+INSERT INTO `char_skills` VALUES (24,39,5000,0);
+INSERT INTO `char_skills` VALUES (24,40,5000,0);
+INSERT INTO `char_skills` VALUES (24,41,5000,0);
+INSERT INTO `char_skills` VALUES (24,42,5000,0);
+INSERT INTO `char_skills` VALUES (24,43,5000,0);
+INSERT INTO `char_skills` VALUES (24,44,5000,0);
+INSERT INTO `char_skills` VALUES (25,2,36,0);
+INSERT INTO `char_skills` VALUES (25,3,5,0);
+INSERT INTO `char_skills` VALUES (25,29,21,0);
+INSERT INTO `char_skills` VALUES (25,31,31,0);
+INSERT INTO `char_skills` VALUES (26,29,170,0);
+INSERT INTO `char_skills` VALUES (26,30,29,0);
+INSERT INTO `char_skills` VALUES (26,36,264,0);
+INSERT INTO `char_skills` VALUES (30,29,4,0);
+INSERT INTO `char_skills` VALUES (30,36,28,0);
+INSERT INTO `char_skills` VALUES (32,1,44,0);
+INSERT INTO `char_skills` VALUES (32,28,23,0);
+INSERT INTO `char_skills` VALUES (32,29,30,0);
+INSERT INTO `char_skills` VALUES (33,1,52,0);
+INSERT INTO `char_skills` VALUES (33,28,24,0);
+INSERT INTO `char_skills` VALUES (33,29,38,0);
+/*!40000 ALTER TABLE `char_skills` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-06-20  8:27:38

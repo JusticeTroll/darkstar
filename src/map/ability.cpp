@@ -311,7 +311,8 @@ namespace ability
     CAbility* PAbilityList[MAX_ABILITY_ID];                     // Complete Abilities List
     std::vector<CAbility*> PAbilitiesList[MAX_JOBTYPE];			// Abilities List By Job Type
     std::vector<Charge_t*> PChargesList;                       // Abilities with charges
-
+    std::unordered_map<uint16, std::vector<uint16>>  g_PTrustAbilityLists;  // List of trust abilities defined from trust_ability_lists.sql
+    std::vector<Trust_ability*> TrustAbilityList[MAX_TRUST_ABILITY_ID];			// Abilities List By Job Type
     /************************************************************************
     *                                                                       *
     *  Load Abilities from Database                                         *
@@ -442,29 +443,29 @@ namespace ability
 
         switch (JobID)
         {
-            case JOB_WAR: return PAbilityList[ABILITY_MIGHTY_STRIKES]; break;
-            case JOB_MNK: return PAbilityList[ABILITY_HUNDRED_FISTS]; break;
-            case JOB_WHM: return PAbilityList[ABILITY_BENEDICTION]; break;
-            case JOB_BLM: return PAbilityList[ABILITY_MANAFONT]; break;
-            case JOB_RDM: return PAbilityList[ABILITY_CHAINSPELL]; break;
-            case JOB_THF: return PAbilityList[ABILITY_PERFECT_DODGE]; break;
-            case JOB_PLD: return PAbilityList[ABILITY_INVINCIBLE]; break;
-            case JOB_DRK: return PAbilityList[ABILITY_BLOOD_WEAPON]; break;
-            case JOB_BST: return PAbilityList[ABILITY_FAMILIAR]; break;
-            case JOB_BRD: return PAbilityList[ABILITY_SOUL_VOICE]; break;
-            case JOB_RNG: return PAbilityList[ABILITY_EAGLE_EYE_SHOT]; break;
-            case JOB_SAM: return PAbilityList[ABILITY_MEIKYO_SHISUI]; break;
-            case JOB_NIN: return PAbilityList[ABILITY_MIJIN_GAKURE]; break;
-            case JOB_DRG: return PAbilityList[ABILITY_SPIRIT_SURGE]; break;
-            case JOB_SMN: return PAbilityList[ABILITY_ASTRAL_FLOW]; break;
-            case JOB_BLU: return PAbilityList[ABILITY_AZURE_LORE]; break;
-            case JOB_COR: return PAbilityList[ABILITY_WILD_CARD]; break;
-            case JOB_PUP: return PAbilityList[ABILITY_OVERDRIVE]; break;
-            case JOB_DNC: return PAbilityList[ABILITY_TRANCE]; break;
-            case JOB_SCH: return PAbilityList[ABILITY_TABULA_RASA]; break;
-            case JOB_GEO: return PAbilityList[ABILITY_BOLSTER]; break;
-            case JOB_RUN: return PAbilityList[ABILITY_ELEMENTAL_SFORZO]; break;
-            default: break;
+        case JOB_WAR: return PAbilityList[ABILITY_MIGHTY_STRIKES]; break;
+        case JOB_MNK: return PAbilityList[ABILITY_HUNDRED_FISTS]; break;
+        case JOB_WHM: return PAbilityList[ABILITY_BENEDICTION]; break;
+        case JOB_BLM: return PAbilityList[ABILITY_MANAFONT]; break;
+        case JOB_RDM: return PAbilityList[ABILITY_CHAINSPELL]; break;
+        case JOB_THF: return PAbilityList[ABILITY_PERFECT_DODGE]; break;
+        case JOB_PLD: return PAbilityList[ABILITY_INVINCIBLE]; break;
+        case JOB_DRK: return PAbilityList[ABILITY_BLOOD_WEAPON]; break;
+        case JOB_BST: return PAbilityList[ABILITY_FAMILIAR]; break;
+        case JOB_BRD: return PAbilityList[ABILITY_SOUL_VOICE]; break;
+        case JOB_RNG: return PAbilityList[ABILITY_EAGLE_EYE_SHOT]; break;
+        case JOB_SAM: return PAbilityList[ABILITY_MEIKYO_SHISUI]; break;
+        case JOB_NIN: return PAbilityList[ABILITY_MIJIN_GAKURE]; break;
+        case JOB_DRG: return PAbilityList[ABILITY_SPIRIT_SURGE]; break;
+        case JOB_SMN: return PAbilityList[ABILITY_ASTRAL_FLOW]; break;
+        case JOB_BLU: return PAbilityList[ABILITY_AZURE_LORE]; break;
+        case JOB_COR: return PAbilityList[ABILITY_WILD_CARD]; break;
+        case JOB_PUP: return PAbilityList[ABILITY_OVERDRIVE]; break;
+        case JOB_DNC: return PAbilityList[ABILITY_TRANCE]; break;
+        case JOB_SCH: return PAbilityList[ABILITY_TABULA_RASA]; break;
+        case JOB_GEO: return PAbilityList[ABILITY_BOLSTER]; break;
+        case JOB_RUN: return PAbilityList[ABILITY_ELEMENTAL_SFORZO]; break;
+        default: break;
         }
         return nullptr;
     }
@@ -535,5 +536,62 @@ namespace ability
         else if (msg == 264)
             return 263;
         return msg;
+    }
+
+
+    /************************************************************************
+    *                                                                       *
+    *  Trust Functions                                                      *
+    *                                                                       *
+    ************************************************************************/
+
+    void LoadTrustAbilityList()
+    {
+        const char* fmtQuery = "SELECT ability_list_id, ability_id, recastTime, recastId, min_level, max_level \
+        FROM trust_ability_lists;";
+
+        int32 ret = Sql_Query(SqlHandle, fmtQuery);
+
+        if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+        {
+            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+                Trust_ability* PAbility = new Trust_ability;
+                PAbility->trustID = Sql_GetUIntData(SqlHandle, 0);
+                PAbility->abilityID = Sql_GetUIntData(SqlHandle, 1);
+                PAbility->recastTime = Sql_GetUIntData(SqlHandle, 2);
+                PAbility->recastId = Sql_GetUIntData(SqlHandle, 3);
+                PAbility->minLevel = Sql_GetUIntData(SqlHandle, 4);
+                PAbility->maxLevel = Sql_GetUIntData(SqlHandle, 5);
+
+                TrustAbilityList[Sql_GetUIntData(SqlHandle, 0)].push_back(PAbility);
+            }
+        }
+    }
+
+    std::vector<Trust_ability*> GetTrustAbilityLists(uint16 ListID)
+    {
+
+        return TrustAbilityList[ListID];
+    }
+
+    Trust_ability* GetTrustAbility(uint16 ListID, uint16 abilityID)
+    {
+        Trust_ability* ability = nullptr;
+        for (std::vector<Trust_ability*>::iterator it = TrustAbilityList[ListID].begin(); it != TrustAbilityList[ListID].end(); ++it)
+        {
+            Trust_ability* PAbility = *it;
+            if (PAbility->abilityID == abilityID)
+            {
+                ability = PAbility;
+                break;
+            }
+        }
+        return ability;
+    }
+
+    std::vector<uint16>& GetTrustAbilityList(uint16 ListID)
+    {
+        return g_PTrustAbilityLists[ListID];
     }
 };

@@ -1,32 +1,28 @@
--- phpMyAdmin SQL Dump
--- version 3.3.8
--- http://www.phpmyadmin.net
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
--- Serveur: localhost
--- Généré le : Dim 21 Octobre 2012 à 17:24
--- Version du serveur: 6.0.0
--- Version de PHP: 5.2.9-2
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
+-- Host: localhost    Database: dspdb
+-- ------------------------------------------------------
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Base de données: `dspdb`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `char_stats`
+-- Table structure for table `char_stats`
 --
 
 DROP TABLE IF EXISTS `char_stats`;
-CREATE TABLE IF NOT EXISTS `char_stats` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `char_stats` (
   `charid` int(10) unsigned NOT NULL,
   `hp` smallint(4) unsigned NOT NULL DEFAULT '50',
   `mp` smallint(4) unsigned NOT NULL DEFAULT '50',
@@ -37,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `char_stats` (
   `death` int(10) unsigned NOT NULL DEFAULT '0',
   `2h` int(10) unsigned NOT NULL DEFAULT '0',
   `title` smallint(4) unsigned NOT NULL DEFAULT '0',
-  `bazaar_message` BLOB,
+  `bazaar_message` blob,
   `zoning` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `mlvl` tinyint(2) unsigned NOT NULL DEFAULT '1',
   `slvl` tinyint(2) unsigned NOT NULL DEFAULT '1',
@@ -47,3 +43,55 @@ CREATE TABLE IF NOT EXISTS `char_stats` (
   `pet_mp` smallint(4) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`charid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `char_stats`
+--
+-- ORDER BY:  `charid`
+
+/*!40000 ALTER TABLE `char_stats` DISABLE KEYS */;
+INSERT INTO `char_stats` VALUES (1,9999,6424,131072,0,4,13,0,0,169,NULL,0,71,35,0,0,0,0);
+INSERT INTO `char_stats` VALUES (2,1201,38,131072,0,13,1,0,0,72,NULL,0,75,37,0,0,0,0);
+INSERT INTO `char_stats` VALUES (3,843,966,131072,0,5,4,0,0,22,NULL,0,75,37,0,0,0,0);
+INSERT INTO `char_stats` VALUES (4,947,197,131072,0,3,5,0,0,36,NULL,0,65,32,0,0,0,0);
+INSERT INTO `char_stats` VALUES (5,235,0,393216,0,1,0,0,0,206,NULL,0,16,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (6,8580,7447,4096,0,5,0,0,0,10,NULL,0,75,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (7,3102,0,0,0,1,0,0,0,168,0x49276D206C696B656C792041464B2E2E2E20416C77617973206177617920666F722074657374696E2020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020,0,22,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (8,5100,1364,131072,0,7,19,0,0,207,NULL,0,28,14,0,0,0,0);
+INSERT INTO `char_stats` VALUES (9,50,50,0,0,1,0,0,0,0,NULL,0,1,1,0,0,0,0);
+INSERT INTO `char_stats` VALUES (10,24,26,0,0,5,0,0,0,206,NULL,0,1,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (11,35,0,262144,0,2,0,0,0,206,NULL,0,1,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (12,81,0,262144,0,2,0,0,0,206,NULL,0,4,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (13,1148,302,0,0,7,1,0,0,1,NULL,0,75,37,0,0,0,0);
+INSERT INTO `char_stats` VALUES (14,1298,0,0,0,12,6,0,0,1,NULL,0,75,35,0,0,0,0);
+INSERT INTO `char_stats` VALUES (15,761,690,0,0,3,4,0,0,1,NULL,0,70,35,0,0,0,0);
+INSERT INTO `char_stats` VALUES (16,154,98,393216,0,5,0,0,0,206,NULL,0,14,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (17,27,22,0,0,3,0,0,0,206,NULL,0,1,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (18,95,0,262144,0,6,0,0,0,206,NULL,0,5,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (19,396,0,131072,0,19,13,0,0,465,NULL,0,27,13,0,0,0,0);
+INSERT INTO `char_stats` VALUES (20,470,73,0,0,10,3,0,0,214,NULL,0,30,15,0,0,0,0);
+INSERT INTO `char_stats` VALUES (21,155,0,0,0,1,0,0,0,206,NULL,0,8,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (23,107,0,0,0,1,0,0,0,206,NULL,0,8,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (24,215,3,0,0,6,0,0,0,206,NULL,0,20,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (25,103,0,0,0,6,0,0,0,206,NULL,0,7,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (26,229,163,0,0,5,4,0,0,206,NULL,0,15,7,0,0,0,0);
+INSERT INTO `char_stats` VALUES (27,50,50,0,0,4,0,0,0,0,NULL,0,1,1,0,0,0,0);
+INSERT INTO `char_stats` VALUES (28,21,30,262144,0,4,0,0,0,206,NULL,0,1,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (29,31,0,262144,0,1,0,0,0,206,NULL,0,1,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (30,71,47,262144,0,4,0,0,0,206,NULL,0,6,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (31,21,30,262144,0,4,0,0,0,206,NULL,0,1,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (32,113,0,0,0,2,0,0,0,206,NULL,0,5,0,0,0,0,0);
+INSERT INTO `char_stats` VALUES (33,147,0,0,0,2,0,0,0,206,NULL,0,8,0,0,0,0,0);
+/*!40000 ALTER TABLE `char_stats` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-06-20  8:27:33
