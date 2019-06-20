@@ -1,1 +1,0 @@
-taskkill /f /im DSSearch-server.exe

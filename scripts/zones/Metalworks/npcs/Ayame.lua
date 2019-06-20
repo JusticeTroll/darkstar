@@ -83,7 +83,7 @@ end;
 function TrustMemory(player)
 	local memories = 0;
 	--2 - the three kingdoms
-	if (player:hasCompletedMission(SANDORIA, JOURNEY_TO_BASTOK2) or player:hasCompletedMission(WINDURST, dsp.mission.id.sandoria.THE_THREE_KINGDOMS_BASTOK2)) then
+	if (player:hasCompletedMission(SANDORIA, dsp.mission.id.sandoria.JOURNEY_TO_BASTOK2) or player:hasCompletedMission(WINDURST, dsp.mission.id.windurst.THE_THREE_KINGDOMS_BASTOK2)) then
 		memories = memories + 2;
 	end
 	--4 - where two paths converge

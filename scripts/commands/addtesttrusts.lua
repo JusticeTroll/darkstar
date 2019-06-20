@@ -5,7 +5,7 @@
 
 cmdprops =
 {
-    permission = 0,
+    permission = 5,
     parameters = "s"
 }
 
@@ -20,7 +20,7 @@ function onTrigger(player, target)
         896,887,898,899,900,901,902,905,1019
     }
 --896 Shantotto
---887 Naji
+--897 Naji
 --898 Kupipi
 --899 Excenmille
 --900 Ayame
