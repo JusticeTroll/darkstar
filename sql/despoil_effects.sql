@@ -1,35 +1,42 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               5.7.14-log - MySQL Community Server (GPL)
--- Server OS:                    Win64
--- HeidiSQL Version:             10.1.0.5464
--- --------------------------------------------------------
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+--
+-- Host: localhost    Database: dspdb
+-- ------------------------------------------------------
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping structure for table dspdb.despoil_effects
-CREATE TABLE IF NOT EXISTS `despoil_effects` (
-  `itemId` smallint(5) unsigned NOT NULL,
-  `effectId` smallint(5) unsigned NOT NULL,
-  PRIMARY KEY (`itemId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- Dumping data for table `despoil_effects`
+--
+-- ORDER BY:  `itemId`
 
--- Dumping data for table dspdb.despoil_effects: ~7 rows (approximately)
 /*!40000 ALTER TABLE `despoil_effects` DISABLE KEYS */;
-INSERT INTO `despoil_effects` (`itemId`, `effectId`) VALUES
-	(644, 149),
-	(842, 146),
-	(881, 149),
-	(955, 167),
-	(2334, 175),
-	(4376, 147),
-	(4400, 13);
+INSERT INTO `despoil_effects` VALUES (644,149);
+INSERT INTO `despoil_effects` VALUES (842,146);
+INSERT INTO `despoil_effects` VALUES (881,149);
+INSERT INTO `despoil_effects` VALUES (955,167);
+INSERT INTO `despoil_effects` VALUES (2334,175);
+INSERT INTO `despoil_effects` VALUES (4376,147);
+INSERT INTO `despoil_effects` VALUES (4400,13);
 /*!40000 ALTER TABLE `despoil_effects` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-06-20 16:46:04

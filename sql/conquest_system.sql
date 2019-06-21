@@ -1,52 +1,54 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               5.7.14-log - MySQL Community Server (GPL)
--- Server OS:                    Win64
--- HeidiSQL Version:             10.1.0.5464
--- --------------------------------------------------------
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+--
+-- Host: localhost    Database: dspdb
+-- ------------------------------------------------------
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping structure for table dspdb.conquest_system
-CREATE TABLE IF NOT EXISTS `conquest_system` (
-  `region_id` tinyint(2) NOT NULL DEFAULT '0',
-  `region_control` tinyint(2) NOT NULL DEFAULT '0',
-  `region_control_prev` tinyint(2) NOT NULL DEFAULT '0',
-  `sandoria_influence` int(10) NOT NULL DEFAULT '0',
-  `bastok_influence` int(10) NOT NULL DEFAULT '0',
-  `windurst_influence` int(10) NOT NULL DEFAULT '0',
-  `beastmen_influence` int(10) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`region_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+--
+-- Dumping data for table `conquest_system`
+--
+-- ORDER BY:  `region_id`
 
--- Dumping data for table dspdb.conquest_system: 19 rows
 /*!40000 ALTER TABLE `conquest_system` DISABLE KEYS */;
-INSERT INTO `conquest_system` (`region_id`, `region_control`, `region_control_prev`, `sandoria_influence`, `bastok_influence`, `windurst_influence`, `beastmen_influence`) VALUES
-	(0, 0, 1, 3463, 0, 1511, 26),
-	(1, 2, 1, 2968, 3, 950, 79),
-	(2, 0, 1, 3000, 0, 0, 2000),
-	(3, 1, 1, 0, 4990, 0, 10),
-	(4, 1, 0, 5000, 0, 0, 0),
-	(5, 2, 0, 0, 0, 5000, 0),
-	(6, 2, 0, 111, 0, 3664, 1225),
-	(7, 2, 0, 0, 0, 2600, 2400),
-	(8, 3, 0, 0, 0, 0, 5000),
-	(9, 3, 3, 0, 0, 0, 5000),
-	(10, 3, 3, 2780, 399, 399, 1422),
-	(11, 3, 3, 0, 0, 0, 5000),
-	(12, 3, 3, 0, 0, 0, 5000),
-	(13, 3, 3, 0, 0, 0, 5000),
-	(14, 3, 3, 0, 0, 0, 5000),
-	(15, 3, 3, 3416, 0, 0, 1584),
-	(16, 3, 3, 0, 0, 0, 5000),
-	(17, 3, 3, 0, 0, 0, 5000),
-	(18, 3, 3, 0, 0, 0, 5000);
+INSERT INTO `conquest_system` VALUES (0,0,1,4990,0,0,10);
+INSERT INTO `conquest_system` VALUES (1,0,1,3898,3,0,99);
+INSERT INTO `conquest_system` VALUES (2,0,1,5000,0,0,0);
+INSERT INTO `conquest_system` VALUES (3,0,1,4626,365,0,9);
+INSERT INTO `conquest_system` VALUES (4,0,0,5000,0,0,0);
+INSERT INTO `conquest_system` VALUES (5,2,0,1256,0,3696,48);
+INSERT INTO `conquest_system` VALUES (6,2,0,68,0,3847,1085);
+INSERT INTO `conquest_system` VALUES (7,0,0,4900,0,0,100);
+INSERT INTO `conquest_system` VALUES (8,3,0,118,0,0,4882);
+INSERT INTO `conquest_system` VALUES (9,3,3,116,0,0,4884);
+INSERT INTO `conquest_system` VALUES (10,0,3,5000,0,0,0);
+INSERT INTO `conquest_system` VALUES (11,3,3,0,0,0,5000);
+INSERT INTO `conquest_system` VALUES (12,3,3,399,678,0,3923);
+INSERT INTO `conquest_system` VALUES (13,0,3,5000,0,0,0);
+INSERT INTO `conquest_system` VALUES (14,3,3,92,0,0,4908);
+INSERT INTO `conquest_system` VALUES (15,0,3,5000,0,0,0);
+INSERT INTO `conquest_system` VALUES (16,0,3,4400,0,0,600);
+INSERT INTO `conquest_system` VALUES (17,3,3,0,0,0,5000);
+INSERT INTO `conquest_system` VALUES (18,3,3,0,0,0,5000);
 /*!40000 ALTER TABLE `conquest_system` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-06-20 16:46:08
