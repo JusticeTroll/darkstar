@@ -2,7 +2,9 @@
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
+
 -- Server version	5.7.25-log
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -21,6 +23,7 @@
 -- ORDER BY:  `zoneid`
 
 /*!40000 ALTER TABLE `zone_settings` DISABLE KEYS */;
+
 INSERT INTO `zone_settings` VALUES (0,1,'24.119.124.214',54230,'unknown',0,0,0,0,0,0.00,32);
 INSERT INTO `zone_settings` VALUES (1,2,'24.119.124.214',54230,'Phanauet_Channel',229,229,101,219,0,0.00,184);
 INSERT INTO `zone_settings` VALUES (2,2,'24.119.124.214',54230,'Carpenters_Landing',0,0,101,219,0,0.00,188);
@@ -319,6 +322,8 @@ INSERT INTO `zone_settings` VALUES (294,5,'24.119.124.214',54230,'Dynamis-San_dO
 INSERT INTO `zone_settings` VALUES (295,5,'24.119.124.214',54230,'Dynamis-Bastok_[D]',88,88,88,88,0,0.00,432);
 INSERT INTO `zone_settings` VALUES (296,5,'24.119.124.214',54230,'Dynamis-Windurst_[D]',88,88,88,88,0,0.00,432);
 INSERT INTO `zone_settings` VALUES (297,5,'24.119.124.214',54230,'Dynamis-Jeuno_[D]',88,88,88,88,0,0.00,432);
+INSERT INTO `zone_settings` VALUES (298,0,'127.0.0.1',54230,'Walk_of_Echoes_[P]',186,186,186,186,0,0.00,32);
+
 /*!40000 ALTER TABLE `zone_settings` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
