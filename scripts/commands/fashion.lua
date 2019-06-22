@@ -67,9 +67,7 @@ function onTrigger(player)
        14519,100000,	-- Dream Robe
        11965,100000,	-- Dream Trousers
 	}
-    
-showShop(player, STATIC, stock);
-
-
+dsp.shop.general(player, stock)	
+--showShop(player, STATIC, stock);
 end;
 
