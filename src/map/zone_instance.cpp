@@ -30,9 +30,9 @@ This file is part of DarkStar-server source code.
 #include "ai/ai_container.h"
 
 /************************************************************************
-*                                                                       *
-*  Класс CZoneInstance                                                  *
-*                                                                       *
+*																		*
+*  Класс CZoneInstance													*
+*																		*
 ************************************************************************/
 
 CZoneInstance::CZoneInstance(ZONEID ZoneID, REGIONTYPE RegionID, CONTINENTTYPE ContinentID)
@@ -104,6 +104,21 @@ void CZoneInstance::DeletePET(CBaseEntity* PPet)
     }
 }
 
+void CZoneInstance::InsertTRUST(CBaseEntity* PTrust)
+{
+    if (PTrust->PInstance)
+    {
+        PTrust->PInstance->InsertTRUST(PTrust);
+    }
+}
+
+void CZoneInstance::DeleteTRUST(CBaseEntity* PTrust)
+{
+    if (PTrust->PInstance)
+    {
+        PTrust->PInstance->DeleteTRUST(PTrust);
+    }
+}
 void CZoneInstance::InsertPET(CBaseEntity* PPet)
 {
     if (PPet->PInstance)
@@ -223,7 +238,7 @@ void CZoneInstance::IncreaseZoneCounter(CCharEntity* PChar)
 
         uint16 zoneid = luautils::OnInstanceLoadFailed(this);
 
-        zoneutils::GetZone(zoneid >= MAX_ZONEID ? PChar->loc.prevzone : zoneid)->IncreaseZoneCounter(PChar);
+        zoneutils::GetZone(zoneid > MAX_ZONEID ? PChar->loc.prevzone : zoneid)->IncreaseZoneCounter(PChar);
     }
 }
 
@@ -243,7 +258,13 @@ void CZoneInstance::SpawnPETs(CCharEntity* PChar)
     }
 }
 
-void CZoneInstance::SpawnNPCs(CCharEntity* PChar)
+void CZoneInstance::SpawnTRUSTs(CCharEntity* PChar)
+{
+    if (PChar->PInstance)
+    {
+        PChar->PInstance->SpawnTRUSTs(PChar);
+    }
+}void CZoneInstance::SpawnNPCs(CCharEntity* PChar)
 {
     if (PChar->PInstance)
     {
