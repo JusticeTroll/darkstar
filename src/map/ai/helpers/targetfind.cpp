@@ -120,14 +120,15 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
                 // add my trust too, if its allowed
                 if (((CCharEntity*)m_PMasterTarget)->PTrusts.size() > 0)
                 {
-                    for each (auto trust in ((CCharEntity*)m_PMasterTarget)->PTrusts)
+                    for (each (auto trust in ((CCharEntity*)m_PMasterTarget)->PTrusts))
                     {
                         if (validEntity((CBattleEntity*)trust))
                         {
                             m_targets.push_back((CBattleEntity*)trust);
                         }
-                    }
-                }            }
+                    };
+                }            
+			}
             else {
                 // just add myself
                 addEntity(m_PMasterTarget, withPet);
