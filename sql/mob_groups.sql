@@ -26,7 +26,6 @@ CREATE TABLE `mob_groups` (
   `groupid` int(10) unsigned NOT NULL,
   `poolid` int(10) unsigned NOT NULL DEFAULT 0,
   `zoneid` smallint(3) unsigned NOT NULL DEFAULT 0,
-  `name` varchar(24) DEFAULT NULL,
   `respawntime` int(10) unsigned NOT NULL DEFAULT 0,
   `spawntype` tinyint(3) unsigned NOT NULL DEFAULT 0,
   `dropid` int(10) unsigned NOT NULL DEFAULT 0,
