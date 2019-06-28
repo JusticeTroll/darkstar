@@ -11,6 +11,7 @@ require("scripts/globals/settings")
 require("scripts/globals/wsquest")
 require("scripts/globals/quests")
 require("scripts/globals/status")
+require("scripts/globals/missions");
 -----------------------------------
 
 local wsQuest = dsp.wsquest.savage_blade
@@ -32,6 +33,7 @@ function onTrigger(player,npc)
     local envelopedInDarkness = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.ENVELOPED_IN_DARKNESS)
     local peaceForTheSpirit = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.PEACE_FOR_THE_SPIRIT)
     local WildcatSandy = player:getVar("WildcatSandy")
+	local rank3 = player:getRank(BASTOK) >= 3 and 1 or player:getRank(SANDORIA) >= 3 and 1 or player:getRank(WINDURST) >= 3 and 1 or 0;
 
     if wsQuestEvent ~= nil then
         player:startEvent(wsQuestEvent)
@@ -63,7 +65,9 @@ function onTrigger(player,npc)
         player:startEvent(114) -- Standard dialog after Enveloped in darkness
     elseif (peaceForTheSpirit == QUEST_COMPLETED) then
         player:startEvent(52) -- Standard dialog after Peace of the spirit
-    else
+	elseif (player:hasKeyItem(dsp.keyItem.SAN_DORIA_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.CURILLA) == false) then			
+		player:startEvent(573,0,0,0,TrustMemory(player),0,0,0,rank3); -- TRUST
+	else
         player:startEvent(530) -- Standard dialog
     end
 
@@ -95,7 +99,37 @@ function onEventFinish(player,csid,option)
         player:setVar("needs_crawler_blood",1)
     elseif (csid == 562) then
         player:setMaskBit(player:getVar("WildcatSandy"),"WildcatSandy",15,true)
-    else
+    	
+	--TRUST
+	elseif (csid == 573 and option == 2) then
+		player:addSpell(dsp.trust.CURILLA, true);
+		player:PrintToPlayer("You learned Trust: Curilla!", 0xD);
+	else
         dsp.wsquest.handleEventFinish(wsQuest,player,csid,option,ID.text.SAVAGE_BLADE_LEARNED)
     end
+end
+
+function TrustMemory(player)
+	local memories = 0;
+	--2 - PEACE_FOR_THE_SPIRIT
+	if(player:hasCompletedQuest(SANDORIA, dsp.quest.id.sandoria.PEACE_FOR_THE_SPIRIT)) then
+		memories = memories + 2;
+	end
+	--4 - OLD_WOUNDS
+	if(player:hasCompletedQuest(SANDORIA, dsp.quest.id.sandoria.OLD_WOUNDS)) then
+		memories = memories + 4;
+	end
+	--8 - THE_HEIR_TO_THE_LIGHT
+	if(player:hasCompletedMission(SANDORIA, dsp.mission.id.sandoria.THE_HEIR_TO_THE_LIGHT)) then
+		memories = memories + 8;
+	end
+	--16 - Heroine's Combat BCNM
+	--if() then
+	--	memories = memories + 16;
+	--end
+	--32 - FIT_FOR_A_PRINCE
+	if(player:hasCompletedQuest(SANDORIA, dsp.quest.id.sandoria.FIT_FOR_A_PRINCE)) then
+		memories = memories + 32;
+	end
+	return memories;
 end

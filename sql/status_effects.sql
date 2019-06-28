@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.21, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version   5.6.21-log
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,32 +16,10 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `status_effects`
---
-
-DROP TABLE IF EXISTS `status_effects`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `status_effects` (
-  `id` smallint(5) unsigned NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `flags` int(8) unsigned NOT NULL DEFAULT '0',
-  `type` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `negative_id` smallint(5) unsigned DEFAULT '0',
-  `overwrite` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `block_id` smallint(5) unsigned DEFAULT '0',
-  `remove_id` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `element` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `min_duration` smallint(5) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `status_effects`
 --
+-- ORDER BY:  `id`
 
-LOCK TABLES `status_effects` WRITE;
 /*!40000 ALTER TABLE `status_effects` DISABLE KEYS */;
 INSERT INTO `status_effects` VALUES (0,'ko',0,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (1,'weakness',8388608,0,0,3,0,0,0,1);
@@ -636,8 +614,6 @@ INSERT INTO `status_effects` VALUES (608,'negate_virus',289,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (609,'negate_curse',289,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (610,'negate_charm',289,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (611,'magic_evasion_boost_ii',32,0,0,0,0,0,0,0);
-
-
 INSERT INTO `status_effects` VALUES (768,'abyssea_str',256,0,0,0,0,0,1,0);
 INSERT INTO `status_effects` VALUES (769,'abyssea_dex',256,0,0,0,0,0,6,0);
 INSERT INTO `status_effects` VALUES (770,'abyssea_vit',256,0,0,0,0,0,2,0);
@@ -673,7 +649,6 @@ INSERT INTO `status_effects` VALUES (799,'skillchain',32,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (800,'dynamis',33554432,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (801,'meditate',32,0,0,0,0,0,7,0);
 /*!40000 ALTER TABLE `status_effects` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -684,4 +659,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-14 10:17:54
+-- Dump completed on 2019-06-20 16:46:04

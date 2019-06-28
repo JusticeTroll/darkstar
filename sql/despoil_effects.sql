@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.20-log
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,34 +16,19 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `despoil_effects`
---
-
-DROP TABLE IF EXISTS `despoil_effects`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `despoil_effects` (
-  `itemId` smallint(5) unsigned NOT NULL,
-  `effectId` smallint(5) unsigned NOT NULL,
-  PRIMARY KEY (`itemId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `despoil_effects`
 --
+-- ORDER BY:  `itemId`
 
-LOCK TABLES `despoil_effects` WRITE;
 /*!40000 ALTER TABLE `despoil_effects` DISABLE KEYS */;
-INSERT INTO `despoil_effects` VALUES (644,149);		-- Mythril Ore, Defense Down
-INSERT INTO `despoil_effects` VALUES (842,146); 	-- Giant Bird Feather, Accuracy Down
-INSERT INTO `despoil_effects` VALUES (881,149); 	-- Crab Shell, Defense Down
-INSERT INTO `despoil_effects` VALUES (955,167);		-- Golem Shard, Magic Defense Down
-INSERT INTO `despoil_effects` VALUES (2334,175);	-- Poroggo Hat, Magic Attack Down
-INSERT INTO `despoil_effects` VALUES (4376,147);	-- Meat Jerky, Attack Down
-INSERT INTO `despoil_effects` VALUES (4400,13);		-- Land Crab Meat, Slow
+INSERT INTO `despoil_effects` VALUES (644,149);
+INSERT INTO `despoil_effects` VALUES (842,146);
+INSERT INTO `despoil_effects` VALUES (881,149);
+INSERT INTO `despoil_effects` VALUES (955,167);
+INSERT INTO `despoil_effects` VALUES (2334,175);
+INSERT INTO `despoil_effects` VALUES (4376,147);
+INSERT INTO `despoil_effects` VALUES (4400,13);
 /*!40000 ALTER TABLE `despoil_effects` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -54,4 +39,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-31 16:58:02
+-- Dump completed on 2019-06-20 16:46:04

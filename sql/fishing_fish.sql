@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.2.7-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	10.2.7-MariaDB
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,32 +16,10 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `fishing_fish`
---
-
-DROP TABLE IF EXISTS `fishing_fish`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `fishing_fish` (
-  `fishid` int(10) unsigned NOT NULL,
-  `name` text NOT NULL,
-  `min` tinyint(3) unsigned NOT NULL DEFAULT 0,
-  `max` tinyint(3) unsigned NOT NULL DEFAULT 0,
-  `watertype` tinyint(3) unsigned NOT NULL DEFAULT 0,
-  `size` tinyint(3) unsigned NOT NULL DEFAULT 0,
-  `stamina` tinyint(3) unsigned NOT NULL DEFAULT 0,
-  `log` tinyint(3) unsigned NOT NULL DEFAULT 255,
-  `quest` tinyint(3) unsigned NOT NULL DEFAULT 255,
-  PRIMARY KEY (`fishid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=23;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `fishing_fish`
 --
 -- ORDER BY:  `fishid`
 
-LOCK TABLES `fishing_fish` WRITE;
 /*!40000 ALTER TABLE `fishing_fish` DISABLE KEYS */;
 INSERT INTO `fishing_fish` VALUES (90,'Rusty Bucket',0,0,0,0,0,255,255);
 INSERT INTO `fishing_fish` VALUES (624,'Pamtam Kelp',0,0,0,0,0,255,255);
@@ -177,7 +155,6 @@ INSERT INTO `fishing_fish` VALUES (16537,'Mythril Sword',0,0,0,0,0,255,255);
 INSERT INTO `fishing_fish` VALUES (16606,'Rusty Greatsword',0,0,0,0,0,255,255);
 INSERT INTO `fishing_fish` VALUES (16655,'Rusty Pick',0,0,0,0,0,255,255);
 /*!40000 ALTER TABLE `fishing_fish` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -188,4 +165,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-03 17:38:03
+-- Dump completed on 2019-06-20 16:46:07

@@ -5,7 +5,7 @@
 
 cmdprops =
 {
-    permission = 1,
+    permission = 0,
     parameters = "s"
 }
 
@@ -27,4 +27,5 @@ function onTrigger(player, name)
     end
 
     target:release()
+	target:PrintToPlayer("Use !goto <me> to warp out of the cutscene now")
 end

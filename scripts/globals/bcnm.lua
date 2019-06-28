@@ -238,20 +238,20 @@ local battlefields = {
 
     [146] = {               -- BALGA'S DIAS
         { 0,   96,    0},   -- The Rank 2 Final Mission (Mission 2-3)
-        { 1,   97, 1131},   -- Steamed Sprouts (BS40)
-        { 2,   98, 1130},   -- Divine Punishers (BS60)
+     -- { 1,   97, 1131},   -- Steamed Sprouts (BS40)
+     -- { 2,   98, 1130},   -- Divine Punishers (BS60)
         { 3,   99,    0},   -- Saintly Invitation (Windy 6-2)
-        { 4,  100, 1177},   -- Treasure and Tribulations (BS50)
+     -- { 4,  100, 1177},   -- Treasure and Tribulations (BS50)
         { 5,  101, 1427},   -- Shattering Stars (MNK LB5)
         { 6,  102, 1428},   -- Shattering Stars (WHM LB5)
         { 7,  103, 1440},   -- Shattering Stars (SMN LB5)
-        { 8,  104, 1552},   -- Creeping Doom (BS30)
+     -- { 8,  104, 1552},   -- Creeping Doom (BS30)
         { 9,  105, 1551},   -- Charming Trio (BS20)
-        {10,  106, 1552},   -- Harem Scarem (BS30)
+     -- {10,  106, 1552},   -- Harem Scarem (BS30)
         {11,  107, 1553},   -- Early Bird Catches the Wyrm (KS99)
-        {12,  108, 1131},   -- Royal Succession (BS40)
-        {13,  109, 1177},   -- Rapid Raptors (BS50)
-        {14,  110, 1130},   -- Wild Wild Whiskers (BS60)
+     -- {12,  108, 1131},   -- Royal Succession (BS40)
+     -- {13,  109, 1177},   -- Rapid Raptors (BS50)
+     -- {14,  110, 1130},   -- Wild Wild Whiskers (BS60)
      -- {15,  111, 1175},   -- Seasons Greetings (KS30)
      -- {16,  112, 1178},   -- Royale Ramble (KS30)
      -- {17,  113, 1180},   -- Moa Constrictors (KS30)
@@ -467,7 +467,7 @@ function checkReqs(player, npc, bfid, registrant)
         [   6] = function() return ( mjob == dsp.job.BLM and mlvl >= 66                                                                                ) end, -- Quest: Shattering Stars (BLM LB5)
         [   7] = function() return ( mjob == dsp.job.RNG and mlvl >= 66                                                                                ) end, -- Quest: Shattering Stars (RNG LB5)
         [  20] = function() return ( player:hasKeyItem(dsp.ki.SOUL_GEM_CLASP)                                                                              ) end, -- Quest: Beyond Infinity
-        [  32] = function() return ( sandy == dsp.mission.id.sandoria.SAVE_THE_CHILDREN and ((stc and natStat <= 2) or (not stc and natStat == 2))                    ) end, -- Sandy 1-3: Save the Children
+        [  32] = function() return ( sandy == dsp.mission.id.sandoria.SAVE_THE_CHILDREN and ((stc and missionStatus <= 2) or (not stc and natStat == 2))                    ) end, -- Sandy 1-3: Save the Children
         [  33] = function() return ( player:hasKeyItem(dsp.ki.DRAGON_CURSE_REMEDY)                                                                         ) end, -- Quest: The Holy Crest
         [  64] = function() return ( (sandy == dsp.mission.id.sandoria.JOURNEY_TO_BASTOK2 or windy == dsp.mission.id.windurst.THE_THREE_KINGDOMS_BASTOK2) and natStat == 10                         ) end, -- Mission 2-3
         [  67] = function() return ( basty == dsp.mission.id.bastok.ON_MY_WAY and natStat == 2                                                                            ) end, -- Basty 7-2: On My Way
@@ -481,7 +481,7 @@ function checkReqs(player, npc, bfid, registrant)
         [ 102] = function() return ( mjob == dsp.job.WHM and mlvl >= 66                                                                                ) end, -- Quest: Shattering Stars (WHM LB5)
         [ 103] = function() return ( mjob == dsp.job.SMN and mlvl >= 66                                                                                ) end, -- Quest: Shattering Stars (SMN LB5)
         [ 128] = function() return ( roz == dsp.mission.id.zilart.THE_TEMPLE_OF_UGGALEPIH                                                                                 ) end, -- ZM4: The Temple of Uggalepih
-        [ 160] = function() return ( sandy == dsp.mission.id.sandoria.THE_SHADOW_LORD and natStat == 3                                                                                 ) end, -- Mission 5-2
+        [ 160] = function() return ( mission == 15 and natStat == 3                                                                                 ) end, -- Mission 5-2
         [ 161] = function() return ( basty == dsp.mission.id.bastok.WHERE_TWO_PATHS_CONVERGE and player:getVar("BASTOK92") == 1                                           ) end, -- Basty 9-2: Where Two Paths Converge
         [ 163] = function() return ( mjob == dsp.job.SCH and mlvl >= 66                                                                                ) end, -- Quest: Survival of the Wisest (SCH LB5)
         [ 192] = function() return ( roz == dsp.mission.id.zilart.THROUGH_THE_QUICKSAND_CAVES                                                                             ) end, -- ZM6: Through the Quicksand Caves

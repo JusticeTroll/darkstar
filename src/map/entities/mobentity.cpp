@@ -317,7 +317,20 @@ bool CMobEntity::CanDeaggro()
     return !(m_Type & MOBTYPE_NOTORIOUS || m_Type & MOBTYPE_BATTLEFIELD);
 }
 
-bool CMobEntity::IsFarFromHome()
+bool CMobEntity::HasID(uint32 PPlayer)
+{
+    if (this != nullptr)
+    {
+        if (PEnmityContainer != nullptr)
+        {
+            if (PEnmityContainer->HasID(PPlayer))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}bool CMobEntity::IsFarFromHome()
 {
     return distance(loc.p, m_SpawnPoint) > m_maxRoamDistance;
 }

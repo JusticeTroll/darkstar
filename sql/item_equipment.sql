@@ -1,8 +1,8 @@
--- MySQL dump 10.14  Distrib 5.5.52-MariaDB, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version   5.5.52-MariaDB-1ubuntu0.14.04.1
+-- Server version	5.7.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,32 +16,10 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `item_equipment`
---
-
-DROP TABLE IF EXISTS `item_equipment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `item_equipment` (
-  `itemId` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `name` tinytext,
-  `level` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `ilevel` tinyint(3) NOT NULL DEFAULT '0',
-  `jobs` int(10) unsigned NOT NULL DEFAULT '0',
-  `MId` smallint(3) unsigned NOT NULL DEFAULT '0',
-  `shieldSize` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `scriptType` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `slot` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `rslot` smallint(5) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`itemId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=37 PACK_KEYS=1 CHECKSUM=1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `item_equipment`
 --
+-- ORDER BY:  `itemId`
 
-LOCK TABLES `item_equipment` WRITE;
 /*!40000 ALTER TABLE `item_equipment` DISABLE KEYS */;
 INSERT INTO `item_equipment` VALUES (10240,'hexed_haubert',99,0,8641,5,0,0,32,0);
 INSERT INTO `item_equipment` VALUES (10241,'hexed_domaru',99,0,137218,4,0,0,32,0);
@@ -10712,27 +10690,18 @@ INSERT INTO `item_equipment` VALUES (21750,'guttler',99,119,256,547,0,1,3,0);
 INSERT INTO `item_equipment` VALUES (21751,'aymur',99,119,256,562,0,1,3,0);
 INSERT INTO `item_equipment` VALUES (21752,'farsha',99,119,257,574,0,1,3,0);
 INSERT INTO `item_equipment` VALUES (21753,'tri-edge',99,119,256,763,0,0,3,0);
-INSERT INTO `item_equipment` VALUES (21754,'aganoshe',99,119,1,451,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21754,'aganoshe',99,0,1,451,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21755,'hodadenon',99,119,1,520,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21756,'bravura',99,119,1,548,0,1,1,0);
 INSERT INTO `item_equipment` VALUES (21757,'conqueror',99,119,1,555,0,1,1,0);
 INSERT INTO `item_equipment` VALUES (21758,'ukonvasara',99,119,1,575,0,1,1,0);
-INSERT INTO `item_equipment` VALUES (21761,'zadha_chopper',1,0,4194303,0,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21762,'arasy_axe',99,119,2097281,92,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21763,'arasy_axe_+1',99,119,2097281,92,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21765,'hepatizon_axe',99,119,2097281,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21766,'hepatizon_axe_+1',99,119,2097281,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21767,'raetic_chopper',99,119,2638473,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21768,'raetic_chopper_+1',99,119,2638473,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21772,'war._chopper',99,119,1,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21773,'agoge_chopper',99,119,1,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21774,'labraunda',99,119,1,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21775,'tokko_chopper',99,119,2097281,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21776,'ajja_chopper',99,119,2097281,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21777,'eletta_chopper',99,119,2097281,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21778,'kaja_chopper',99,119,2097281,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21779,'lycurgos',99,119,2097281,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21804,'obschine',99,119,128,393,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21765,'hepatizon_axe',99,0,2097281,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21766,'hepatizon_axe_+1',99,0,2097281,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21767,'raetic_chopper',99,0,2638473,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21768,'raetic_chopper_+1',99,0,2638473,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21804,'obschine',99,0,128,393,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21805,'pixquizpan',99,119,393,366,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21806,'pixquizpan_+1',99,119,393,366,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21808,'apocalypse',99,119,128,550,0,1,1,0);
@@ -10740,44 +10709,23 @@ INSERT INTO `item_equipment` VALUES (21809,'liberator',99,119,128,561,0,1,1,0);
 INSERT INTO `item_equipment` VALUES (21810,'redemption',99,119,128,576,0,1,1,0);
 INSERT INTO `item_equipment` VALUES (21812,'arasy_scythe',99,119,128,194,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21813,'arasy_scythe_+1',99,119,128,194,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21815,'maliya_sickle',99,119,393,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21816,'maliya_sickle_+1',99,119,393,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21815,'maliya_sickle',99,0,393,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21816,'maliya_sickle_+1',99,0,393,0,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21817,'rune_scythe',70,0,393,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21818,'raetic_scythe',99,119,393,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21819,'raetic_scythe_+1',99,119,393,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21820,'lost_sickle',1,0,4194303,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21821,'lost_sickle_+1',1,0,4194303,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21823,'abyss_scythe',99,119,128,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21824,'fallens_scythe',99,119,128,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21825,'father_time',99,119,128,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21826,'tokko_scythe',99,119,128,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21827,'ajja_scythe',99,119,128,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21828,'eletta_scythe',99,119,128,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21829,'kaja_scythe',99,119,128,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21830,'drepanum',99,119,128,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21854,'reienkyo',99,119,8192,391,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21818,'raetic_scythe',99,0,393,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21819,'raetic_scythe_+1',99,0,393,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21854,'reienkyo',99,0,8192,391,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21855,'lembing',99,119,8192,214,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21857,'gungnir',99,119,8192,549,0,1,1,0);
 INSERT INTO `item_equipment` VALUES (21858,'ryunohige',99,119,8192,566,0,1,1,0);
 INSERT INTO `item_equipment` VALUES (21859,'rhongomiant',99,119,8192,577,0,1,1,0);
-INSERT INTO `item_equipment` VALUES (21860,'aern_spear',1,0,4194303,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21862,'mizukage_naginata',1,0,4194303,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21863,'tzee_xicus_blade',1,0,4194303,0,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21865,'arasy_lance',99,119,8192,209,0,0,1,0);
 INSERT INTO `item_equipment` VALUES (21866,'arasy_lance_+1',99,119,8192,209,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21869,'exalted_spear',99,119,10305,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21870,'exalted_spear_+1',99,119,10305,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21871,'raetic_halberd',99,119,551497,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21872,'raetic_halberd_+1',99,119,551497,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21876,'wyrm_lance',99,119,8192,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21877,'pteroslaver_lance',99,119,8192,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21878,'aram',99,119,8192,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21879,'tokko_lance',99,119,10305,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21880,'ajja_lance',99,119,10305,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21881,'eletta_lance',99,119,10305,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21882,'kaja_lance',99,119,10305,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21883,'shining_one',99,119,10305,0,0,0,1,0);
-INSERT INTO `item_equipment` VALUES (21904,'kanaria',99,119,4096,371,0,0,3,0);
+INSERT INTO `item_equipment` VALUES (21869,'exalted_spear',99,0,10305,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21870,'exalted_spear_+1',99,0,10305,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21871,'raetic_halberd',99,0,551497,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21872,'raetic_halberd_+1',99,0,551497,0,0,0,1,0);
+INSERT INTO `item_equipment` VALUES (21904,'kanaria',99,0,4096,371,0,0,3,0);
 INSERT INTO `item_equipment` VALUES (21905,'taka',99,119,4096,605,0,0,3,0);
 INSERT INTO `item_equipment` VALUES (21906,'kikoku',99,119,4096,551,0,1,3,0);
 INSERT INTO `item_equipment` VALUES (21907,'nagi',99,119,4096,565,0,1,3,0);
@@ -11970,8 +11918,8 @@ INSERT INTO `item_equipment` VALUES (26400,'culminus',99,119,1622556,657,1,0,2,0
 INSERT INTO `item_equipment` VALUES (26401,'forfend',99,119,2385,45,1,0,2,0);
 INSERT INTO `item_equipment` VALUES (26402,'forfend_+1',99,119,2385,45,1,0,2,0);
 INSERT INTO `item_equipment` VALUES (26403,'srivatsa',99,119,64,658,5,0,2,0);
-INSERT INTO `item_equipment` VALUES (26409,'dullahan_shield',1,0,4194303,0,3,0,2,0);
 INSERT INTO `item_equipment` VALUES (26406,'kupo_shield',1,0,4194303,56,3,0,2,0);
+INSERT INTO `item_equipment` VALUES (26409,'dullahan_shield',1,0,4194303,0,3,0,2,0);
 INSERT INTO `item_equipment` VALUES (26419,'ammurapi_shield',99,119,1589788,0,1,0,2,0);
 INSERT INTO `item_equipment` VALUES (26420,'adapa_shield',99,119,385,0,3,0,2,0);
 INSERT INTO `item_equipment` VALUES (26421,'nusku_shield',99,119,66560,0,2,0,2,0);
@@ -14073,7 +14021,6 @@ INSERT INTO `item_equipment` VALUES (28669,'butznar_shield_+1',99,101,193,25,3,0
 INSERT INTO `item_equipment` VALUES (28670,'leafkin_shield',1,0,4194303,641,1,0,2,0);
 INSERT INTO `item_equipment` VALUES (28671,'butznar_shield',99,100,193,25,3,0,2,0);
 /*!40000 ALTER TABLE `item_equipment` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -14084,4 +14031,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-25  0:02:04
+-- Dump completed on 2019-06-20 16:46:09

@@ -1,43 +1,26 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.5.5-10.0.20-MariaDB
+-- Server version	5.7.25-log
 
---
--- Table structure for table `abilities`
---
-
-DROP TABLE IF EXISTS `abilities`;
-CREATE TABLE `abilities` (
-  `abilityId` smallint(5) unsigned NOT NULL,
-  `name` tinytext,
-  `job` tinyint(2) unsigned NOT NULL DEFAULT '0',
-  `level` tinyint(2) unsigned NOT NULL DEFAULT '0',
-  `validTarget` smallint(3) unsigned NOT NULL DEFAULT '0',
-  `recastTime` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `recastId` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `message1` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `message2` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `animation` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `animationTime` smallint(4) unsigned NOT NULL DEFAULT '0',
-  `castTime` smallint(4) unsigned NOT NULL DEFAULT '0',
-  `actionType` tinyint(2) unsigned NOT NULL DEFAULT '6',
-  `range` float(3,1) unsigned NOT NULL DEFAULT '0.0',
-  `isAOE` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `CE` smallint(5) NOT NULL DEFAULT '0',
-  `VE` smallint(5) NOT NULL DEFAULT '0',
-  `meritModID` smallint(4) NOT NULL DEFAULT '0',
-  `addType` smallint(2) NOT NULL DEFAULT '0',
-  `content_tag` varchar(7) DEFAULT NULL,
-  PRIMARY KEY (`abilityId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=56;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Dumping data for table `abilities`
 --
 -- ORDER BY:  `abilityId`
 
+/*!40000 ALTER TABLE `abilities` DISABLE KEYS */;
 INSERT INTO `abilities` VALUES (0,'mighty_strikes',1,0,1,3600,0,0,0,33,2000,0,6,20.0,0,1,300,0,0,NULL);
 INSERT INTO `abilities` VALUES (1,'hundred_fists',2,0,1,3600,0,0,0,34,2000,0,6,20.0,0,1,300,0,0,NULL);
 INSERT INTO `abilities` VALUES (2,'benediction',3,0,1,3600,0,102,0,35,2000,0,6,20.0,1,0,0,0,0,NULL);
@@ -157,7 +140,7 @@ INSERT INTO `abilities` VALUES (116,'dark_shot',17,40,4,1,195,0,0,124,2000,0,6,1
 INSERT INTO `abilities` VALUES (117,'random_deal',17,50,1,1200,196,0,0,131,2000,0,6,20.0,1,1,300,1414,0,'TOAU');
 INSERT INTO `abilities` VALUES (119,'overdrive',18,0,1,3600,0,0,0,143,2000,0,6,20.0,0,0,0,0,0,'TOAU');
 INSERT INTO `abilities` VALUES (120,'activate',18,1,1,1200,205,0,0,83,2000,0,6,20.0,0,1,80,1478,0,'TOAU');
-INSERT INTO `abilities` VALUES (121,'repair',18,15,257,180,206,102,0,83,2000,0,6,18.0,0,0,0,1480,0,'TOAU'); -- FYI: Retail has this at 90s and its merit at 3s per upgrade due to a 99 cap Automaton HP increase (as well as reworked Auto-repair Kits and oil changes)
+INSERT INTO `abilities` VALUES (121,'repair',18,15,257,180,206,102,0,83,2000,0,6,18.0,0,0,0,1480,0,'TOAU');
 INSERT INTO `abilities` VALUES (122,'deploy',18,1,4,10,207,0,0,83,2000,0,6,18.0,0,0,0,0,512,'TOAU');
 INSERT INTO `abilities` VALUES (123,'deactivate',18,1,1,60,208,0,0,83,2000,0,6,18.0,0,0,0,0,512,'TOAU');
 INSERT INTO `abilities` VALUES (124,'retrieve',18,10,1,10,209,0,0,83,2000,0,6,18.0,0,0,0,0,512,'TOAU');
@@ -300,24 +283,15 @@ INSERT INTO `abilities` VALUES (346,'Sulpor',22,5,1,10,0,0,0,295,2000,0,6,20.0,0
 INSERT INTO `abilities` VALUES (347,'Unda',22,5,1,10,0,0,0,296,2000,0,6,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (348,'Lux',22,5,1,10,0,0,0,297,2000,0,6,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (349,'Tenebrae',22,5,1,10,0,0,0,298,2000,0,6,20.0,0,1,300,0,0,'SOA');
--- INSERT INTO `abilities` VALUES (350, 'Vallation',22,20,1,300,0,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (351,'Swordplay',22,20,1,300,0,0,0,299,2000,0,6,20.0,0,1,300,0,0,'SOA');
--- INSERT INTO `abilities` VALUES (352,'Lunge',22,20,1,300,0,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
--- INSERT INTO `abilities` VALUES (353,'Pflug',22,20,1,300,0,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
--- INSERT INTO `abilities` VALUES (354,'Embolden',22,60,1,600,0,0,0,300,2000,0,6,20.0,0,1,300,0,0,'SOA');
--- INSERT INTO `abilities` VALUES (355,'Valiance',22,20,1,300,0,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
--- INSERT INTO `abilities` VALUES (356,'Gambit',22,20,1,300,0,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
--- INSERT INTO `abilities` VALUES (357,'Liement',22,20,1,300,0,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (358,'One_for_all',22,95,1,300,0,0,0,301,2000,0,6,20.0,1,1,300,0,0,'SOA');
--- INSERT INTO `abilities` VALUES (359,'Rayke',22,20,1,300,0,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
--- INSERT INTO `abilities` VALUES (360,'Battuta',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (363,'Ward',22,1,1,0,0,0,0,0,2000,0,6,20.0,0,1,300,0,0,NULL);
 INSERT INTO `abilities` VALUES (364,'Effusion',22,1,1,0,0,0,0,0,2000,0,6,20.0,0,1,300,0,0,NULL);
 INSERT INTO `abilities` VALUES (365,'chocobo_jig_ii',19,70,1,60,218,126,0,13,2000,0,14,20.0,1,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (367,'Vivacious_pulse',22,1,1,300,0,0,0,327,2000,0,6,20.0,0,1,300,0,0,NULL);
 INSERT INTO `abilities` VALUES (369,'apogee',15,70,1,180,108,0,0,333,2000,0,6,20.0,0,1,0,0,0,'SOA');
 INSERT INTO `abilities` VALUES (373,'consume_mana',8,55,1,60,373,0,0,337,2000,0,6,20.0,0,1,1300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (374,'naturalists_roll',17,67,1,60,193,420,0,328,2000,0,6,8.0,1,1,80,0,8,'SOA'); -- No Enhancing Magic Duration MOD, Empty PH effect exists
+INSERT INTO `abilities` VALUES (374,'naturalists_roll',17,67,1,60,193,420,0,328,2000,0,6,8.0,1,1,80,0,8,'SOA');
 INSERT INTO `abilities` VALUES (375,'runeists_roll',17,70,1,60,193,420,0,329,2000,0,6,8.0,1,1,80,0,8,'SOA');
 INSERT INTO `abilities` VALUES (496,'healing_ruby',15,1,3,60,174,0,0,6,2000,0,6,18.0,0,1,60,0,0,NULL);
 INSERT INTO `abilities` VALUES (497,'poison_nails',15,5,4,60,173,0,0,11,2000,0,6,18.0,0,1,60,0,0,NULL);
@@ -478,10 +452,8 @@ INSERT INTO `abilities` VALUES (719,'wild_carrot',9,25,257,2,102,0,0,0,2000,0,6,
 INSERT INTO `abilities` VALUES (720,'sudden_lunge',9,25,257,2,102,0,0,0,2000,0,6,18.0,0,1,60,0,0,NULL);
 INSERT INTO `abilities` VALUES (721,'spiral_spin',9,25,257,2,102,0,0,0,2000,0,6,18.0,0,1,60,0,0,NULL);
 INSERT INTO `abilities` VALUES (722,'noisome_powder',9,25,257,2,102,0,0,0,2000,0,6,18.0,0,1,60,0,0,NULL);
--- INSERT INTO `abilities` VALUES (723,'.',9,25,257,0,102,0,0,0,2000,0,6,18.0,0,1,60,0,0,NULL); -- ROTZ
 INSERT INTO `abilities` VALUES (723,'acid_mist',10,25,257,2,102,0,0,0,2000,0,6,18.0,0,1,60,0,0,NULL);
 INSERT INTO `abilities` VALUES (724,'tp_drainkiss',10,25,257,3,102,0,0,0,2000,0,6,18.0,0,1,60,0,0,NULL);
--- INSERT INTO `abilities` VALUES (725,'.',9,25,257,0,102,0,0,0,2000,0,6,18.0,0,1,60,0,0,NULL); -- ROTZ
 INSERT INTO `abilities` VALUES (726,'scythe_tail',9,26,257,1,102,0,0,0,2000,0,6,18.0,0,1,60,0,0,NULL);
 INSERT INTO `abilities` VALUES (727,'ripper_fang',9,26,257,1,102,0,0,0,2000,0,6,18.0,0,1,60,0,0,NULL);
 INSERT INTO `abilities` VALUES (728,'chomp_rush',9,25,257,3,102,0,0,0,2000,0,6,18.0,0,1,60,0,0,NULL);
@@ -518,7 +490,15 @@ INSERT INTO `abilities` VALUES (759,'pecking_flurry',9,25,257,255,102,0,0,0,2000
 INSERT INTO `abilities` VALUES (760,'sickle_slash',9,25,257,255,102,0,0,0,2000,0,6,18.0,1,1,60,0,0,NULL);
 INSERT INTO `abilities` VALUES (761,'acid_spray',9,25,257,255,102,0,0,0,2000,0,6,18.0,0,2,60,0,0,NULL);
 INSERT INTO `abilities` VALUES (762,'spider_web',9,25,257,255,102,0,0,0,2000,0,6,18.0,0,2,60,0,0,NULL);
--- INSERT INTO `abilities` VALUES (764,'infected_leech',9,25,257,rec,102,0,0,0,2000,0,6,18.0,1,1,60,0,0,NULL); -- ROTZ
--- INSERT INTO `abilities` VALUES (765,'gloom_spray',9,25,257,rec,102,0,0,0,2000,0,6,18.0,0,2,60,0,0,NULL); -- ROTZ
+/*!40000 ALTER TABLE `abilities` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
--- Dump completed on 2017-01-31 10:57:44
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-06-20 16:46:02
