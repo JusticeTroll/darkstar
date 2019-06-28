@@ -21,76 +21,33 @@ This file is part of DarkStar-server source code.
 ===========================================================================
 */
 
-#ifndef _TRUST_CONTROLLER_H
-#define _TRUST_CONTROLLER_H
+#ifndef _TRUSTCONTROLLER_H
+#define _TRUSTCONTROLLER_H
 
 #include "controller.h"
-#include "../../entities/trustentity.h"
-#include "../../ability.h"
-#include "../../weapon_skill.h"
-#include "mob_controller.h"
 
+class CCharEntity;
 class CTrustEntity;
-class CTrustController : public CMobController
+
+class CTrustController : public CController
 {
 public:
-    CTrustController(CTrustEntity*);
+    CTrustController(CCharEntity*, CTrustEntity*);
     virtual ~CTrustController();
 
     virtual void Tick(time_point) override;
-    virtual bool Engage(uint16 targid) override;
-    virtual bool Disengage() override;
     virtual void Despawn() override;
 
-    //virtual void Reset() override;
+    virtual bool Cast(uint16 targid, SpellID spellid) override { return false; }
+    virtual bool ChangeTarget(uint16 targid) override { return false; }
+    virtual bool WeaponSkill(uint16 targid, uint16 wsid) override { return false; }
 
-    //virtual bool WeaponSkill(uint16 targid, uint16 wsid) override;
-    virtual bool TrustSkill(uint16 targid, uint16 wsid);
-    virtual bool Ability(uint16 targid, uint16 abilityid);
-    virtual bool Cast(uint16 targid, SpellID spellid) override;
-
-    bool TryCastSpell();
-    bool TryWeaponSkill();
-    bool TryAbilitySkill();
-
-    //bool TrustSkill(int list = 0);
-    CBattleEntity * TTarget{ nullptr };
-
-
-protected:
-
-    virtual bool CanCastSpells();
-    void CastSpell(SpellID spellid);
-
-    bool CanUseWeaponskill(CTrustEntity* PTrust, CWeaponSkill* PSkill);
-    virtual void Move();
-
-    virtual void DoCombatTick(time_point tick);
-    virtual void DoRoamTick(time_point tick);
-    void FaceTarget(uint16 targid = 0);
-
-    bool CanMoveForward(float currentDistance);
-    bool IsWeaponSkillReady(float currentDistance);
-    bool IsSpellReady(float currentDistance);
-    bool IsAbilityReady(float currentDistance);
-    void Wait(duration _duration);
+    virtual bool Ability(uint16 targid, uint16 abilityid) override { return false; }
 
 private:
-    CTrustEntity * const PTrust;
-
-    time_point m_LastWeaponSkillTime;
-    time_point m_LastSpecialTime;
-    time_point m_LastActionTime;
-    time_point m_LastAbilityTime;
-    time_point m_LastMagicTime;
-    time_point m_WaitTime;
-
-    CBattleEntity* PActionTarget;
-
-    static constexpr float RoamDistance{ 5.0f };
-
-    bool m_firstSpell{ true };
-    int healTick = 1;
+    static constexpr float RoamDistance{ 2.1f };
+    void DoCombatTick(time_point tick);
+    void DoRoamTick(time_point tick);
 };
 
 #endif // _TRUSTCONTROLLER

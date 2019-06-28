@@ -333,7 +333,7 @@ uint16 CBattleEntity::GetMainWeaponDmg()
 {
     if (auto weapon = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_MAIN]))
     {
-        if ((weapon->getReqLvl() > GetMLevel()) && (objtype == TYPE_PC || objtype == TYPE_TRUST))
+        if ((weapon->getReqLvl() > GetMLevel()) && objtype == TYPE_PC)
         {
             uint16 dmg = weapon->getDamage();
             dmg *= GetMLevel() * 3;
@@ -351,7 +351,7 @@ uint16 CBattleEntity::GetSubWeaponDmg()
 {
     if (auto weapon = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_SUB]))
     {
-        if ((weapon->getReqLvl() > GetMLevel()) && (objtype == TYPE_PC || objtype == TYPE_TRUST))
+        if ((weapon->getReqLvl() > GetMLevel()) && objtype == TYPE_PC)
         {
             uint16 dmg = weapon->getDamage();
             dmg *= GetMLevel() * 3;
@@ -370,7 +370,7 @@ uint16 CBattleEntity::GetRangedWeaponDmg()
     uint16 dmg = 0;
     if (auto weapon = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_RANGED]))
     {
-        if ((weapon->getReqLvl() > GetMLevel()) && (objtype == TYPE_PC || objtype == TYPE_TRUST))
+        if ((weapon->getReqLvl() > GetMLevel()) && objtype == TYPE_PC)
         {
             uint16 scaleddmg = weapon->getDamage();
             scaleddmg *= GetMLevel() * 3;
@@ -383,7 +383,7 @@ uint16 CBattleEntity::GetRangedWeaponDmg()
     }
     if (auto ammo = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_AMMO]))
     {
-        if ((ammo->getReqLvl() > GetMLevel()) && (objtype == TYPE_PC || objtype == TYPE_TRUST))
+        if ((ammo->getReqLvl() > GetMLevel()) && objtype == TYPE_PC)
         {
             uint16 scaleddmg = ammo->getDamage();
             scaleddmg *= GetMLevel() * 3;
@@ -455,10 +455,7 @@ int16 CBattleEntity::addTP(int16 tp)
             else
                 TPMulti = map_config.player_tp_multiplier;
         }
-        else if (objtype == TYPE_TRUST)
-        {
-            TPMulti = map_config.player_tp_multiplier;
-        }
+
         tp = (int16)(tp * TPMulti);
     }
     if (tp != 0)

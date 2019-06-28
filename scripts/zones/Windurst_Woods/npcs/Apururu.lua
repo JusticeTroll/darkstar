@@ -29,7 +29,6 @@ function onTrigger(player,npc)
     local kindCardianCS = player:getVar("theKindCardianVar")
     local allNewC3000 = player:getQuestStatus(WINDURST, dsp.quest.id.windurst.THE_ALL_NEW_C_3000)
     local canCardiansCry = player:getQuestStatus(WINDURST, dsp.quest.id.windurst.CAN_CARDIANS_CRY)
-	local rank6 = player:getRank(BASTOK) >= 6 and 1 or player:getRank(SANDORIA) >= 6 and 1 or player:getRank(WINDURST) >= 6 and 1 or 0;
 
     -- WINDURST 1-2: THE HEART OF THE MATTER
     if player:getCurrentMission(WINDURST) == dsp.mission.id.windurst.THE_HEART_OF_THE_MATTER then
@@ -69,12 +68,6 @@ function onTrigger(player,npc)
             player:startEvent(621)
         end
 
-	--TRUST:Ajido
-	elseif (player:hasKeyItem(dsp.ki.WINDURST_TRUST_PERMIT) == true
-		and player:hasSpell(dsp.trust.NANAA_MIHGO) == true and player:hasSpell(dsp.trust.AJIDO_MARUJIDO) == false) then			
-		player:startEvent(866,0,0,0,TrustMemory(player),0,0,0,rank6); -- TRUST
-
-
     -- THE KIND CARDIAN
     elseif kindCardian == QUEST_ACCEPTED then
         if kindCardianCS == 0 then
@@ -103,13 +96,9 @@ function onEventUpdate(player,csid,option)
 end
 
 function onEventFinish(player,csid,option)
-	--TRUST
-    if csid == 866 and option == 2 then
-		player:addSpell(dsp.trust.AJIDO_MARUJIDO, true);
-		player:PrintToPlayer("You learned Trust: Ajido-Marujido!", 0xD);
-		
+
     -- WINDURST 1-2: THE HEART OF THE MATTER
-    elseif csid == 137 then
+    if csid == 137 then
         player:setVar("MissionStatus", 1)
 
         npcUtil.giveKeyItem(player,
@@ -185,34 +174,4 @@ function onEventFinish(player,csid,option)
     elseif csid == 325 and npcUtil.completeQuest(player, WINDURST, dsp.quest.id.windurst.CAN_CARDIANS_CRY, {gil=5000}) then
         player:confirmTrade()
     end
-end
-
-function TrustMemory(player)
-	local memories = 0;
-	--2 - Saw him at the start of the game
-	if (player:getNation() == WINDURST) then
-		memories = memories + 2;
-	end
-	--4 - WONDER_WANDS
-	if(player:hasCompletedQuest(WINDURST, dsp.quest.id.windurst.WONDER_WANDS)) then
-		memories = memories + 4;
-	end
-	--8 - THE_TIGRESS_STIRS
-	if(player:hasCompletedQuest(CRYSTAL_WAR, dsp.quest.id.crystalWar.THE_TIGRESS_STIRS)) then
-		memories = memories + 8;
-	end
-	--16 - I_CAN_HEAR_A_RAINBOW
-	if(player:hasCompletedQuest(WINDURST, dsp.quest.id.windurst.I_CAN_HEAR_A_RAINBOW)) then
-		memories = memories + 16;
-	end
-	--32 - Hero's Combat (BCNM)
-	--if(playervar for Hero's Combat) then
-	--	memories = memories + 32;
-	--end
-	
-	--64 - MOON_READING
-	if(player:hasCompletedMission(WINDURST, dsp.mission.id.windurst.MOON_READING)) then
-		memories = memories + 64;
-	end
-	return memories;
 end

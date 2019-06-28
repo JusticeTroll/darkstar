@@ -56,10 +56,7 @@ CInstance::~CInstance()
     {
         delete entity.second;
     }
-    for (auto entity : m_trustList)
-    {
-        delete entity.second;
-    }}
+}
 
 uint8 CInstance::GetID()
 {
@@ -248,7 +245,7 @@ void CInstance::ClearEntities()
     std::for_each(m_charList.cbegin(), m_charList.cend(), clearStates);
     std::for_each(m_mobList.cbegin(), m_mobList.cend(), clearStates);
     std::for_each(m_petList.cbegin(), m_petList.cend(), clearStates);
-    std::for_each(m_trustList.cbegin(), m_trustList.cend(), clearStates);}
+}
 
 void CInstance::Fail()
 {

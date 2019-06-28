@@ -375,7 +375,7 @@ public:
 
     // Skills and Abilities
     int32 capSkill(lua_State*);             // Caps the given skill id for the job you're on (GM COMMAND)
-    int32 capAllTrustSkills(lua_State*);    int32 capAllSkills(lua_State*);         // Caps All skills, GM command
+    int32 capAllSkills(lua_State*);         // Caps All skills, GM command
 
     int32 getSkillLevel(lua_State*);        // Get Current Skill Level
     int32 setSkillLevel(lua_State*);        // Set Current Skill Level
@@ -405,7 +405,6 @@ public:
 
     // Parties and Alliances
     int32 getParty(lua_State* L);
-    int32 getPartyTrusts(lua_State* L);
     int32 getPartySize(lua_State* L);               // Get the size of a party in an entity's alliance
     int32 hasPartyJob(lua_State*);
     int32 getPartyMember(lua_State* L);             // Get a character entity from another entity's party or alliance
@@ -490,7 +489,7 @@ public:
     int32 updateEnmityFromCure(lua_State*);
     int32 resetEnmity(lua_State*);             //resets enmity to player for specificed mob
     int32 updateClaim(lua_State*);             // Adds Enmity to player for specified mob and claims
-    int32 hasTopEnmity(lua_State*);
+
     // Status Effects
     int32 addStatusEffect(lua_State*);         // Adds status effect to character
     int32 addStatusEffectEx(lua_State*);       // Adds status effect to character
@@ -566,18 +565,14 @@ public:
     int32 getWeaponSkillType(lua_State*);       // gets the type of weapon equipped
     int32 getWeaponSubSkillType(lua_State*);    // gets the subskill of weapon equipped
     int32 getWSSkillchainProp(lua_State* L);    // returns weapon skill's skillchain properties (up to 3)
-    int32 getFormSkillChain(lua_State* L);
-    int32 getLastWsUsed(lua_State* L);
+
     int32 takeWeaponskillDamage(lua_State* L);
 
     // Pets and Automations
     int32 spawnPet(lua_State*);              // Calls Pet
     int32 despawnPet(lua_State*);            // Despawns Pet
     int32 spawnTrust(lua_State*);            // Spawns trust
-    int32 hasTrust(lua_State*);
-    int32 checkTrust(lua_State*);
-    int32 getTrustWSList(lua_State*);
-    int32 useTrustAbility(lua_State*);
+
     int32 isJugPet(lua_State*);              // If the entity has a pet, test if it is a jug pet.
     int32 hasValidJugPetItem(lua_State*);
 
@@ -667,9 +662,7 @@ public:
 
     int32 actionQueueEmpty(lua_State*);     // returns whether the action queue is empty or not
 
-    int32 canCastSpells(lua_State*);
-    int32 startCasting(lua_State*);
-    int32 stopCasting(lua_State*);    int32 castSpell(lua_State*);            // forces a mob to cast a spell (parameter = spell ID, otherwise picks a spell from its list)
+    int32 castSpell(lua_State*);            // forces a mob to cast a spell (parameter = spell ID, otherwise picks a spell from its list)
     int32 useJobAbility(lua_State*);        // forces a job ability use (players/pets only)
     int32 useMobAbility(lua_State*);        // forces a mob to use a mobability (parameter = skill ID)
     int32 hasTPMoves(lua_State*);
@@ -687,17 +680,6 @@ public:
     int32 getDespoilDebuff(lua_State*);     // gets the status effect id to apply to the mob on successful despoil
     int32 itemStolen(lua_State*);           // sets mob's ItemStolen var = true
     int32 getTHlevel(lua_State*);           // Returns the Monster's current Treasure Hunter Tier
-
-    int32 getTrustHealSpells(lua_State*);
-    int32 getTrustNaSpells(lua_State*);
-    int32 getTrustDebuffSpells(lua_State*);
-    int32 getTrustBuffSpells(lua_State*);
-    int32 getTrustDamageSpells(lua_State*);
-    int32 getTrustGaSpells(lua_State*);
-    int32 getSpellID(lua_State* L);
-    int32 canDispelStatusEffect(lua_State*);      // Check to see if can dispel
-    int32 getSpellCost(lua_State*);
-
 };
 
 #endif

@@ -37,7 +37,6 @@ This file is part of DarkStar-server source code.
 #include "../../utils/battleutils.h"
 #include "../../../common/utils.h"
 #include "../../utils/petutils.h"
-#include "../../utils/trustutils.h"
 
 CMobController::CMobController(CMobEntity* PEntity) :
     CController(PEntity),
@@ -678,7 +677,7 @@ void CMobController::DoRoamTick(time_point tick)
     else if (PMob->m_OwnerID.id != 0 && !(PMob->m_roamFlags & ROAMFLAG_IGNORE))
     {
         // i'm claimed by someone and need hate towards this person
-        PTarget = (CBattleEntity*)PMob->GetEntity(PMob->m_OwnerID.targid, TYPE_PC | TYPE_MOB | TYPE_PET | TYPE_TRUST);
+        PTarget = (CBattleEntity*)PMob->GetEntity(PMob->m_OwnerID.targid, TYPE_PC | TYPE_MOB | TYPE_PET);
 
         PMob->PEnmityContainer->AddBaseEnmity(PTarget);
 

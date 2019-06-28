@@ -466,7 +466,7 @@ typedef std::vector<apAction_t> ActionList_t;
 class CModifier;
 class CParty;
 class CStatusEffectContainer;
-class CTrustEntity;class CPetEntity;
+class CPetEntity;
 class CSpell;
 class CItemArmor;
 class CAbilityState;

@@ -794,7 +794,6 @@ public:
     bool        isHeal(); // is a heal spell
     bool        isCure(); // is a Cure spell
     bool        isNa(); // is a -na spell
-    bool        isDebuff(); // is a -na spell
     bool        canHitShadow(); // check if spell ignores shadows
 
     void        setRadius(float radius);
@@ -875,6 +874,6 @@ namespace spell
     bool    CanUseSpell(CBattleEntity* PCaster, CSpell* PSpell);
     bool    CanUseSpellWith(SpellID spellId, JOBTYPE job, uint8 level);
     float   GetSpellRadius(CSpell* spellId, CBattleEntity* PCaster);
-    uint32   GetEnfeebleEffect(CSpell* spellId);};
+};
 
 #endif

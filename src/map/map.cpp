@@ -46,12 +46,9 @@ This file is part of DarkStar-server source code.
 #include "linkshell.h"
 #include "map.h"
 #include "mob_spell_list.h"
-#include "trust_spell_list.h"
-#include "trust_weaponskill_list.h"
 #include "packet_system.h"
 #include "party.h"
 #include "utils/petutils.h"
-#include "utils/trustutils.h"
 #include "spell.h"
 #include "time_server.h"
 #include "transport.h"
@@ -208,7 +205,7 @@ int32 do_init(int32 argc, char** argv)
     ShowStatus("do_init: loading spells");
     spell::LoadSpellList();
     mobSpellList::LoadMobSpellList();
-    trustSpellList::LoadTrustSpellList();    autoSpell::LoadAutomatonSpellList();
+    autoSpell::LoadAutomatonSpellList();
     ShowMessage("\t\t\t - " CL_GREEN"[OK]" CL_RESET"\n");
 
     guildutils::Initialize();
@@ -218,12 +215,11 @@ int32 do_init(int32 argc, char** argv)
     battleutils::LoadSkillTable();
     meritNameSpace::LoadMeritsList();
     ability::LoadAbilitiesList();
-    ability::LoadTrustAbilityList();    battleutils::LoadWeaponSkillsList();
+    battleutils::LoadWeaponSkillsList();
     battleutils::LoadMobSkillsList();
-    battleutils::LoadTrustWeaponSkillsList();
-    trustWSList::LoadTrustWSList();    battleutils::LoadSkillChainDamageModifiers();
+    battleutils::LoadSkillChainDamageModifiers();
     petutils::LoadPetList();
-    trustutils::LoadTrustList();    mobutils::LoadCustomMods();
+    mobutils::LoadCustomMods();
 
     ShowStatus("do_init: loading zones");
     zoneutils::LoadZoneList();
