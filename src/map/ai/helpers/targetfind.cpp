@@ -95,7 +95,7 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
     m_PTarget = PTarget;
     isPlayer = checkIsPlayer(m_PBattleEntity);
 
-    if (isPlayer){
+    if (isPlayer || m_PTarget->objtype == TYPE_TRUST){
         // handle this as a player
 
         if (m_PMasterTarget->objtype == TYPE_PC)
@@ -116,7 +116,18 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
                     // add party members
                     addAllInParty(m_PMasterTarget, withPet);
                 }
-            }
+
+                // add my trust too, if its allowed
+                if (((CCharEntity*)m_PMasterTarget)->PTrusts.size() > 0)
+                {
+                    for each (auto trust in ((CCharEntity*)m_PMasterTarget)->PTrusts)
+                    {
+                        if (validEntity((CBattleEntity*)trust))
+                        {
+                            m_targets.push_back((CBattleEntity*)trust);
+                        }
+                    }
+                }            }
             else {
                 // just add myself
                 addEntity(m_PMasterTarget, withPet);
@@ -370,7 +381,10 @@ bool CTargetFind::validEntity(CBattleEntity* PTarget)
 
         }
         else if (m_findType == FIND_MONSTER_MONSTER || m_findType == FIND_PLAYER_PLAYER){
-            return false;
+            if (PTarget->objtype == TYPE_TRUST)
+            {
+                return true;
+            }            return false;
         }
     }
 
@@ -465,7 +479,7 @@ bool CTargetFind::canSee(position_t* point)
 
 CBattleEntity* CTargetFind::getValidTarget(uint16 actionTargetID, uint16 validTargetFlags)
 {
-    CBattleEntity* PTarget = (CBattleEntity*)m_PBattleEntity->GetEntity(actionTargetID, TYPE_MOB | TYPE_PC | TYPE_PET);
+    CBattleEntity* PTarget = (CBattleEntity*)m_PBattleEntity->GetEntity(actionTargetID, TYPE_TRUST | TYPE_MOB | TYPE_PC | TYPE_PET);
 
     if (PTarget == nullptr)
     {
@@ -477,7 +491,13 @@ CBattleEntity* CTargetFind::getValidTarget(uint16 actionTargetID, uint16 validTa
         return m_PBattleEntity->PPet;
     }
 
-    if (PTarget->ValidTarget(m_PBattleEntity, validTargetFlags))
+    if (validTargetFlags & TARGET_PLAYER_PARTY)
+    {
+        if (PTarget->objtype == TYPE_TRUST)
+        {
+            return PTarget;
+        }
+    }    if (PTarget->ValidTarget(m_PBattleEntity, validTargetFlags))
     {
         return PTarget;
     }

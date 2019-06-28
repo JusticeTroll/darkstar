@@ -50,6 +50,7 @@
 #include "../mob_modifier.h"
 #include "../mobskill.h"
 #include "../mob_spell_container.h"
+#include "../trust_spell_container.h"
 #include "../recast_container.h"
 #include "../spell.h"
 #include "../status_effect_container.h"
@@ -74,13 +75,14 @@
 #include "../ai/states/weaponskill_state.h"
 
 #include "../ai/controllers/mob_controller.h"
-
+#include "../ai/controllers/trust_controller.h"
+#include "../trust_weaponskill_list.h"
 #include "../entities/automatonentity.h"
 #include "../entities/charentity.h"
 #include "../entities/mobentity.h"
 #include "../entities/npcentity.h"
 #include "../entities/petentity.h"
-
+#include "../entities/trustentity.h"
 #include "../packets/action.h"
 #include "../packets/auction_house.h"
 #include "../packets/char.h"
@@ -142,6 +144,7 @@
 #include "../utils/mobutils.h"
 #include "../utils/petutils.h"
 #include "../utils/puppetutils.h"
+#include "../utils/trustutils.h"
 #include "../utils/zoneutils.h"
 
 CLuaBaseEntity::CLuaBaseEntity(lua_State* L)
@@ -301,11 +304,19 @@ inline int32 CLuaBaseEntity::PrintToPlayer(lua_State* L)
 inline int32 CLuaBaseEntity::PrintToArea(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC && m_PBaseEntity->objtype != TYPE_TRUST);
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isstring(L, 1));
-
-    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
-
+    CCharEntity* PChar = nullptr;
+    CTrustEntity* trust = nullptr;
+    if (m_PBaseEntity->objtype == TYPE_PC)
+        PChar = (CCharEntity*)m_PBaseEntity;
+    else if (m_PBaseEntity->objtype == TYPE_TRUST)
+    {
+        CTrustEntity* trust = (CTrustEntity*)m_PBaseEntity;
+        PChar = (CCharEntity*)trust->PMaster;
+    }
+    else
+        return 0;
     // see scripts\globals\msg.lua or src\map\packets\chat_message.h for values
     CHAT_MESSAGE_TYPE messageLook = (lua_isnil(L, 2) || !lua_isnumber(L, 2)) ? MESSAGE_SYSTEM_1 : (CHAT_MESSAGE_TYPE)lua_tointeger(L, 2);
     uint8 messageRange = (lua_isnil(L, 3) || !lua_isnumber(L, 3)) ? 0 : (CHAT_MESSAGE_TYPE)lua_tointeger(L, 3);
@@ -325,7 +336,22 @@ inline int32 CLuaBaseEntity::PrintToArea(lua_State* L)
     }
     else if (messageRange == 3) // Party and Alliance
     {
-        message::send(MSG_CHAT_PARTY, 0, 0, new CChatMessagePacket(PChar, messageLook, (char*)lua_tostring(L, 1), name));
+        if (PChar->PParty != nullptr)
+        {
+            for each (CCharEntity* member in PChar->PParty->members)
+            {
+                member->pushPacket(new CChatMessagePacket(member, messageLook, (char*)lua_tostring(L, 1), name));
+            }
+            //if ()
+            //{
+            //    PChar->pushPacket(new CChatMessagePacket(PChar, messageLook, message, name));
+            //}
+            //int8 packetData[8]{};
+            //ref<uint32>(packetData, 0) = PChar->PParty->GetPartyID();
+            //ref<uint32>(packetData, 4) = PChar->id;
+            //message::send(MSG_CHAT_PARTY, 0, 0, new CChatMessagePacket(PChar, messageLook, message, name));
+            //message::send(MSG_CHAT_PARTY, packetData, sizeof packetData, new CChatMessagePacket(PChar, messageLook,  (char*)lua_tostring(L, 1), name));
+        }
     }
     else if (messageRange == 4) // Yell zones only
     {
@@ -2711,9 +2737,9 @@ inline int32 CLuaBaseEntity::showPosition(lua_State *L)
     DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
 
     ((CCharEntity*)m_PBaseEntity)->pushPacket(new CMessageStandardPacket(
-        (int32)m_PBaseEntity->loc.p.x,
-        (int32)m_PBaseEntity->loc.p.y,
-        (int32)m_PBaseEntity->loc.p.z,
+        (uint32)m_PBaseEntity->loc.p.x,
+        (uint32)m_PBaseEntity->loc.p.y,
+        (uint32)m_PBaseEntity->loc.p.z,
         m_PBaseEntity->loc.p.rotation,
         MsgStd::Compass));
     return 0;
@@ -5768,14 +5794,29 @@ inline int32 CLuaBaseEntity::getRank(lua_State *L)
 
     CCharEntity * PChar = (CCharEntity*)m_PBaseEntity;
 
-    lua_pushinteger(L, PChar->profile.rank[PChar->profile.nation]);
+    if (lua_isnil(L, 1) || (!lua_isnumber(L, 1) && !lua_istable(L, 1)))
+    {
+        lua_pushinteger(L, PChar->profile.rank[PChar->profile.nation]);
+    }
+    else
+    {
+        if (lua_istable(L, 1))
+        {
+            lua_getfield(L, 1, "mission_log");
+            DSP_DEBUG_BREAK_IF(lua_isnil(L, -1) || !lua_isnumber(L, -1));
+        }
+
+        uint8 nation = (uint8)lua_tointeger(L, lua_isnumber(L, 1) ? 1 : -1);
+
+        lua_pushinteger(L, PChar->profile.rank[nation]);
+    }
     return 1;
 }
 
 /************************************************************************
 *  Function: setRank()
 *  Purpose : Sets the player's nation rank to a specified value
-*  Example : player:setRank(10)
+*  Example : player:setRank(BASTOK, 10)
 *  Notes   :
 ************************************************************************/
 
@@ -5784,11 +5825,18 @@ inline int32 CLuaBaseEntity::setRank(lua_State *L)
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
     DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
 
-    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || (!lua_isnumber(L, 1) && !lua_istable(L, 1)));
+    if (lua_istable(L, 1))
+    {
+        lua_getfield(L, 1, "mission_log");
+        DSP_DEBUG_BREAK_IF(lua_isnil(L, -1) || !lua_isnumber(L, -1));
+    }
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
 
+    uint8 nation = (uint8)lua_tointeger(L, lua_isnumber(L, 1) ? 1 : -1);
     CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
 
-    PChar->profile.rank[PChar->profile.nation] = (int32)lua_tointeger(L, 1);;
+    PChar->profile.rank[PChar->profile.nation] = (int32)lua_tointeger(L, 2);;
     charutils::SaveMissionsList(PChar);
     return 0;
 }
@@ -7664,7 +7712,7 @@ inline int32 CLuaBaseEntity::updateHealth(lua_State* L)
 inline int32 CLuaBaseEntity::capSkill(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC && m_PBaseEntity->objtype != TYPE_TRUST);
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
 
@@ -7684,8 +7732,12 @@ inline int32 CLuaBaseEntity::capSkill(lua_State* L)
         PChar->RealSkills.skill[skill] = maxSkill; //set to capped
         PChar->WorkingSkills.skill[skill] = maxSkill / 10;
         PChar->WorkingSkills.skill[skill] |= 0x8000; //set blue capped flag
-        PChar->pushPacket(new CCharSkillsPacket(PChar));
-        charutils::CheckWeaponSkill(PChar, skill);
+        if (m_PBaseEntity->objtype == TYPE_PC)
+        {
+            PChar->pushPacket(new CCharSkillsPacket(PChar));
+            charutils::CheckWeaponSkill(PChar, skill);
+            charutils::SaveCharSkills(PChar, skill); //save to db
+        }
         /* and ignore this part
         //reapply modifiers if valid
         if(skill>=1 && skill<=12 && PItem!=nullptr && PItem->getSkillType()==skill){
@@ -7693,13 +7745,36 @@ inline int32 CLuaBaseEntity::capSkill(lua_State* L)
             PChar->addModifier(Mod::ACC, PChar->GetSkill(skill));
         }
         */
-        charutils::SaveCharSkills(PChar, skill); //save to db
     }
     return 0;
 }
 
 /************************************************************************
-*  Function: capAllSkills()
+*  Function: capAllTrustSkills()
+*  Purpose : Cap all skills for a Trust
+*  Example : player:capAllTrustSkills()
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::capAllTrustSkills(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_TRUST);
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+    for (uint8 i = 1; i < 45; ++i)
+    {
+        uint16 maxSkill = 10 * battleutils::GetMaxSkill((SKILLTYPE)i, PChar->GetMJob(), PChar->GetMLevel());
+        PChar->RealSkills.skill[i] = maxSkill; //set to capped
+        PChar->WorkingSkills.skill[i] = maxSkill / 10;
+        PChar->WorkingSkills.skill[i] |= 0x8000; //set blue capped flag
+    }
+    charutils::CheckWeaponSkill(PChar, SKILL_NONE);
+    return 0;
+}
+
+/*************************************************************************  Function: capAllSkills()
 *  Purpose : Cap all skills for a PC
 *  Example : player:capAllSkills()
 *  Notes   :
@@ -7708,7 +7783,7 @@ inline int32 CLuaBaseEntity::capSkill(lua_State* L)
 inline int32 CLuaBaseEntity::capAllSkills(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC && m_PBaseEntity->objtype != TYPE_TRUST);
 
     CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
 
@@ -8116,9 +8191,9 @@ inline int32 CLuaBaseEntity::addSpell(lua_State *L)
 
     if (charutils::addSpell(PChar, SpellID))
     {
+        PChar->pushPacket(new CCharSpellsPacket(PChar));
         if (!silent)
         {
-            PChar->pushPacket(new CCharSpellsPacket(PChar));
             PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, 23));
         }
 
@@ -8927,13 +9002,13 @@ inline int32 CLuaBaseEntity::getBattlefield(lua_State* L)
 *  Function: getBattlefieldID()
 *  Purpose : Returns the integer ID for the battlefield, -1 if not found
 *  Example : local battlefieldId = player:getBattlefieldID()
-*  Notes   :
+*  Notes   : 
 ************************************************************************/
 
 inline int32 CLuaBaseEntity::getBattlefieldID(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-
+    
     lua_pushinteger(L, m_PBaseEntity->PBattlefield ? m_PBaseEntity->PBattlefield->GetID() : -1);
     return 1;
 }
@@ -8990,7 +9065,7 @@ inline int32 CLuaBaseEntity::battlefieldAtCapacity(lua_State *L)
 *  Function: enterBattlefield(area)
 *  Purpose : Places an entity into a battlefield they are registered for (or tries enter a specific area if not full)
 *  Example : player:enterBattlefield(area)
-*  Notes   :
+*  Notes   : 
 ************************************************************************/
 
 inline int32 CLuaBaseEntity::enterBattlefield(lua_State* L)
@@ -9506,7 +9581,7 @@ inline int32 CLuaBaseEntity::getNearbyEntities(lua_State* L)
     lua_newtable(L);
     int newTable = lua_gettop(L);
 
-    for (auto&& list : {iterTarget->SpawnMOBList, iterTarget->SpawnPCList, iterTarget->SpawnPETList})
+    for (auto&& list : {iterTarget->SpawnMOBList, iterTarget->SpawnPCList, iterTarget->SpawnPETList, iterTarget->SpawnTRUSTList })
     {
         for (auto&& entity : list)
         {
@@ -11525,7 +11600,53 @@ inline int32 CLuaBaseEntity::getWSSkillchainProp(lua_State* L)
 }
 
 /************************************************************************
-*  Function: takeWeaponskillDamage()
+*  Function: getLastWsUsed()
+*  Purpose : 
+*  Example : attacker:getLastWsUsed()
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getLastWsUsed(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+    lua_pushinteger(L, (lua_Integer)PChar->m_lastWSused);
+    return 1;
+}
+
+/************************************************************************
+*  Function: getFormSkillChain()
+*  Purpose : 
+*  Example : mob:getFormSkillChain(skill:getID(), masterSkill:getID())
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getFormSkillChain(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_PC);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
+
+    auto PMobSkill{ battleutils::GetMobSkill(lua_tointeger(L, 1)) };
+    auto PMasterSkill{ battleutils::GetWeaponSkill(lua_tointeger(L, 2)) };
+
+    SKILLCHAIN_ELEMENT skillchain = SC_NONE;
+    std::list<SKILLCHAIN_ELEMENT> resonanceProperties;
+    std::list<SKILLCHAIN_ELEMENT> skillProperties = { (SKILLCHAIN_ELEMENT)PMasterSkill->getPrimarySkillchain(), (SKILLCHAIN_ELEMENT)PMasterSkill->getSecondarySkillchain(), (SKILLCHAIN_ELEMENT)PMasterSkill->getTertiarySkillchain() };
+    auto properties = PMobSkill->getPrimarySkillchain() | (PMobSkill->getSecondarySkillchain() << 4) | (PMobSkill->getTertiarySkillchain() << 8);
+
+    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
+    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
+    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 8) & 0b1111));
+    skillchain = battleutils::FormSkillchain(resonanceProperties, skillProperties);
+
+    lua_pushinteger(L, (lua_Integer)skillchain);
+    return 1;
+}
+
+/*************************************************************************  Function: takeWeaponskillDamage()
 *  Purpose : Calls Battle Utils to calculate final weapon skill damage against a foe
 *  Example : defender:takeWeaponskillDamage(attacker, finaldmg, attackType, damageType, slot, primary, tpHitsLanded, (extraHitsLanded * 10) + bonusTP, targetTPMult)
 *  Notes   : Global function of same name in weaponskills.lua, calls this member function from within
@@ -11636,7 +11757,7 @@ inline int32 CLuaBaseEntity::spawnTrust(lua_State *L)
     if (!lua_isnil(L, 1) && lua_isstring(L, 1))
     {
         uint16 trustId = (uint16)lua_tointeger(L, 1);
-        petutils::SpawnTrust((CCharEntity*)m_PBaseEntity, trustId);
+        trustutils::SpawnTrust((CCharEntity*)m_PBaseEntity, trustId);
     }
     else
     {
@@ -11646,7 +11767,74 @@ inline int32 CLuaBaseEntity::spawnTrust(lua_State *L)
 }
 
 /************************************************************************
-*  Function: despawnPet()
+*  Function: hasTrust()
+*  Purpose : Spawns a Trust if a few correct conditions are met
+*  Example : caster:hasTrust(TRUST_SHANTOTTO)
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::hasTrust(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC); // only PCs can spawn trusts
+
+    if (!lua_isnil(L, 1) && lua_isstring(L, 1))
+    {
+        uint16 trustId = (uint16)lua_tointeger(L, 1);
+        lua_pushboolean(L, trustutils::HasTrust((CCharEntity*)m_PBaseEntity, trustId));
+        return 1;
+    }
+    return true;
+}
+
+/************************************************************************
+*  Function: checkTrust()
+*  Purpose : Spawns a Trust if a few correct conditions are met
+*  Example : caster:checkTrust(TRUST_SHANTOTTO)
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::checkTrust(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC); // only PCs can spawn trusts
+    if (!lua_isnil(L, 1) && lua_isstring(L, 1))
+    {
+        uint16 trustId = (uint16)lua_tointeger(L, 1);
+        lua_pushinteger(L, trustutils::TrustCheck((CCharEntity*)m_PBaseEntity, trustId));
+        return 1;
+    }
+    return 0;
+}
+
+
+/************************************************************************
+*  Function: getTrustWSList()
+*  Purpose : 
+*  Example : trust:getTrustWSList()
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getTrustWSList(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_TRUST); // only PCs can spawn trusts
+
+    auto skillList{ trustWSList::GetTrustWSList(((CTrustEntity*)m_PBaseEntity)->m_TrustID - 895) };
+
+    int count = 0;
+    lua_newtable(L);
+    for (size_t i = 0; i != skillList->m_wsList.size(); i++) {
+        if (skillList->m_wsList[i].min_level <= ((CTrustEntity*)m_PBaseEntity)->GetMLevel())
+        {
+            lua_pushinteger(L, i + 1);
+            lua_pushnumber(L, skillList->m_wsList[i].wsMobId);
+            lua_settable(L, -3);
+        }
+    }
+    return 1;
+}
+
+/*************************************************************************  Function: despawnPet()
 *  Purpose : Despawns a Pet Entity
 *  Example : target:despawnPet()
 *  Notes   : Upon death or dismissal or similar
@@ -12856,7 +13044,7 @@ inline int32 CLuaBaseEntity::setDelay(lua_State* L)
 inline int32 CLuaBaseEntity::setDamage(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB && m_PBaseEntity->objtype != TYPE_TRUST);
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
 
@@ -12976,14 +13164,21 @@ inline int32 CLuaBaseEntity::SetMobSkillAttack(lua_State* L)
 *  Notes   :
 ************************************************************************/
 
-inline int32 CLuaBaseEntity::getMobMod(lua_State *L)
+inline int32 CLuaBaseEntity::getMobMod(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(!(m_PBaseEntity->objtype & TYPE_MOB));
+    DSP_DEBUG_BREAK_IF(!(m_PBaseEntity->objtype & TYPE_MOB | TYPE_TRUST));
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
 
-    lua_pushinteger(L, ((CMobEntity*)m_PBaseEntity)->getMobMod((uint16)lua_tointeger(L, 1)));
+    if (m_PBaseEntity->objtype & TYPE_MOB)
+    {
+        lua_pushinteger(L, ((CMobEntity*)m_PBaseEntity)->getMobMod((uint16)lua_tointeger(L, 1)));
+    }
+    else
+    {
+        lua_pushinteger(L, ((CTrustEntity*)m_PBaseEntity)->getMobMod((uint16)lua_tointeger(L, 1)));
+    }
     return 1;
 }
 
@@ -12994,12 +13189,12 @@ inline int32 CLuaBaseEntity::getMobMod(lua_State *L)
 *  Notes   : Currently not being used in any script
 ************************************************************************/
 
-inline int32 CLuaBaseEntity::addMobMod(lua_State *L)
+inline int32 CLuaBaseEntity::addMobMod(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
 
     // putting this in here to find elusive bug
-    if (!(m_PBaseEntity->objtype & TYPE_MOB))
+    if (!(m_PBaseEntity->objtype & TYPE_MOB) && !(m_PBaseEntity->objtype & TYPE_TRUST))
     {
         // this once broke on an entity (17532673) but it could not be found
         ShowError("CLuaBaseEntity::addMobMod Expected type mob (%d) but its a (%d)\n", m_PBaseEntity->id, m_PBaseEntity->objtype);
@@ -13009,9 +13204,18 @@ inline int32 CLuaBaseEntity::addMobMod(lua_State *L)
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
 
-    ((CMobEntity*)m_PBaseEntity)->addMobMod(
-        (uint16)lua_tointeger(L, 1),
-        (int16)lua_tointeger(L, 2));
+    if (m_PBaseEntity->objtype & TYPE_MOB)
+    {
+        ((CMobEntity*)m_PBaseEntity)->addMobMod(
+            (uint16)lua_tointeger(L, 1),
+            (int16)lua_tointeger(L, 2));
+    }
+    else
+    {
+        ((CTrustEntity*)m_PBaseEntity)->addMobMod(
+            (uint16)lua_tointeger(L, 1),
+            (int16)lua_tointeger(L, 2));
+    }
     return 0;
 }
 
@@ -13022,12 +13226,12 @@ inline int32 CLuaBaseEntity::addMobMod(lua_State *L)
 *  Notes   : Interesting note - this is being used for superlinking too
 ************************************************************************/
 
-inline int32 CLuaBaseEntity::setMobMod(lua_State *L)
+inline int32 CLuaBaseEntity::setMobMod(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
 
     // putting this in here to find elusive bug
-    if (!(m_PBaseEntity->objtype & TYPE_MOB))
+    if (!(m_PBaseEntity->objtype & TYPE_MOB | TYPE_TRUST))
     {
         // this once broke on an entity (17532673) but it could not be found
         ShowError("CLuaBaseEntity::setMobMod Expected type mob (%d) but its a (%d)\n", m_PBaseEntity->id, m_PBaseEntity->objtype);
@@ -13036,6 +13240,19 @@ inline int32 CLuaBaseEntity::setMobMod(lua_State *L)
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
+
+    if (m_PBaseEntity->objtype & TYPE_MOB)
+    {
+        ((CMobEntity*)m_PBaseEntity)->setMobMod(
+            (uint16)lua_tointeger(L, 1),
+            (int16)lua_tointeger(L, 2));
+    }
+    else
+    {
+        ((CTrustEntity*)m_PBaseEntity)->setMobMod(
+            (uint16)lua_tointeger(L, 1),
+            (int16)lua_tointeger(L, 2));
+    }
 
     ((CMobEntity*)m_PBaseEntity)->setMobMod(
         (uint16)lua_tointeger(L, 1),
@@ -13175,7 +13392,135 @@ inline int32 CLuaBaseEntity::updateTarget(lua_State* L)
 }
 
 /************************************************************************
-*  Function: getEnmityList()
+*  Function: hasTopEnmity()
+*  Purpose : 
+*  Example : 
+*  Notes   : 
+************************************************************************/
+
+inline int32 CLuaBaseEntity::hasTopEnmity(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isuserdata(L, 1));
+
+    CLuaBaseEntity* PLuaBaseEntity = Lunar<CLuaBaseEntity>::check(L, 1);
+    CBattleEntity* PTarget = (CBattleEntity*)PLuaBaseEntity->GetBaseEntity();
+    CBattleEntity* PTrust = (CBattleEntity*)m_PBaseEntity;
+
+    if (PTarget->GetBattleTarget() != nullptr)
+    {
+
+        if (PTarget->GetBattleTarget()->id == PTrust->id)
+        {
+            lua_pushboolean(L, true);
+        }
+        else
+        {
+            lua_pushboolean(L, false);
+        }
+    }
+
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::stopCasting(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    ((CTrustEntity*)m_PBaseEntity)->TrustSpellContainer->setCanCastSpells(false);
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::startCasting(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    ((CTrustEntity*)m_PBaseEntity)->TrustSpellContainer->setCanCastSpells(true);
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::canCastSpells(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    ((CTrustEntity*)m_PBaseEntity)->TrustSpellContainer->getCanCastSpells();
+    return 1;
+}
+
+/************************************************************************
+* Function: useTrustAbility()
+* Purpose : Instruct a trust to use a specified Job Ability
+* Example : trust:useTrustAbility(636, target) --Specifying trust to use
+* Notes :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::useTrustAbility(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    if (lua_isnumber(L, 1))
+    {
+        CBattleEntity* PTarget{ nullptr };
+        CTrustEntity* trust = (CTrustEntity*)m_PBaseEntity;
+
+        if (!lua_isnil(L, 2) && lua_isuserdata(L, 2))
+        {
+            CLuaBaseEntity* PLuaBaseEntity = Lunar<CLuaBaseEntity>::check(L, 2);
+            PTarget = (CBattleEntity*)PLuaBaseEntity->m_PBaseEntity;
+
+            trust->PAI->Ability(PTarget->targid, (uint16)lua_tointeger(L, 1));
+        }
+        else
+        {
+            trust->PAI->Ability(trust->targid, (uint16)lua_tointeger(L, 1));
+        }
+    }
+
+    return 0;
+}
+
+/************************************************************************
+*  Function: getPartyTrusts()
+*  Purpose : Returns a Lua table of trust member Entity objects
+*  Example : local party = player:getPartyTrusts()
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getPartyTrusts(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+
+    CCharEntity* master = (CCharEntity*)m_PBaseEntity;
+    int Psize = master->PTrusts.size();
+
+    int size = 0;
+    if (Psize > 0)
+    {
+        size = Psize;
+    }
+    else
+    {
+        size = 1;
+    }
+
+    lua_createtable(L, master->PTrusts.size(), 0);
+
+    if (master->PTrusts.size() > 0)
+    {
+        int i = 1;
+        for each (auto trust in master->PTrusts)
+        {
+            lua_getglobal(L, CLuaBaseEntity::className);
+            lua_pushstring(L, "new");
+            lua_gettable(L, -2);
+            lua_insert(L, -2);
+            lua_pushlightuserdata(L, (CBattleEntity*)trust);
+            lua_pcall(L, 2, 1, 0);
+
+            lua_rawseti(L, -2, i++);
+        }
+    }
+    return 1;
+}
+
+/*************************************************************************  Function: getEnmityList()
 *  Purpose : Returns a Lua table list of PC's with active enmity
 *  Example : local targets = mob:getEnmityList()
 *  Notes   : Used in Tame and special Mob abilities
@@ -13706,7 +14051,281 @@ inline int32 CLuaBaseEntity::getTHlevel(lua_State* L)
     DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB);
 
     CMobEntity* PMob = (CMobEntity*)m_PBaseEntity;
-    lua_pushinteger(L, PMob->PEnmityContainer->GetHighestTH());
+    lua_pushinteger(L, PMob->m_THLvl);
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::getSpellCost(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_TRUST);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    CSpell* spell = spell::GetSpell((SpellID)(uint16)lua_tointeger(L, 1));
+
+    lua_pushinteger(L, spell->getMPCost());
+    return 1;
+}
+
+/************************************************************************
+*  Function: canDispelStatusEffect()
+*  Purpose : Removes a Dispelable Status Effect from the Entity's Status Effect Container
+*  Example : target:dispelStatusEffect()
+*  Notes   : Can specify which type to remove, if Dispelable
+************************************************************************/
+
+inline int32 CLuaBaseEntity::canDispelStatusEffect(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+
+    lua_pushinteger(L, ((CBattleEntity*)m_PBaseEntity)->StatusEffectContainer->CanDispelStatusEffect((EFFECTFLAG)EFFECTFLAG_DISPELABLE));
+    return 1;
+}
+
+/************************************************************************
+*  Function: getSpellID()
+*  Purpose : Get Entity's ID
+*  Example : npc:getSpellID(); target:getSpellID()
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getSpellID(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CSpell* spell = (CSpell*)m_PBaseEntity;
+
+    lua_pushinteger(L, (uint16)spell->getID());
+    return 1;
+}
+
+/************************************************************************
+*  Function: getTrustHealSpells()
+*  Purpose :
+*  Example :
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getTrustHealSpells(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_TRUST);
+
+    CTrustEntity* PTrust = (CTrustEntity*)m_PBaseEntity;
+    CTrustSpellContainer* Container = (CTrustSpellContainer*)PTrust->TrustSpellContainer;
+
+    if (!Container->m_healList.empty())
+    {
+        int Psize = Container->m_healList.size() > 0 ? Container->m_healList.size() : 1;
+
+        lua_createtable(L, Psize, 0);
+
+        int i = 1;
+        for each (auto spell in Container->m_healList)
+        {
+            CSpell* PSpell = spell::GetSpell(spell);
+            lua_getglobal(L, CLuaBaseEntity::className);
+            lua_pushstring(L, "new");
+            lua_gettable(L, -2);
+            lua_insert(L, -2);
+            lua_pushlightuserdata(L, (void*)PSpell);
+            lua_pcall(L, 2, 1, 0);
+
+            lua_rawseti(L, -2, i++);
+        }
+
+    }
+    return 1;
+}
+
+/************************************************************************
+*  Function: getTrustNaSpells()
+*  Purpose :
+*  Example :
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getTrustNaSpells(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_TRUST);
+
+    CTrustEntity* PTrust = (CTrustEntity*)m_PBaseEntity;
+    CTrustSpellContainer* Container = (CTrustSpellContainer*)PTrust->TrustSpellContainer;
+
+    if (!Container->m_naList.empty())
+    {
+        int Psize = Container->m_naList.size() > 0 ? Container->m_naList.size() : 1;
+
+        lua_createtable(L, Psize, 0);
+
+        int i = 1;
+        for each (auto spell in Container->m_naList)
+        {
+            CSpell* PSpell = spell::GetSpell(spell);
+            lua_getglobal(L, CLuaBaseEntity::className);
+            lua_pushstring(L, "new");
+            lua_gettable(L, -2);
+            lua_insert(L, -2);
+            lua_pushlightuserdata(L, (void*)PSpell);
+            lua_pcall(L, 2, 1, 0);
+
+            lua_rawseti(L, -2, i++);
+        }
+
+    }
+    return 1;
+}
+
+/************************************************************************
+*  Function: getTrustBuffSpells()
+*  Purpose :
+*  Example :
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getTrustBuffSpells(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_TRUST);
+
+    CTrustEntity* PTrust = (CTrustEntity*)m_PBaseEntity;
+    CTrustSpellContainer* Container = (CTrustSpellContainer*)PTrust->TrustSpellContainer;
+
+    if (!Container->m_buffList.empty())
+    {
+        int Psize = Container->m_buffList.size() > 0 ? Container->m_buffList.size() : 1;
+
+        lua_createtable(L, Psize, 0);
+
+        int i = 1;
+        for each (auto spell in Container->m_buffList)
+        {
+            CSpell* PSpell = spell::GetSpell(spell);
+            lua_getglobal(L, CLuaBaseEntity::className);
+            lua_pushstring(L, "new");
+            lua_gettable(L, -2);
+            lua_insert(L, -2);
+            lua_pushlightuserdata(L, (void*)PSpell);
+            lua_pcall(L, 2, 1, 0);
+
+            lua_rawseti(L, -2, i++);
+        }
+
+    }
+    return 1;
+}
+
+/************************************************************************
+*  Function: getTrustDebuffSpells()
+*  Purpose :
+*  Example :
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getTrustDebuffSpells(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_TRUST);
+
+    CTrustEntity* PTrust = (CTrustEntity*)m_PBaseEntity;
+    CTrustSpellContainer* Container = (CTrustSpellContainer*)PTrust->TrustSpellContainer;
+
+    if (!Container->m_debuffList.empty())
+    {
+        int Psize = Container->m_debuffList.size() > 0 ? Container->m_debuffList.size() : 1;
+
+        lua_createtable(L, Psize, 0);
+
+        int i = 1;
+        for each (auto spell in Container->m_debuffList)
+        {
+            CSpell* PSpell = spell::GetSpell(spell);
+            lua_getglobal(L, CLuaBaseEntity::className);
+            lua_pushstring(L, "new");
+            lua_gettable(L, -2);
+            lua_insert(L, -2);
+            lua_pushlightuserdata(L, (void*)PSpell);
+            lua_pcall(L, 2, 1, 0);
+
+            lua_rawseti(L, -2, i++);
+        }
+
+    }
+    return 1;
+}
+
+/************************************************************************
+*  Function: getTrustDamageSpells()
+*  Purpose :
+*  Example :
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getTrustDamageSpells(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_TRUST);
+
+    CTrustEntity* PTrust = (CTrustEntity*)m_PBaseEntity;
+    CTrustSpellContainer* Container = (CTrustSpellContainer*)PTrust->TrustSpellContainer;
+
+    if (!Container->m_damageList.empty())
+    {
+        int Psize = Container->m_damageList.size() > 0 ? Container->m_damageList.size() : 1;
+
+        lua_createtable(L, Psize, 0);
+
+        int i = 1;
+        for each (auto spell in Container->m_damageList)
+        {
+            CSpell* PSpell = spell::GetSpell(spell);
+            lua_getglobal(L, CLuaBaseEntity::className);
+            lua_pushstring(L, "new");
+            lua_gettable(L, -2);
+            lua_insert(L, -2);
+            lua_pushlightuserdata(L, (void*)PSpell);
+            lua_pcall(L, 2, 1, 0);
+
+            lua_rawseti(L, -2, i++);
+        }
+
+    }
+    return 1;
+}
+
+/************************************************************************
+*  Function: getTrustGaSpells()
+*  Purpose :
+*  Example :
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getTrustGaSpells(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_TRUST);
+
+    CTrustEntity* PTrust = (CTrustEntity*)m_PBaseEntity;
+    CTrustSpellContainer* Container = (CTrustSpellContainer*)PTrust->TrustSpellContainer;
+
+    if (!Container->m_gaList.empty())
+    {
+        int Psize = Container->m_gaList.size() > 0 ? Container->m_gaList.size() : 1;
+
+        lua_createtable(L, Psize, 0);
+
+        int i = 1;
+        for each (auto spell in Container->m_gaList)
+        {
+            CSpell* PSpell = spell::GetSpell(spell);
+            lua_getglobal(L, CLuaBaseEntity::className);
+            lua_pushstring(L, "new");
+            lua_gettable(L, -2);
+            lua_insert(L, -2);
+            lua_pushlightuserdata(L, (void*)PSpell);
+            lua_pcall(L, 2, 1, 0);
+
+            lua_rawseti(L, -2, i++);
+        }
+
+    }
     return 1;
 }
 
@@ -14045,7 +14664,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
 
     // Skills and Abilities
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,capSkill),
-    LUNAR_DECLARE_METHOD(CLuaBaseEntity,capAllSkills),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,capAllTrustSkills),    LUNAR_DECLARE_METHOD(CLuaBaseEntity,capAllSkills),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getSkillLevel),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setSkillLevel),
@@ -14075,6 +14694,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
 
     // Parties and Alliances
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getParty),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getPartyTrusts),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getPartySize),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,hasPartyJob),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getPartyMember),
@@ -14158,7 +14778,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateEnmityFromCure),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,resetEnmity),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateClaim),
-
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, hasTopEnmity),
     // Status Effects
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addStatusEffect),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addStatusEffectEx),
@@ -14235,7 +14855,8 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getWeaponSkillType),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getWeaponSubSkillType),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getWSSkillchainProp),
-
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getFormSkillChain),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getLastWsUsed),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,takeWeaponskillDamage),
 
     // Pets and Automations
@@ -14278,6 +14899,10 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateAttachments),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity, spawnTrust),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, hasTrust),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, checkTrust),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getTrustWSList),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, useTrustAbility),
 
     // Mob Entity-Specific
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setMobLevel),
@@ -14334,6 +14959,9 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,actionQueueEmpty),
 
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,canCastSpells),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,startCasting),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,stopCasting),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,castSpell),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,useJobAbility),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,useMobAbility),
@@ -14354,6 +14982,16 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getTHlevel),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getPlayerRegionInZone),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateToEntireZone),
+
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getTrustHealSpells),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getTrustNaSpells),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getTrustBuffSpells),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getTrustDebuffSpells),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getTrustDamageSpells),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getTrustGaSpells),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getSpellID),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, canDispelStatusEffect),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getSpellCost),
 
     {nullptr,nullptr}
 };

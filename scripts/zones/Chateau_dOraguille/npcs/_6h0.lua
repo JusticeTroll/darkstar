@@ -22,10 +22,11 @@ function onTrigger(player,npc)
 
     local currentMission = player:getCurrentMission(SANDORIA);
     local MissionStatus = player:getVar("MissionStatus");
-    local infiltrateDavoi = player:hasCompletedMission(SANDORIA,dsp.mission.id.sandoria.INFILTRATE_DAVOI);
+    local infiltrateDavoi = player:hasCompletedMission(SANDORIA, dsp.mission.id.sandoria.INFILTRATE_DAVOI);
 
     local Wait1DayRanperre = player:getVar("Wait1DayForRanperre_date");
     local osdate = tonumber(os.date("%j"));
+	local rank6 = player:getRank(BASTOK) >= 6 and 1 or player:getRank(SANDORIA) >= 6 and 1 or player:getRank(WINDURST) >= 6 and 1 or 0;
 
     if (player:getVar("aBoysDreamCS") == 8) then
         player:startEvent(88);
@@ -33,6 +34,8 @@ function onTrigger(player,npc)
         player:startEvent(90);
     elseif (player:getVar("UnderOathCS") == 8) then
         player:startEvent(89);
+	elseif (rank6 == 1 and player:hasKeyItem(dsp.ki.SAN_DORIA_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.TRION) == false) then			
+		player:startEvent(574,0,0,0,0,0,0,0,0); -- TRUST
     elseif (currentMission == dsp.mission.id.sandoria.INFILTRATE_DAVOI and infiltrateDavoi == false and MissionStatus == 0) then
         player:startEvent(553,0,dsp.ki.ROYAL_KNIGHTS_DAVOI_REPORT);
     elseif (currentMission == dsp.mission.id.sandoria.INFILTRATE_DAVOI and MissionStatus == 4) then
@@ -77,7 +80,7 @@ function onEventFinish(player,csid,option)
             player:addItem(14095);
             player:messageSpecial(ID.text.ITEM_OBTAINED,14095); -- Gallant Leggings
             player:setVar("aBoysDreamCS",0);
-            player:addFame(SANDORIA,40);
+            player:addFame(SANDORIA,AF2_FAME);
             player:completeQuest(SANDORIA,dsp.quest.id.sandoria.A_BOY_S_DREAM);
         end
     elseif (csid == 90 and option ==1) then
@@ -90,7 +93,7 @@ function onEventFinish(player,csid,option)
             player:addItem(12644);
             player:messageSpecial(ID.text.ITEM_OBTAINED,12644); -- Gallant Surcoat
             player:setVar("UnderOathCS",9);
-            player:addFame(SANDORIA,60);
+            player:addFame(SANDORIA,AF3_FAME);
             player:setTitle(dsp.title.PARAGON_OF_PALADIN_EXCELLENCE);
             player:completeQuest(SANDORIA,dsp.quest.id.sandoria.UNDER_OATH);
         end
@@ -101,6 +104,35 @@ function onEventFinish(player,csid,option)
         player:setVar("MissionStatus",8);
     elseif (csid == 63) then
         player:setVar("Cutscenes_8-2",1)
+	
+	--TRUST
+	elseif (csid == 574 and option == 2) then
+		player:addSpell(dsp.trust.TRION, true);
+		player:PrintToPlayer("You learned Trust: Trion!", 0xD);
     end
-
 end;
+
+function TrustMemory(player)
+	local memories = 0;
+	--2 - LIGHTBRINGER
+	if(player:hasCompletedMission(SANDORIA, dsp.mission.id.sandoria.LIGHTBRINGER)) then
+		memories = memories + 2;
+	end
+	--4 - IMMORTAL_SENTRIES
+	if(player:hasCompletedMission(TOAU, dsp.mission.id.toau.IMMORTAL_SENTRIES)) then
+		memories = memories + 4;
+	end
+	--8 - UNDER_OATH
+	if(player:hasCompletedMission(SANDORIA, dsp.mission.id.sandoria.UNDER_OATH)) then
+		memories = memories + 8;
+	end
+	--16 - FIT_FOR_A_PRINCE
+	if(player:hasCompletedQuest(SANDORIA, dsp.quest.id.sandoria.FIT_FOR_A_PRINCE)) then
+		memories = memories + 16;
+	end
+	--32 - Hero's Combat BCNM
+	--if(playervar for Hero's Combat) then
+	--	memories = memories + 32;
+	--end
+	return memories;
+end

@@ -5,7 +5,7 @@
 
 cmdprops =
 {
-    permission = 1,
+    permission = 0,
     parameters = "b"
 };
 
@@ -331,7 +331,7 @@ function onTrigger(player, bytes)
     else
         -- destination is a zone ID.
         zone = tonumber(bytes);
-        if (zone == nil or zone < 0 or zone > 298) then
+        if (zone == nil or zone < 0 or zone > 297) then
             error(player, "Invalid zone ID.");
             return;
         end

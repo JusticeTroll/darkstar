@@ -338,11 +338,10 @@ enum ZONEID : uint16
     ZONE_DYNAMIS_SAN_DORIA_D            = 294,
     ZONE_DYNAMIS_BASTOK_D               = 295,
     ZONE_DYNAMIS_WINDURST_D             = 296,
-    ZONE_DYNAMIS_JEUNO_D                = 297,
-    ZONE_WALK_OF_ECHOES_P               = 298
+    ZONE_DYNAMIS_JEUNO_D                = 297
 };
 
-#define MAX_ZONEID 299
+#define MAX_ZONEID 298
 
 enum REGIONTYPE : uint8
 {
@@ -541,6 +540,7 @@ public:
     virtual void    SpawnPCs(CCharEntity* PChar);                                   // отображаем персонажей в зоне
     virtual void    SpawnMOBs(CCharEntity* PChar);                                  // отображаем MOBs в зоне
     virtual void    SpawnPETs(CCharEntity* PChar);                                  // отображаем PETs в зоне
+    virtual void    SpawnTRUSTs(CCharEntity* PChar);                                  // отображаем PETs в зоне
     virtual void    SpawnNPCs(CCharEntity* PChar);                                  // отображаем NPCs в зоне
     virtual void    SpawnMoogle(CCharEntity* PChar);                                // отображаем Moogle в MogHouse
     virtual void    SpawnTransport(CCharEntity* PChar);                             // отображаем транспорт
@@ -554,8 +554,9 @@ public:
     virtual void    InsertNPC(CBaseEntity* PNpc);                                   // добавляем в зону npc
     virtual void    InsertMOB(CBaseEntity* PMob);                                   // добавляем в зону mob
     virtual void    InsertPET(CBaseEntity* PPet);                                   // добавляем в зону pet
+    virtual void    InsertTRUST(CBaseEntity* PTrust);                                   // добавляем в зону pet
     virtual void    DeletePET(CBaseEntity* PPet);                                   // derefs the pet's ID from this zone
-
+    virtual void    DeleteTRUST(CBaseEntity* PTrust);
     virtual void    FindPartyForMob(CBaseEntity* PEntity);                          // ищем группу для монстра
     virtual void    TransportDepart(uint16 boundary, uint16 zone);                  // транспотр отправляется, необходимо собрать пассажиров
 

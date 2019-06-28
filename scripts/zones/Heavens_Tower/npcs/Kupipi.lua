@@ -35,8 +35,26 @@ function onTrigger(player,npc)
     local pNation = player:getNation();
     local currentMission = player:getCurrentMission(pNation);
     local MissionStatus = player:getVar("MissionStatus");
+	local TrustSandoria = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.TRUST_SANDORIA);
+	local TrustBastok   = player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRUST_BASTOK);
+	local TrustWindurst = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.TRUST_WINDURST);
+	local Level = player:getMainLvl();
 
-    if (pNation == dsp.nation.SANDORIA) then
+	--TRUST
+	if (Level >= 5 and TrustWindurst == QUEST_ACCEPTED and (TrustBastok == QUEST_COMPLETED or TrustSandoria == QUEST_COMPLETED)) then
+		if (player:hasKeyItem(dsp.keyItem.GREEN_INSTITUTE_CARD) == true and player:hasSpell(dsp.trust.KUPIPI) == false) then
+			player:startEvent(439,0,0,0,TrustMemory(player),0,0,0,0);	
+		end
+	elseif (Level >= 5 and TrustWindurst == QUEST_ACCEPTED) then
+		if (player:hasKeyItem(dsp.keyItem.GREEN_INSTITUTE_CARD) == true and player:hasSpell(dsp.trust.KUPIPI) == false) then
+			player:startEvent(435,0,0,0,TrustMemory(player),0,0,0,0);	
+		elseif (player:hasSpell(dsp.trust.KUPIPI) == true and player:getVar("WindurstFirstTrust") == 1) then
+			player:startEvent(436);
+		elseif (player:getVar("WindurstFirstTrust") == 2) then
+			player:startEvent(437);
+		end		
+		
+    elseif (pNation == dsp.nation.SANDORIA) then
         -- San d'Oria Mission 2-3 Part I - Windurst > Bastok
         if (currentMission == dsp.mission.id.sandoria.JOURNEY_TO_WINDURST) then
             if (MissionStatus == 4) then
@@ -106,7 +124,10 @@ function onTrigger(player,npc)
         else
             player:startEvent(251);
         end
-
+		
+	--TRUST END
+	elseif(TrustWindurst == QUEST_COMPLETED and player:hasSpell(dsp.trust.NANAA_MIHGO) == false) then
+		player:startEvent(438,0,0,0,0,0,0,0,rank3);
     else
         player:startEvent(251);
     end
@@ -161,6 +182,47 @@ function onEventFinish(player,csid,option)
         player:setVar("KupipiDisbelief",0);
     elseif (csid == 408) then
         player:setVar("KupipiRankTenText",1);
-    end
+				
+	--TRUST	
+	elseif (csid == 435) then
+		player:addSpell(dsp.trust.KUPIPI, true);
+		player:addVar("WindurstFirstTrust", 1);
+		player:PrintToPlayer("You learned Trust: Kupipi!", 0xD);
+	elseif (csid == 437) then
+		player:messageSpecial(ID.text.KEYITEM_LOST,dsp.keyItem.GREEN_INSTITUTE_CARD);
+		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.keyItem.WINDURST_TRUST_PERMIT);
+		player:setVar("WindurstFirstTrust", 0);
+		player:addTitle(dsp.title.THE_TRUSTWORTHY);
+		player:completeQuest(WINDURST,dsp.quest.id.windurst.TRUST_WINDURST);
+		player:delKeyItem(dsp.keyItem.GREEN_INSTITUTE_CARD);
+		player:addKeyItem(dsp.keyItem.WINDURST_TRUST_PERMIT);
+		player:PrintToPlayer("You are now able to call multiple alter egos.", 0xD);
+    elseif (csid == 439) then
+		player:addSpell(dsp.trust.KUPIPI, true);
+		player:PrintToPlayer("You learned Trust: Kupipi!", 0xD);
+		player:completeQuest(WINDURST,dsp.quest.id.windurst.TRUST_WINDURST);
+		player:delKeyItem(dsp.keyItem.GREEN_INSTITUTE_CARD);
+		player:addKeyItem(dsp.keyItem.WINDURST_TRUST_PERMIT);
+		player:messageSpecial(ID.text.KEYITEM_LOST,dsp.keyItem.GREEN_INSTITUTE_CARD);
+		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.keyItem.WINDURST_TRUST_PERMIT);
 
+    end
 end;
+
+function TrustMemory(player)
+	local memories = 0;
+	--2 - THE_THREE_KINGDOMS
+	if (player:hasCompletedMission(WINDURST, dsp.mission.id.windurst.THE_THREE_KINGDOMS)) then
+		memories = memories + 2;
+	end
+	--4 - nothing
+	--8 - MOON_READING
+	if(player:hasCompletedMission(WINDURST, dsp.mission.id.windurst.MOON_READING)) then
+		memories = memories + 8;
+	end
+	--16 - chocobo racing
+	--if() then
+	--	memories = memories + 16;
+	--end
+	return memories;
+end

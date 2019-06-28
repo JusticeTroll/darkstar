@@ -35,6 +35,7 @@
 #include "lua_spell.h"
 #include "lua_statuseffect.h"
 #include "lua_mobskill.h"
+#include "lua_trustskill.h"
 #include "lua_trade_container.h"
 #include "lua_zone.h"
 #include "lua_item.h"
@@ -46,6 +47,7 @@
 #include "../conquest_system.h"
 #include "../map.h"
 #include "../mobskill.h"
+#include "../trust_weaponskill.h"
 #include "../party.h"
 #include "../alliance.h"
 #include "../entities/mobentity.h"
@@ -2133,27 +2135,25 @@ namespace luautils
 
     int32 OnSpellPrecast(CBattleEntity* PCaster, CSpell* PSpell)
     {
-        if (PCaster->objtype == TYPE_MOB)
+        int8 File[255];
+        PCaster->objtype == TYPE_TRUST ? snprintf((char*)File, sizeof(File), "scripts/globals/spells/trust/%s.lua", PCaster->GetName()) :
+            snprintf((char*)File, sizeof(File), "scripts/zones/%s/mobs/%s.lua", PCaster->loc.zone->GetName(), PCaster->GetName());
+        if (prepFile(File, "onSpellPrecast"))
         {
-            lua_prepscript("scripts/zones/%s/mobs/%s.lua", PCaster->loc.zone->GetName(), PCaster->GetName());
+            return 0;
+        }
 
-            if (prepFile(File, "onSpellPrecast"))
-            {
-                return 0;
-            }
+        CLuaBaseEntity LuaCasterEntity(PCaster);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaCasterEntity);
 
-            CLuaBaseEntity LuaCasterEntity(PCaster);
-            Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaCasterEntity);
+        CLuaSpell LuaSpell(PSpell);
+        Lunar<CLuaSpell>::push(LuaHandle, &LuaSpell);
 
-            CLuaSpell LuaSpell(PSpell);
-            Lunar<CLuaSpell>::push(LuaHandle, &LuaSpell);
-
-            if (lua_pcall(LuaHandle, 2, 0, 0))
-            {
-                ShowError("luautils::onSpellPrecast: %s\n", lua_tostring(LuaHandle, -1));
-                lua_pop(LuaHandle, 1);
-                return 0;
-            }
+        if (lua_pcall(LuaHandle, 2, 0, 0))
+        {
+            ShowError("luautils::onSpellPrecast: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return 0;
         }
         return 0;
     }
@@ -3243,7 +3243,11 @@ namespace luautils
 
         char filePath[40] = "scripts/globals/abilities/%s.lua";
 
-        if (PAbility->isPetAbility())
+        if (PChar->objtype == TYPE_TRUST)
+        {
+            memcpy(filePath, "scripts/globals/abilities/trusts/%s.lua", 39);
+        }
+        else if (PAbility->isPetAbility())
         {
             memcpy(filePath, "scripts/globals/abilities/pets/%s.lua", 38);
         }
@@ -3370,7 +3374,8 @@ namespace luautils
     int32 OnUseAbility(CBattleEntity* PUser, CBattleEntity* PTarget, CAbility* PAbility, action_t* action)
     {
         std::string path = "scripts/globals/abilities/%s.lua";
-        if (PUser->objtype == TYPE_PET) path = "scripts/globals/abilities/pets/%s.lua";
+        if (PUser->objtype == TYPE_TRUST) path = "scripts/globals/abilities/trusts/%s.lua";
+        else if (PUser->objtype == TYPE_PET) path = "scripts/globals/abilities/pets/%s.lua";
         lua_prepscript(path.c_str(), PAbility->getName());
 
         if (prepFile(File, "onUseAbility"))
@@ -4383,4 +4388,349 @@ namespace luautils
         }
     }
 
+    /************************************************************************
+    *                                                                       *
+    *  TRUST LUA SCRIPTS                                                    *
+    *                                                                       *
+    ************************************************************************/
+
+    int32 OnTrustDespawn(CBaseEntity* PTrust)
+    {
+        DSP_DEBUG_BREAK_IF(PTrust == nullptr);
+
+        int8 File[255];
+        memset(File, 0, sizeof(File));
+        snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
+
+        if (prepFile(File, "onTrustDespawn"))
+        {
+            return -1;
+        }
+
+        CLuaBaseEntity LuaMobEntity(PTrust);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaMobEntity);
+
+        if (lua_pcall(LuaHandle, 1, 0, 0))
+        {
+            ShowError("luautils::onTrustDespawn: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+        return 0;
+    }
+
+    int32 OnTrustSpawn(CBaseEntity* PTrust)
+    {
+        DSP_DEBUG_BREAK_IF(PTrust == nullptr);
+
+        int8 File[255];
+        memset(File, 0, sizeof(File));
+        snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
+        if (prepFile(File, "onTrustSpawn"))
+        {
+            return -1;
+        }
+
+        CLuaBaseEntity LuaMobEntity(PTrust);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaMobEntity);
+
+
+        if (lua_pcall(LuaHandle, 1, 0, 0))
+        {
+            ShowError("luautils::onTrustSpawn: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+        return 0;
+    }
+
+    int32 OnTrustDeath(CBaseEntity* PTrust, CBaseEntity* PKiller)
+    {
+        DSP_DEBUG_BREAK_IF(PTrust == nullptr);
+
+        int8 File[255];
+        memset(File, 0, sizeof(File));
+        snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
+
+        lua_pushnil(LuaHandle);
+        lua_setglobal(LuaHandle, "onTrustDeath");
+
+        CLuaBaseEntity LuaMobEntity(PTrust);
+
+        if (luaL_loadfile(LuaHandle, (const char*)File) || lua_pcall(LuaHandle, 0, 0, 0))
+        {
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+
+        lua_getglobal(LuaHandle, "onTrustDeath");
+        if (lua_isnil(LuaHandle, -1))
+        {
+            ShowError("luautils::onTrustDeath (%s): undefined procedure onTrustDeath\n", File);
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaMobEntity);
+        lua_pushnil(LuaHandle);
+        lua_pushnil(LuaHandle);
+
+        if (lua_pcall(LuaHandle, 3, 0, 0))
+        {
+            ShowError("luautils::onTrustDeath: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+
+        return 0;
+    }
+
+    int32 OnTrustEngaged(CBaseEntity* PTrust, CBaseEntity* PTarget)
+    {
+        DSP_DEBUG_BREAK_IF(PTarget == nullptr || PTrust == nullptr);
+
+        CLuaBaseEntity LuaMobEntity(PTrust);
+        CLuaBaseEntity LuaKillerEntity(PTarget);
+
+        int8 File[255];
+        snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
+
+        if (PTarget->objtype == TYPE_PC)
+        {
+            ((CCharEntity*)PTarget)->m_event.reset();
+            ((CCharEntity*)PTarget)->m_event.Target = PTrust;
+            ((CCharEntity*)PTarget)->m_event.Script.insert(0, (const char*)File);
+        }
+
+        if (prepFile(File, "onTrustEngaged"))
+        {
+            return -1;
+        }
+
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaMobEntity);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaKillerEntity);
+
+        if (lua_pcall(LuaHandle, 2, 0, 0))
+        {
+            ShowError("luautils::onTrustEngaged: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+        return 0;
+    }
+
+    int32 OnTrustDisengage(CBaseEntity* PTrust)
+    {
+        DSP_DEBUG_BREAK_IF(PTrust == nullptr);
+
+        CLuaBaseEntity LuaTrustEntity(PTrust);
+
+        int8 File[255];
+        snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
+
+        if (prepFile(File, "onTrustDisengaged"))
+        {
+            return -1;
+        }
+
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaTrustEntity);
+
+        if (lua_pcall(LuaHandle, 2, 0, 0))
+        {
+            ShowError("luautils::onMobFight: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+        return 0;
+    }
+
+    int32 OnTrustFight(CBaseEntity* PTrust, CBaseEntity* PTarget)
+    {
+        DSP_DEBUG_BREAK_IF(PTrust == nullptr);
+        DSP_DEBUG_BREAK_IF(PTarget == nullptr || PTarget->objtype == TYPE_NPC);
+
+        CLuaBaseEntity LuaTrustEntity(PTrust);
+        CLuaBaseEntity LuaMobEntity(PTarget);
+
+        int8 File[255];
+        snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
+
+        if (prepFile(File, "onTrustFight"))
+        {
+            return -1;
+        }
+
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaTrustEntity);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaMobEntity);
+
+        if (lua_pcall(LuaHandle, 2, 0, 0))
+        {
+            ShowError("luautils::onMobFight: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+        return 0;
+    }
+
+    int32 OnTrustSpellCheck(CBattleEntity* PTrust, CSpell* PSpell)
+    {
+        lua_prepscript("scripts/globals/trusts/%s.lua", PTrust->GetName());
+
+        if (prepFile(File, "onTrustSpellCheck"))
+        {
+            return 0;
+        }
+
+        CLuaBaseEntity LuaCasterEntity(PTrust);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaCasterEntity);
+
+        CLuaSpell LuaSpell(PSpell);
+        Lunar<CLuaSpell>::push(LuaHandle, &LuaSpell);
+
+        if (lua_pcall(LuaHandle, 2, 1, 0))
+        {
+            ShowError("luautils::onTrustSpellCheck: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return 0;
+        }
+        uint32 retVal = (!lua_isnil(LuaHandle, -1) && lua_isnumber(LuaHandle, -1) ? (int32)lua_tonumber(LuaHandle, -1) : 0);
+        lua_pop(LuaHandle, 1);
+        if (retVal > 0)
+        {
+            return retVal;
+        }
+        return 0;
+    }
+
+    std::tuple<uint16, uint16> OnTrustCast(CBattleEntity* PTrust)
+    {
+        int8 File[255];
+        snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
+        if (prepFile(File, "onTrustCast")) { return {}; }
+
+        CLuaBaseEntity LuaTrustEntity(PTrust);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaTrustEntity);
+
+        if (lua_pcall(LuaHandle, 1, 2, 0))
+        {
+            ShowError("luautils::onTrustCast: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return std::tuple<uint16, uint16>();
+        }
+
+        uint16 spell = (uint16)lua_tonumber(LuaHandle, -2);
+        uint16 target = (!lua_isnil(LuaHandle, -1) && lua_isnumber(LuaHandle, -1) ? (uint16)lua_tonumber(LuaHandle, -1) : 0);
+
+        lua_pop(LuaHandle, 2);
+        return std::make_tuple(spell, target);
+    }
+
+    int32 OnTrustSkillCheck(CBaseEntity* PTarget, CBaseEntity* PTrust, CAbility* PMobSkill)
+    {
+        lua_prepscript("scripts/globals/trusts/%s.lua", PTrust->GetName());
+
+        if (prepFile(File, "onTrustSkillCheck"))
+        {
+            return 1;
+        }
+
+        CLuaBaseEntity LuaBaseEntity(PTarget);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaBaseEntity);
+
+        CLuaBaseEntity LuaTrustEntity(PTrust);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaTrustEntity);
+
+        CLuaAbility LuaAbility(PMobSkill);
+        Lunar<CLuaAbility>::push(LuaHandle, &LuaAbility);
+
+        if (lua_pcall(LuaHandle, 3, 1, 0))
+        {
+            ShowError("luautils::onTrustSkillCheck (%s): %s\n", PMobSkill->getName(), lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return 1;
+        }
+
+        uint32 retVal = (!lua_isnil(LuaHandle, -1) && lua_isnumber(LuaHandle, -1) ? (int32)lua_tonumber(LuaHandle, -1) : -5);
+        lua_pop(LuaHandle, 1);
+        return retVal;
+    }
+
+    int32 OnTrustWeaponSkillCheck(CBaseEntity* PTarget, CBaseEntity* PTrust, CMobSkill* PMobSkill)
+    {
+        lua_prepscript("scripts/globals/trusts/%s.lua", PTrust->GetName());
+
+        if (prepFile(File, "onTrustWeaponSkillCheck"))
+        {
+            return 1;
+        }
+
+        CLuaBaseEntity LuaBaseEntity(PTarget);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaBaseEntity);
+
+        CLuaBaseEntity LuaTrustEntity(PTrust);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaTrustEntity);
+
+        CLuaMobSkill LuaAbility(PMobSkill);
+        Lunar<CLuaMobSkill>::push(LuaHandle, &LuaAbility);
+
+        if (lua_pcall(LuaHandle, 3, 1, 0))
+        {
+            ShowError("luautils::onTrustWeaponSkillCheck (%s): %s\n", PMobSkill->getName(), lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return 1;
+        }
+
+        uint32 retVal = (!lua_isnil(LuaHandle, -1) && lua_isnumber(LuaHandle, -1) ? (int32)lua_tonumber(LuaHandle, -1) : -5);
+        lua_pop(LuaHandle, 1);
+        return retVal;
+    }
+
+    int32 OnTrustWeaponSkill(CBaseEntity* PTarget, CBaseEntity* PTrust, CMobSkill* PMobSkill, action_t* action)
+    {
+        lua_prepscript("scripts/globals/trustskills/%s.lua", PMobSkill->getName());
+
+        //if (!prepFile(File, "onTrustWeaponSkill"))
+        //{
+        //    CLuaBaseEntity LuaBaseEntity(PTarget);
+        //    Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaBaseEntity);
+
+        //    CLuaBaseEntity LuaMobEntity(PTrust);
+        //    Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaMobEntity);
+
+        //    CLuaMobSkill LuaMobSkill(PMobSkill);
+        //    Lunar<CLuaMobSkill>::push(LuaHandle, &LuaMobSkill);
+
+        //    CLuaAction LuaAction(action);
+        //    Lunar<CLuaAction>::push(LuaHandle, &LuaAction);
+
+        //    if (lua_pcall(LuaHandle, 4, 0, 0))
+        //    {
+        //        ShowError("luautils::onTrustWeaponSkill: %s\n", lua_tostring(LuaHandle, -1));
+        //        lua_pop(LuaHandle, 1);
+        //    }
+        //}
+
+        //snprintf((char*)File, sizeof(File), "scripts/globals/trustskills/%s.lua", PMobSkill->getName());
+
+        if (!prepFile(File, "onTrustWeaponSkill"))
+        {
+            CLuaBaseEntity LuaBaseEntity(PTarget);
+            Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaBaseEntity);
+            CLuaBaseEntity LuaMobEntity(PTrust);
+            Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaMobEntity);
+            CLuaMobSkill LuaMobSkill(PMobSkill);
+            Lunar<CLuaMobSkill>::push(LuaHandle, &LuaMobSkill);
+
+            if (lua_pcall(LuaHandle, 3, 1, 0))
+            {
+                ShowError("luautils::onTrustWeaponSkill: %s\n", lua_tostring(LuaHandle, -1));
+                lua_pop(LuaHandle, 1);
+                return 0;
+            }
+        }
+
+        int32 retVal = (!lua_isnil(LuaHandle, -1) && lua_isnumber(LuaHandle, -1) ? (int32)lua_tonumber(LuaHandle, -1) : 0);
+        lua_pop(LuaHandle, 1);
+        return retVal;
+    }
 }; // namespace luautils
