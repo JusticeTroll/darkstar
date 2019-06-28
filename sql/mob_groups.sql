@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.16  Distrib 10.2.7-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: dspdb
+-- Host: localhost    Database: wiggo32
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version   10.2.7-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,10 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `mob_groups`
+--
+
+DROP TABLE IF EXISTS `mob_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mob_groups` (
+  `groupid` int(10) unsigned NOT NULL,
+  `poolid` int(10) unsigned NOT NULL DEFAULT 0,
+  `zoneid` smallint(3) unsigned NOT NULL DEFAULT 0,
+  `name` varchar(24) DEFAULT NULL,
+  `respawntime` int(10) unsigned NOT NULL DEFAULT 0,
+  `spawntype` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `dropid` int(10) unsigned NOT NULL DEFAULT 0,
+  `HP` mediumint(8) NOT NULL DEFAULT 0,
+  `MP` mediumint(8) NOT NULL DEFAULT 0,
+  `minLevel` tinyint(2) unsigned NOT NULL DEFAULT 0,
+  `maxLevel` tinyint(2) unsigned NOT NULL DEFAULT 0,
+  `allegiance` tinyint(2) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`zoneid`,`groupid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=22;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `mob_groups`
 --
--- ORDER BY:  `groupid`
+-- ORDER BY:  `zoneid`,`groupid`
 
+LOCK TABLES `mob_groups` WRITE;
 /*!40000 ALTER TABLE `mob_groups` DISABLE KEYS */;
 INSERT INTO `mob_groups` VALUES (1,69,1,0,128,40,0,0,34,36,0);
 INSERT INTO `mob_groups` VALUES (2,417,1,0,128,299,0,0,20,24,0);
@@ -12420,6 +12445,7 @@ INSERT INTO `mob_groups` VALUES (14635,5845,141,3600,0,4602,800,0,25,25,0);
 INSERT INTO `mob_groups` VALUES (14636,3215,74,0,128,4802,0,0,75,75,0);
 INSERT INTO `mob_groups` VALUES (14637,1015,74,0,128,4801,0,0,75,75,0);
 /*!40000 ALTER TABLE `mob_groups` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -12430,4 +12456,4 @@ INSERT INTO `mob_groups` VALUES (14637,1015,74,0,128,4801,0,0,75,75,0);
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 16:46:06
+-- Dump completed on 2019-06-17 15:17:59

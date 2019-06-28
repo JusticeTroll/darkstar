@@ -1,26 +1,39 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
---
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version	5.7.25-log
+/*
+Navicat MySQL Data Transfer
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+Source Server         : oo
+Source Server Version : 50136
+Source Host           : localhost:3306
+Source Database       : dspdb
 
---
--- Dumping data for table `char_inventory`
---
--- ORDER BY:  `charid`,`location`,`slot`
+Target Server Type    : MYSQL
+Target Server Version : 50136
+File Encoding         : 65001
 
-/*!40000 ALTER TABLE `char_inventory` DISABLE KEYS */;
+Date: 2013-01-21 00:16:20
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `char_inventory`
+-- ----------------------------
+DROP TABLE IF EXISTS `char_inventory`;
+CREATE TABLE `char_inventory` (
+  `charid` int(10) unsigned NOT NULL,
+  `location` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `slot` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `itemId` smallint(5) unsigned NOT NULL DEFAULT '65535',
+  `quantity` int(10) unsigned NOT NULL DEFAULT '0',
+  `bazaar` int(8) unsigned NOT NULL DEFAULT '0',
+  `signature` varchar(20) NOT NULL DEFAULT '',
+  `extra` blob(24) DEFAULT NULL,
+  PRIMARY KEY (`charid`,`location`,`slot`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=28;
+
+-- ----------------------------
+-- Records of char_inventory
+-- ----------------------------
+
 INSERT INTO `char_inventory` VALUES (1,0,0,65535,2729908,0,'',NULL);
 INSERT INTO `char_inventory` VALUES (1,0,1,13285,1,0,'',0x000000000000000000000000000000000000000000000000);
 INSERT INTO `char_inventory` VALUES (1,0,2,13285,1,0,'',0x000000000000000000000000000000000000000000000000);
@@ -1658,15 +1671,4 @@ INSERT INTO `char_inventory` VALUES (33,0,8,16443,1,0,'',0x000000000000000000000
 INSERT INTO `char_inventory` VALUES (33,0,9,13402,1,0,'',0x000000000000000000000000000000000000000000000000);
 INSERT INTO `char_inventory` VALUES (33,0,10,768,9,0,'',0x000000000000000000000000000000000000000000000000);
 INSERT INTO `char_inventory` VALUES (33,0,11,1126,3,0,'',0x000000000000000000000000000000000000000000000000);
-/*!40000 ALTER TABLE `char_inventory` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-06-20 16:46:02

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version	5.6.16
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,10 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `automaton_spells`
+--
+
+DROP TABLE IF EXISTS `automaton_spells`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `automaton_spells` (
+  `spellid` smallint(4) unsigned NOT NULL,
+  `skilllevel` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `heads` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `enfeeble` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `immunity` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `removes` int(6) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`spellid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=14;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `automaton_spells`
 --
--- ORDER BY:  `spellid`
 
+LOCK TABLES `automaton_spells` WRITE;
 /*!40000 ALTER TABLE `automaton_spells` DISABLE KEYS */;
 INSERT INTO `automaton_spells` VALUES (1,12,31,0,0,136129);
 INSERT INTO `automaton_spells` VALUES (2,45,31,0,0,0);

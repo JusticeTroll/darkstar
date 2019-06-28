@@ -1,26 +1,47 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 3.3.8
+-- http://www.phpmyadmin.net
 --
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Serveur: localhost
+-- Généré le : Jeu 05 Janvier 2012 à 05:50
+-- Version du serveur: 6.0.0
+-- Version de PHP: 5.2.9-2
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `accounts`
+-- Base de données: `dspdb`
 --
--- ORDER BY:  `id`
 
-/*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `accounts`
+--
+
+DROP TABLE IF EXISTS `accounts`;
+CREATE TABLE IF NOT EXISTS `accounts` (
+  `id` int(10) unsigned NOT NULL DEFAULT '0',
+  `login` varchar(16) NOT NULL DEFAULT '',
+  `password` varchar(64) NOT NULL DEFAULT '',
+  `email` varchar(64) NOT NULL DEFAULT '',
+  `email2` varchar(64) NOT NULL DEFAULT '',
+  `timecreate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `timelastmodify` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `content_ids` tinyint(2) unsigned NOT NULL DEFAULT '16',
+  `expansions` smallint(4) UNSIGNED NOT NULL DEFAULT '4094',
+  `features` tinyint(2) UNSIGNED NOT NULL DEFAULT '13',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `priv` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 INSERT INTO `accounts` VALUES (1000,'prophet','*12F36606BA68B8E9F55490D2199CB72763A6942C','','','2019-04-28 19:35:23','2019-06-11 08:40:35',16,238,13,1,1);
 INSERT INTO `accounts` VALUES (1001,'Miniberg','*9A2CE10E50564756BCE67170D8A4912089AA37D2','','','2019-04-28 22:48:18','2019-06-11 13:08:32',16,238,13,1,1);
 INSERT INTO `accounts` VALUES (1002,'Wabubu','*9A2CE10E50564756BCE67170D8A4912089AA37D2','','','2019-04-29 00:05:15','2019-06-11 13:05:58',16,238,13,1,1);

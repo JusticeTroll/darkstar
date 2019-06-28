@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.16  Distrib 10.2.7-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version	10.2.7-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,10 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `fishing_rod`
+--
+
+DROP TABLE IF EXISTS `fishing_rod`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fishing_rod` (
+  `rodid` smallint(5) unsigned NOT NULL,
+  `name` text NOT NULL,
+  `fishid` smallint(5) unsigned NOT NULL,
+  `flag` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`rodid`,`fishid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=38;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `fishing_rod`
 --
 -- ORDER BY:  `rodid`,`fishid`
 
+LOCK TABLES `fishing_rod` WRITE;
 /*!40000 ALTER TABLE `fishing_rod` DISABLE KEYS */;
 INSERT INTO `fishing_rod` VALUES (17011,'Ebisu Fishing Rod',90,1);
 INSERT INTO `fishing_rod` VALUES (17011,'Ebisu Fishing Rod',624,1);
@@ -796,6 +813,7 @@ INSERT INTO `fishing_rod` VALUES (17391,'Willow Fishing Rod',4515,5);
 INSERT INTO `fishing_rod` VALUES (17391,'Willow Fishing Rod',13454,1);
 INSERT INTO `fishing_rod` VALUES (17391,'Willow Fishing Rod',14117,1);
 /*!40000 ALTER TABLE `fishing_rod` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -806,4 +824,4 @@ INSERT INTO `fishing_rod` VALUES (17391,'Willow Fishing Rod',14117,1);
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 16:46:05
+-- Dump completed on 2018-04-03 17:39:25

@@ -1,26 +1,29 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
---
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version	5.7.25-log
+/*
+MySQL Data Transfer
+Source Host: 192.168.0.140
+Source Database: dspdb
+Target Host: 192.168.0.140
+Target Database: dspdb
+Date: 1/21/2015 1:06:39 PM
+*/
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for char_recast
+-- ----------------------------
+DROP TABLE IF EXISTS `char_recast`;
+CREATE TABLE `char_recast` (
+  `charid` int(10) unsigned NOT NULL,
+  `id` smallint(5) NOT NULL DEFAULT '0',
+  `time` int(10) NOT NULL DEFAULT '0',
+  `recast` smallint(5) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`charid`,`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `char_recast`
---
--- ORDER BY:  `charid`,`id`
+-- ----------------------------
+-- Records 
+-- ----------------------------
 
-/*!40000 ALTER TABLE `char_recast` DISABLE KEYS */;
 INSERT INTO `char_recast` VALUES (1,0,1560243678,0);
 INSERT INTO `char_recast` VALUES (1,38,1560243678,0);
 INSERT INTO `char_recast` VALUES (2,0,1560255513,3600);
@@ -116,15 +119,4 @@ INSERT INTO `char_recast` VALUES (32,0,1560632928,3600);
 INSERT INTO `char_recast` VALUES (32,16,1560633087,0);
 INSERT INTO `char_recast` VALUES (33,0,1560680548,0);
 INSERT INTO `char_recast` VALUES (33,16,1560680548,0);
-/*!40000 ALTER TABLE `char_recast` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-06-20 16:46:04

@@ -1,26 +1,61 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 3.3.8
+-- http://www.phpmyadmin.net
 --
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Serveur: localhost
+-- Généré le : Dim 28 Octobre 2012 à 08:00
+-- Version du serveur: 6.0.0
+-- Version de PHP: 5.2.9-2
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `char_exp`
+-- Base de données: `dspdb`
 --
--- ORDER BY:  `charid`
 
-/*!40000 ALTER TABLE `char_exp` DISABLE KEYS */;
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `char_exp`
+--
+
+DROP TABLE IF EXISTS `char_exp`;
+CREATE TABLE IF NOT EXISTS `char_exp` (
+  `charid` int(10) unsigned NOT NULL,
+  `mode` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `war` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `mnk` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `whm` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `blm` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `rdm` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `thf` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `pld` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `drk` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `bst` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `brd` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `rng` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `sam` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `nin` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `drg` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `smn` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `blu` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `cor` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `pup` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `dnc` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `sch` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `geo` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `run` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `merits` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `limits` smallint(5) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`charid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=85;
+
 INSERT INTO `char_exp` VALUES (1,0,0,0,0,33789,0,0,0,0,0,0,0,0,1856,0,0,0,0,0,0,0,0,0,0,0);
 INSERT INTO `char_exp` VALUES (2,0,9320,4304,138,0,1510,19712,0,0,0,0,0,0,43999,0,0,0,0,0,0,0,0,0,0,0);
 INSERT INTO `char_exp` VALUES (3,0,138,0,8868,16877,43999,65,0,0,0,0,0,0,1295,0,0,0,0,0,0,0,0,0,0,8350);

@@ -1,26 +1,47 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 3.3.8
+-- http://www.phpmyadmin.net
 --
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Serveur: localhost
+-- Généré le : Ven 24 Juin 2011 à 08:05
+-- Version du serveur: 6.0.0
+-- Version de PHP: 5.2.9-2
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `char_look`
+-- Base de données: `dspdb`
 --
--- ORDER BY:  `charid`
 
-/*!40000 ALTER TABLE `char_look` DISABLE KEYS */;
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `char_look`
+--
+
+DROP TABLE IF EXISTS `char_look`;
+CREATE TABLE IF NOT EXISTS `char_look` (
+  `charid` int(10) unsigned NOT NULL,
+  `face` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `race` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `size` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `head` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `body` smallint(4) unsigned NOT NULL DEFAULT '8',
+  `hands` smallint(4) unsigned NOT NULL DEFAULT '8',
+  `legs` smallint(4) unsigned NOT NULL DEFAULT '8',
+  `feet` smallint(4) unsigned NOT NULL DEFAULT '8',
+  `main` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `sub` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `ranged` smallint(4) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`charid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=24;
+
 INSERT INTO `char_look` VALUES (1,2,1,1,0,0,0,0,0,21,0,0);
 INSERT INTO `char_look` VALUES (2,13,5,0,135,34,109,99,109,309,309,25);
 INSERT INTO `char_look` VALUES (3,15,6,0,14,107,14,62,14,331,0,0);
@@ -53,15 +74,4 @@ INSERT INTO `char_look` VALUES (30,1,3,2,0,104,104,104,104,227,0,0);
 INSERT INTO `char_look` VALUES (31,7,6,0,0,8,8,8,8,291,0,0);
 INSERT INTO `char_look` VALUES (32,11,8,2,15,15,15,20,15,126,4222,0);
 INSERT INTO `char_look` VALUES (33,7,3,2,0,8,8,8,8,126,4222,0);
-/*!40000 ALTER TABLE `char_look` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-06-20 16:46:05

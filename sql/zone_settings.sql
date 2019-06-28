@@ -1,10 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.14  Distrib 5.5.37-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: dspdb
+-- Host: localhost    Database: dspdbtest
 -- ------------------------------------------------------
-
--- Server version	5.7.25-log
-
+-- Server version   5.5.40-MariaDB-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,12 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `zone_settings`
+--
+
+DROP TABLE IF EXISTS `zone_settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `zone_settings` (
+  `zoneid` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `zonetype` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `zoneip` tinytext NOT NULL,
+  `zoneport` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `name` tinytext NOT NULL,
+  `music_day` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `music_night` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `battlesolo` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `battlemulti` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `restriction` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `tax` float(5,2) unsigned NOT NULL DEFAULT '0.00',
+  `misc` smallint(5) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`zoneid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=20 PACK_KEYS=1 CHECKSUM=1 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `zone_settings`
 --
--- ORDER BY:  `zoneid`
 
+LOCK TABLES `zone_settings` WRITE;
 /*!40000 ALTER TABLE `zone_settings` DISABLE KEYS */;
-
 INSERT INTO `zone_settings` VALUES (0,1,'24.119.124.214',54230,'unknown',0,0,0,0,0,0.00,32);
 INSERT INTO `zone_settings` VALUES (1,2,'24.119.124.214',54230,'Phanauet_Channel',229,229,101,219,0,0.00,184);
 INSERT INTO `zone_settings` VALUES (2,2,'24.119.124.214',54230,'Carpenters_Landing',0,0,101,219,0,0.00,188);
@@ -322,9 +343,10 @@ INSERT INTO `zone_settings` VALUES (294,5,'24.119.124.214',54230,'Dynamis-San_dO
 INSERT INTO `zone_settings` VALUES (295,5,'24.119.124.214',54230,'Dynamis-Bastok_[D]',88,88,88,88,0,0.00,432);
 INSERT INTO `zone_settings` VALUES (296,5,'24.119.124.214',54230,'Dynamis-Windurst_[D]',88,88,88,88,0,0.00,432);
 INSERT INTO `zone_settings` VALUES (297,5,'24.119.124.214',54230,'Dynamis-Jeuno_[D]',88,88,88,88,0,0.00,432);
-INSERT INTO `zone_settings` VALUES (298,0,'127.0.0.1',54230,'Walk_of_Echoes_[P]',186,186,186,186,0,0.00,32);
+INSERT INTO `zone_settings` VALUES (298,0,'24.119.124.214',54230,'Walk_of_Echoes_[P]',186,186,186,186,0,0.00,32);
 
 /*!40000 ALTER TABLE `zone_settings` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -335,4 +357,4 @@ INSERT INTO `zone_settings` VALUES (298,0,'127.0.0.1',54230,'Walk_of_Echoes_[P]'
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 16:46:08
+-- Dump completed on 2015-04-21  8:46:23

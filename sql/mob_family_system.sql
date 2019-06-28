@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.29-76.2, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version   5.6.29-76.2-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,10 +16,56 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `mob_family_system`
+--
+
+DROP TABLE IF EXISTS `mob_family_system`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mob_family_system` (
+  `familyid` smallint(4) unsigned NOT NULL,
+  `family` tinytext,
+  `systemid` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `system` tinytext,
+  `mobsize` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `speed` tinyint(3) unsigned NOT NULL DEFAULT '40',
+  `HP` tinyint(3) unsigned NOT NULL DEFAULT '100',
+  `MP` tinyint(3) unsigned NOT NULL DEFAULT '100',
+  `STR` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `DEX` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `VIT` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `AGI` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `INT` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `MND` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `CHR` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `ATT` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `DEF` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `ACC` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `EVA` smallint(4) unsigned NOT NULL DEFAULT '3',
+  `Slash` float NOT NULL DEFAULT '1',
+  `Pierce` float NOT NULL DEFAULT '1',
+  `H2H` float NOT NULL DEFAULT '1',
+  `Impact` float NOT NULL DEFAULT '1',
+  `Fire` float NOT NULL DEFAULT '1',
+  `Ice` float NOT NULL DEFAULT '1',
+  `Wind` float NOT NULL DEFAULT '1',
+  `Earth` float NOT NULL DEFAULT '1',
+  `Lightning` float NOT NULL DEFAULT '1',
+  `Water` float NOT NULL DEFAULT '1',
+  `Light` float NOT NULL DEFAULT '1',
+  `Dark` float NOT NULL DEFAULT '1',
+  `Element` float NOT NULL DEFAULT '0',
+  `detects` smallint(5) NOT NULL DEFAULT '0',
+  `charmable` tinyint(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`familyid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=128;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `mob_family_system`
 --
--- ORDER BY:  `familyid`
 
+LOCK TABLES `mob_family_system` WRITE;
 /*!40000 ALTER TABLE `mob_family_system` DISABLE KEYS */;
 INSERT INTO `mob_family_system` VALUES (1,'Acrolith',3,'Arcana',1,40,90,90,1,3,4,3,6,6,5,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,0,34,0);
 INSERT INTO `mob_family_system` VALUES (2,'Adamantoise',14,'Lizard',3,30,120,90,2,5,1,6,6,4,3,3,2,3,4,1,1,1,1,1,1.25,1,0.875,1.125,0.875,1,1,4,2,0);
@@ -483,7 +529,11 @@ INSERT INTO `mob_family_system` VALUES (499,'Stray',12,'Empty',0,40,20,90,1,3,4,
 INSERT INTO `mob_family_system` VALUES (500,'Mokkurkalfi',3,'Arcana',1,40,130,130,2,3,3,3,3,6,5,3,2,3,3,1,1,1,1,1,1,1,1,1.125,1,1,1,7,34,0);
 INSERT INTO `mob_family_system` VALUES (501,'NioA_NioHum',3,'Arcana',1,40,108,90,1,3,4,3,6,6,5,3,3,3,3,1,1,1,1,1,1,1,1,1.25,1,1,1,2,34,0);
 INSERT INTO `mob_family_system` VALUES (502,'Shikigami_Weapon',3,'Arcana',0,40,105,120,1,3,4,3,3,3,4,3,5,3,3,1,1,1,1,1.25,0.9,0.9,0.9,0.9,0.9,1.25,0.9,3,32,0);
+
+-- 10,22,50,96,111,317-318,405,411-434,439-443 available for use
+
 /*!40000 ALTER TABLE `mob_family_system` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -494,4 +544,4 @@ INSERT INTO `mob_family_system` VALUES (502,'Shikigami_Weapon',3,'Arcana',0,40,1
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 16:46:03
+-- Dump completed on 2016-04-08 19:41:32

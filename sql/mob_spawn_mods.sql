@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version   5.6.13-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,10 +16,26 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `mob_spawn_mods`
+--
+
+DROP TABLE IF EXISTS `mob_spawn_mods`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mob_spawn_mods` (
+  `mobid` int(10) unsigned NOT NULL,
+  `modid` smallint(5) unsigned NOT NULL,
+  `value` smallint(5) NOT NULL DEFAULT '0',
+  `is_mob_mod` boolean NOT NULL DEFAULT '0',
+  PRIMARY KEY (`mobid`,`modid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 PACK_KEYS=1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `mob_spawn_mods`
 --
--- ORDER BY:  `mobid`,`modid`
 
+LOCK TABLES `mob_spawn_mods` WRITE;
 /*!40000 ALTER TABLE `mob_spawn_mods` DISABLE KEYS */;
 INSERT INTO `mob_spawn_mods` VALUES (16785709,55,180,1);
 INSERT INTO `mob_spawn_mods` VALUES (16785710,55,180,1);

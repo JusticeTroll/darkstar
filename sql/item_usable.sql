@@ -1,8 +1,7 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Host: localhost    Database: -- ------------------------------------------------------
+-- Server version   5.6.21-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,11 +15,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `item_usable`
+--
+
+DROP TABLE IF EXISTS `item_usable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `item_usable` (
+  `itemid` smallint(5) unsigned NOT NULL,
+  `name` text NOT NULL,
+  `validTargets` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `activation` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `animation` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `animationTime` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `maxCharges` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `useDelay` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `reuseDelay` int(10) unsigned NOT NULL DEFAULT '0',
+  `aoe` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`itemid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=1 CHECKSUM=1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `item_usable`
 --
 -- ORDER BY:  `itemid`
 
-/*!40000 ALTER TABLE `item_usable` DISABLE KEYS */;
 INSERT INTO `item_usable` VALUES (4096,'fire_crystal',1,0,0,0,0,0,0,0);
 INSERT INTO `item_usable` VALUES (4097,'ice_crystal',1,0,0,0,0,0,0,0);
 INSERT INTO `item_usable` VALUES (4098,'wind_crystal',1,0,0,0,0,0,0,0);
@@ -2198,6 +2218,7 @@ INSERT INTO `item_usable` VALUES (26720,'sheep_cap_+1',1,2,55,0,1,30,86400,0);
 INSERT INTO `item_usable` VALUES (27556,'echad_ring',1,3,76,0,1,5,7200,0);
 INSERT INTO `item_usable` VALUES (28540,'warp_ring',1,8,80,3,1,8,600,0);
 /*!40000 ALTER TABLE `item_usable` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -2208,4 +2229,4 @@ INSERT INTO `item_usable` VALUES (28540,'warp_ring',1,8,80,3,1,8,600,0);
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 16:46:05
+-- Dump completed on 2015-02-22  0:31:22

@@ -1,26 +1,42 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.25a, for Win64 (x86)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version	5.5.25a
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `skill_caps`
+--
+
+DROP TABLE IF EXISTS `skill_caps`;
+CREATE TABLE `skill_caps` (
+  `level` tinyint(2) unsigned NOT NULL,
+  `r0` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r1` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r2` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r3` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r4` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r5` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r6` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r7` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r8` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r9` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r10` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r11` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r12` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `r13` smallint(3) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`level`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=32 PACK_KEYS=1 ROW_FORMAT=FIXED;
 
 --
 -- Dumping data for table `skill_caps`
 --
--- ORDER BY:  `level`
 
-/*!40000 ALTER TABLE `skill_caps` DISABLE KEYS */;
 INSERT INTO `skill_caps` VALUES (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 INSERT INTO `skill_caps` VALUES (1,0,6,6,5,5,5,5,5,5,4,4,4,3,4);
 INSERT INTO `skill_caps` VALUES (2,0,9,9,7,7,7,7,7,7,6,6,6,5,6);
@@ -121,15 +137,3 @@ INSERT INTO `skill_caps` VALUES (96,0,403,396,383,377,367,357,352,347,316,285,25
 INSERT INTO `skill_caps` VALUES (97,0,410,403,390,384,374,364,359,354,322,290,257,222,322);
 INSERT INTO `skill_caps` VALUES (98,0,417,410,397,391,381,371,366,361,328,295,261,225,328);
 INSERT INTO `skill_caps` VALUES (99,0,424,417,404,398,388,378,373,368,334,300,265,228,344);
-/*!40000 ALTER TABLE `skill_caps` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-06-20 16:46:03

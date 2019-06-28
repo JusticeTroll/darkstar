@@ -1,26 +1,39 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 3.3.8
+-- http://www.phpmyadmin.net
 --
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Serveur: localhost
+-- Généré le : Ven 24 Juin 2011 à 08:02
+-- Version du serveur: 6.0.0
+-- Version de PHP: 5.2.9-2
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `char_equip`
+-- Base de données: `dspdb`
 --
--- ORDER BY:  `charid`,`equipslotid`
 
-/*!40000 ALTER TABLE `char_equip` DISABLE KEYS */;
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `char_equip`
+--
+
+DROP TABLE IF EXISTS `char_equip`;
+CREATE TABLE IF NOT EXISTS `char_equip` (
+  `charid` int(10) unsigned NOT NULL,
+  `slotid` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `equipslotid` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `containerid` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`charid`,`equipslotid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=41;
+
 INSERT INTO `char_equip` VALUES (1,2,13,0);
 INSERT INTO `char_equip` VALUES (1,1,14,0);
 INSERT INTO `char_equip` VALUES (1,10,16,0);
