@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.14  Distrib 5.5.52-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version   5.5.52-MariaDB-1ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,10 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `item_equipment`
+--
+
+DROP TABLE IF EXISTS `item_equipment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `item_equipment` (
+  `itemId` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `name` tinytext,
+  `level` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ilevel` tinyint(3) NOT NULL DEFAULT '0',
+  `jobs` int(10) unsigned NOT NULL DEFAULT '0',
+  `MId` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `shieldSize` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `scriptType` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `slot` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `rslot` smallint(5) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`itemId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=37 PACK_KEYS=1 CHECKSUM=1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `item_equipment`
 --
--- ORDER BY:  `itemId`
 
+LOCK TABLES `item_equipment` WRITE;
 /*!40000 ALTER TABLE `item_equipment` DISABLE KEYS */;
 INSERT INTO `item_equipment` VALUES (10240,'hexed_haubert',99,0,8641,5,0,0,32,0);
 INSERT INTO `item_equipment` VALUES (10241,'hexed_domaru',99,0,137218,4,0,0,32,0);
@@ -11948,8 +11970,8 @@ INSERT INTO `item_equipment` VALUES (26400,'culminus',99,119,1622556,657,1,0,2,0
 INSERT INTO `item_equipment` VALUES (26401,'forfend',99,119,2385,45,1,0,2,0);
 INSERT INTO `item_equipment` VALUES (26402,'forfend_+1',99,119,2385,45,1,0,2,0);
 INSERT INTO `item_equipment` VALUES (26403,'srivatsa',99,119,64,658,5,0,2,0);
-INSERT INTO `item_equipment` VALUES (26406,'kupo_shield',1,0,4194303,56,3,0,2,0);
 INSERT INTO `item_equipment` VALUES (26409,'dullahan_shield',1,0,4194303,0,3,0,2,0);
+INSERT INTO `item_equipment` VALUES (26406,'kupo_shield',1,0,4194303,56,3,0,2,0);
 INSERT INTO `item_equipment` VALUES (26419,'ammurapi_shield',99,119,1589788,0,1,0,2,0);
 INSERT INTO `item_equipment` VALUES (26420,'adapa_shield',99,119,385,0,3,0,2,0);
 INSERT INTO `item_equipment` VALUES (26421,'nusku_shield',99,119,66560,0,2,0,2,0);
@@ -14051,6 +14073,7 @@ INSERT INTO `item_equipment` VALUES (28669,'butznar_shield_+1',99,101,193,25,3,0
 INSERT INTO `item_equipment` VALUES (28670,'leafkin_shield',1,0,4194303,641,1,0,2,0);
 INSERT INTO `item_equipment` VALUES (28671,'butznar_shield',99,100,193,25,3,0,2,0);
 /*!40000 ALTER TABLE `item_equipment` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -14061,4 +14084,4 @@ INSERT INTO `item_equipment` VALUES (28671,'butznar_shield',99,100,193,25,3,0,2,
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 16:46:09
+-- Dump completed on 2016-10-25  0:02:04
