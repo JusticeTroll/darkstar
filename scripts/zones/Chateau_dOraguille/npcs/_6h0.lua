@@ -26,7 +26,7 @@ function onTrigger(player,npc)
 
     local Wait1DayRanperre = player:getVar("Wait1DayForRanperre_date");
     local osdate = tonumber(os.date("%j"));
-	local rank6 = player:getRank(BASTOK) >= 6 and 1 or player:getRank(SANDORIA) >= 6 and 1 or player:getRank(WINDURST) >= 6 and 1 or 0;
+	local rank6 = player:getRank(BASTOK) >= 6 or player:getRank(SANDORIA) >= 6 or player:getRank(WINDURST) >= 6;
 
     if (player:getVar("aBoysDreamCS") == 8) then
         player:startEvent(88);
@@ -34,7 +34,7 @@ function onTrigger(player,npc)
         player:startEvent(90);
     elseif (player:getVar("UnderOathCS") == 8) then
         player:startEvent(89);
-	elseif (rank6 == 1 and player:hasKeyItem(dsp.ki.SAN_DORIA_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.TRION) == false) then			
+	elseif (rank6 and player:hasKeyItem(dsp.ki.SAN_DORIA_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.TRION) == false) then			
 		player:startEvent(574,0,0,0,0,0,0,0,0); -- TRUST
 	elseif (currentMission == dsp.mission.id.sandoria.INFILTRATE_DAVOI and infiltrateDavoi == false and MissionStatus == 0) then
         player:startEvent(553,0,dsp.ki.ROYAL_KNIGHTS_DAVOI_REPORT);
