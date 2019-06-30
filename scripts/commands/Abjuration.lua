@@ -10,7 +10,7 @@ cmdprops =
 };
 
 function onTrigger(player)
-   player:PrintToPlayer("Welcome to Expeditions Abjurations Shop!", 0xF);
+   player:PrintToPlayer("Welcome to Expeditions!", 0xF);
 stock = {
    1441, 100000, -- Lib Abjuration
 

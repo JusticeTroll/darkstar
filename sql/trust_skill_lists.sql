@@ -1,25 +1,27 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
---
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version	5.7.25-log
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.7.14-log - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL Version:             10.1.0.5464
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Dumping data for table `trust_skill_lists`
---
--- ORDER BY:  `skill_list_id`,`mob_skill_id`
+-- Dumping structure for table dspdb.trust_skill_lists
+CREATE TABLE IF NOT EXISTS `trust_skill_lists` (
+  `skill_list_name` varchar(40) DEFAULT NULL,
+  `skill_list_id` smallint(3) unsigned NOT NULL,
+  `mob_skill_id` smallint(4) unsigned NOT NULL,
+  `min_level` tinyint(3) unsigned NOT NULL,
+  `max_level` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`skill_list_id`,`mob_skill_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+-- Dumping data for table dspdb.trust_skill_lists: 28 rows
 /*!40000 ALTER TABLE `trust_skill_lists` DISABLE KEYS */;
 INSERT INTO `trust_skill_lists` VALUES ('Trust_Naji',2,33,10,255);
 INSERT INTO `trust_skill_lists` VALUES ('Trust_Naji',2,34,17,255);
@@ -50,14 +52,7 @@ INSERT INTO `trust_skill_lists` VALUES ('Trust_Trion_SavageBlade',10,41,65,255);
 INSERT INTO `trust_skill_lists` VALUES ('Trust_Trion_RoyalBash',10,971,25,255);
 INSERT INTO `trust_skill_lists` VALUES ('Trust_Trion_RoyalSavior',10,972,25,255);
 /*!40000 ALTER TABLE `trust_skill_lists` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-06-20 16:46:05

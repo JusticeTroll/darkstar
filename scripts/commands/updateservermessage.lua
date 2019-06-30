@@ -11,4 +11,5 @@ cmdprops =
 
 function onTrigger(player)
     UpdateServerMessage();
+    player:PrintToPlayer("Server message has been updated.")
 end

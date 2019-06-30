@@ -3,7 +3,7 @@
 -- Door: Prince Royal's
 -- Finishes Quest: A Boy's Dream, Under Oath
 -- Involved in Missions: 3-1, 5-2, 8-2
--- !pos -38 -3 73 233
+-- !pos -38 -3 73 233 sssss
 -----------------------------------
 require("scripts/globals/status");
 require("scripts/globals/settings");
@@ -34,9 +34,9 @@ function onTrigger(player,npc)
         player:startEvent(90);
     elseif (player:getVar("UnderOathCS") == 8) then
         player:startEvent(89);
-	elseif (rank6 and player:hasKeyItem(dsp.ki.SAN_DORIA_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.TRION) == false) then			
-		player:startEvent(574,0,0,0,TrustMemory(player),0,0,0,0); -- TRUST
-    elseif (currentMission == dsp.mission.id.sandoria.INFILTRATE_DAVOI and infiltrateDavoi == false and MissionStatus == 0) then
+	elseif (rank6 == 1 and player:hasKeyItem(dsp.ki.SAN_DORIA_TRUST_PERMIT) == true and player:hasSpell(dsp.trust.TRION) == false) then			
+		player:startEvent(574,0,0,0,0,0,0,0,0); -- TRUST
+	elseif (currentMission == dsp.mission.id.sandoria.INFILTRATE_DAVOI and infiltrateDavoi == false and MissionStatus == 0) then
         player:startEvent(553,0,dsp.ki.ROYAL_KNIGHTS_DAVOI_REPORT);
     elseif (currentMission == dsp.mission.id.sandoria.INFILTRATE_DAVOI and MissionStatus == 4) then
         player:startEvent(554,0,dsp.ki.ROYAL_KNIGHTS_DAVOI_REPORT);
