@@ -16,19 +16,20 @@ end
 function onTrigger(player,npc)
     local rank = dsp.besieged.getMercenaryRank(player)
     local haveimperialIDtag
-    local tokens = 3--player:getAssaultPoint(ILRUSI_ASSAULT_POINT)
-
+    local tokens = player:getCurrency("nyzul_isle_assault_point")
+    local floorProgress = player:getVar("NyzulFloorProgress")
+	
     if player:hasKeyItem(dsp.ki.IMPERIAL_ARMY_ID_TAG) then
         haveimperialIDtag = 1
     else
         haveimperialIDtag = 0
     end
 
---[[    if (rank > 0) then
+    if (rank > 0) then
         player:startEvent(278,rank,haveimperialIDtag,tokens,player:getCurrentAssault())
-    else]]
+    else
         player:startEvent(284) -- no rank
-    --end
+    end
 end
 
 function onEventUpdate(player,csid,option)
