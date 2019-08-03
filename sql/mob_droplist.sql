@@ -33206,7 +33206,6 @@ INSERT INTO `mob_droplist` VALUES (4809,1,3,1000,18754,50); -- Nyzul ilse Floor 
 INSERT INTO `mob_droplist` VALUES (4809,1,3,1000,19102,50); -- Nyzul ilse Floor 100 main-gauche
 INSERT INTO `mob_droplist` VALUES (4809,1,3,1000,18592,50); -- Nyzul ilse Floor 100 elder-staff
 
-
 /*!40000 ALTER TABLE `mob_droplist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

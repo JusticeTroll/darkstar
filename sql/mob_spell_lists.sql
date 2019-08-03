@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version   5.6.13-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,10 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `mob_spell_lists`
+--
+
+DROP TABLE IF EXISTS `mob_spell_lists`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mob_spell_lists` (
+  `spell_list_name` varchar(30) DEFAULT NULL,
+  `spell_list_id` smallint(5) unsigned NOT NULL,
+  `spell_id` smallint(3) unsigned NOT NULL,
+  `min_level` tinyint(3) unsigned NOT NULL,
+  `max_level` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`spell_list_id`,`spell_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `mob_spell_lists`
 --
--- ORDER BY:  `spell_list_id`,`spell_id`
 
+LOCK TABLES `mob_spell_lists` WRITE;
 /*!40000 ALTER TABLE `mob_spell_lists` DISABLE KEYS */;
 INSERT INTO `mob_spell_lists` VALUES ('Beastmen_WHM',1,1,1,10);
 INSERT INTO `mob_spell_lists` VALUES ('Beastmen_WHM',1,2,11,20);
@@ -2498,6 +2515,7 @@ INSERT INTO `mob_spell_lists` VALUES ('Ghul-I-Beaban_BLM',305,174,1,255); -- fir
 INSERT INTO `mob_spell_lists` VALUES ('Ghul-I-Beaban_BLM',305,179,1,255); -- blizzaga
 
 /*!40000 ALTER TABLE `mob_spell_lists` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -2508,4 +2526,4 @@ INSERT INTO `mob_spell_lists` VALUES ('Ghul-I-Beaban_BLM',305,179,1,255); -- bli
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 16:46:02
+-- Dump completed on 2013-10-07 20:12:54

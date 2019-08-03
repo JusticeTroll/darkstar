@@ -1,15 +1,12 @@
 /*
 Navicat MySQL Data Transfer
-
 Source Server         : DarkStar
 Source Server Version : 50515
 Source Host           : localhost:3306
 Source Database       : dspdb
-
 Target Server Type    : MYSQL
 Target Server Version : 50515
 File Encoding         : 65001
-
 Date: 2011-10-28 20:17:52
 */
 

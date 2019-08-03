@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version   5.6.13-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,11 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `mob_pool_mods`
+--
+
+DROP TABLE IF EXISTS `mob_pool_mods`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mob_pool_mods` (
+  `poolid` smallint(5) unsigned NOT NULL,
+  `modid` smallint(5) unsigned NOT NULL,
+  `value` smallint(5) NOT NULL DEFAULT '0',
+  `is_mob_mod` boolean NOT NULL DEFAULT '0',
+  PRIMARY KEY (`poolid`,`modid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 PACK_KEYS=1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `mob_pool_mods`
 --
--- ORDER BY:  `poolid`,`modid`
 
+LOCK TABLES `mob_pool_mods` WRITE;
 /*!40000 ALTER TABLE `mob_pool_mods` DISABLE KEYS */;
+
 INSERT INTO `mob_pool_mods` VALUES (21,29,100,0);
 INSERT INTO `mob_pool_mods` VALUES (44,368,150,0);
 INSERT INTO `mob_pool_mods` VALUES (60,370,20,0);
@@ -66,7 +83,6 @@ INSERT INTO `mob_pool_mods` VALUES (770,4,4,1);
 INSERT INTO `mob_pool_mods` VALUES (782,14,706,1);
 INSERT INTO `mob_pool_mods` VALUES (820,368,10,0);
 INSERT INTO `mob_pool_mods` VALUES (820,14,707,1);
-INSERT INTO `mob_pool_mods` VALUES (820,368,10,0);
 INSERT INTO `mob_pool_mods` VALUES (861,14,707,1);
 INSERT INTO `mob_pool_mods` VALUES (906,4,4,1);
 INSERT INTO `mob_pool_mods` VALUES (912,12,25,1);
@@ -222,6 +238,7 @@ INSERT INTO `mob_pool_mods` VALUES (5409,33,50,1); -- Maat (DRK) SPECIAL_COOLDOW
 INSERT INTO `mob_pool_mods` VALUES (5409,58,40,1); -- Maat (DRK) SPECIAL_DELAY: 40 sec
 
 /*!40000 ALTER TABLE `mob_pool_mods` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -232,4 +249,4 @@ INSERT INTO `mob_pool_mods` VALUES (5409,58,40,1); -- Maat (DRK) SPECIAL_DELAY: 
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 16:46:02
+-- Dump completed on 2013-09-20 13:54:52

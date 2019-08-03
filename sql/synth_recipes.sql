@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+    
+-- MySQL dump 10.13  Distrib 5.6.13, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version   5.6.13-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -60,9 +62,59 @@ CREATE TABLE `synth_recipes` (
 --
 -- Dumping data for table `synth_recipes`
 --
--- ORDER BY:  `ID`
 
+DELIMITER $$
+DROP TRIGGER IF EXISTS ensure_ingredients_are_ordered;
+CREATE TRIGGER ensure_ingredients_are_ordered
+     BEFORE INSERT ON synth_recipes FOR EACH ROW BEGIN
+          IF NEW.Ingredient2 > 0 AND NEW.Ingredient1 > NEW.Ingredient2
+          THEN
+            SIGNAL SQLSTATE VALUE '45000'
+            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient1` is larger than Ingredient2';
+          END IF;
+
+          IF NEW.Ingredient3 > 0 AND NEW.Ingredient2 > NEW.Ingredient3
+          THEN
+            SIGNAL SQLSTATE VALUE '45000'
+            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient2` is larger than Ingredient3';
+          END IF;
+
+          IF NEW.Ingredient4 > 0 AND NEW.Ingredient3 > NEW.Ingredient4
+          THEN
+            SIGNAL SQLSTATE VALUE '45000'
+            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient3` is larger than Ingredient4';
+          END IF;
+
+          IF NEW.Ingredient5 > 0 AND NEW.Ingredient4 > NEW.Ingredient5
+          THEN
+            SIGNAL SQLSTATE VALUE '45000'
+            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient4` is larger than Ingredient5';
+          END IF;
+
+          IF NEW.Ingredient6 > 0 AND NEW.Ingredient5 > NEW.Ingredient6
+          THEN
+            SIGNAL SQLSTATE VALUE '45000'
+            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient5` is larger than Ingredient6';
+          END IF;
+
+          IF NEW.Ingredient7 > 0 AND NEW.Ingredient6 > NEW.Ingredient7
+          THEN
+            SIGNAL SQLSTATE VALUE '45000'
+            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient6` is larger than Ingredient7';
+          END IF;
+
+          IF NEW.Ingredient8 > 0 AND NEW.Ingredient7 > NEW.Ingredient8
+          THEN
+            SIGNAL SQLSTATE VALUE '45000'
+            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient7` is larger than Ingredient8';
+          END IF;
+END$$
+
+DELIMITER ;
+
+LOCK TABLES `synth_recipes` WRITE;
 /*!40000 ALTER TABLE `synth_recipes` DISABLE KEYS */;
+
 INSERT INTO `synth_recipes` VALUES (1,0,0,0,0,4,0,0,0,0,20,4099,4241,706,706,714,714,817,824,824,824,2,2,2,2,1,1,1,1,'Simple Bed');
 INSERT INTO `synth_recipes` VALUES (2,0,0,0,0,53,0,0,0,0,49,4099,4241,716,716,716,716,819,826,826,826,3,3,3,3,1,1,1,1,'Oak Bed');
 INSERT INTO `synth_recipes` VALUES (3,0,0,0,0,53,0,0,0,0,60,4099,4241,717,717,717,717,820,827,827,827,4,4,4,4,1,1,1,1,'Mahogany Bed');
@@ -4614,35 +4666,8 @@ INSERT INTO `synth_recipes` VALUES (4547,1,0,0,0,0,0,0,63,0,0,4100,4242,19018,0,
 -- INSERT INTO `synth_recipes` VALUES (ID,Desynth,KeyItem,AL,BO,CL,CK,GO,LE,SM,WD,Crystal,HQCrystal,I1,I2,I3,I4,I5,I6,I7,I8,R1,R2,R3,R4,Q1,Q2,Q3,Q4,ResultName); -- template
 -- crystals = fire(4096,4238) ice(4097,4239) wind(4098,4240) earth(4099,4241) lightning(4100,4242) water(4101,4243) light(4102,4244) dark(4103,4245)
 
-          IF NEW.Ingredient5 > 0 AND NEW.Ingredient4 > NEW.Ingredient5
-          THEN
-            SIGNAL SQLSTATE VALUE '45000'
-            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient4` is larger than Ingredient5';
-          END IF;
-
-          IF NEW.Ingredient6 > 0 AND NEW.Ingredient5 > NEW.Ingredient6
-          THEN
-            SIGNAL SQLSTATE VALUE '45000'
-            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient5` is larger than Ingredient6';
-          END IF;
-
-          IF NEW.Ingredient7 > 0 AND NEW.Ingredient6 > NEW.Ingredient7
-          THEN
-            SIGNAL SQLSTATE VALUE '45000'
-            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient6` is larger than Ingredient7';
-          END IF;
-
-          IF NEW.Ingredient8 > 0 AND NEW.Ingredient7 > NEW.Ingredient8
-          THEN
-            SIGNAL SQLSTATE VALUE '45000'
-            SET MESSAGE_TEXT = '[table:synth_recipes] - `Ingredient7` is larger than Ingredient8';
-          END IF;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!40000 ALTER TABLE `synth_recipes` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -4653,4 +4678,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 16:46:07
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2013-09-05 12:20:09

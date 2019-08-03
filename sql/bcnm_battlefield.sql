@@ -1,25 +1,25 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version   5.5.5-10.0.20-MariaDB
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+--
+-- Table structure for table `bcnm_battlefield`
+--
+
+DROP TABLE IF EXISTS `bcnm_battlefield`;
+CREATE TABLE `bcnm_battlefield` (
+  `bcnmId` smallint(5) unsigned NOT NULL,
+  `battlefieldNumber` tinyint(3) DEFAULT NULL,
+  `monsterId` int(10) NOT NULL,
+  `conditions` tinyint(2) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=56;
 
 --
 -- Dumping data for table `bcnm_battlefield`
 --
 
-/*!40000 ALTER TABLE `bcnm_battlefield` DISABLE KEYS */;
 INSERT INTO `bcnm_battlefield` VALUES (0,1,17346561,3);
 INSERT INTO `bcnm_battlefield` VALUES (0,1,17346562,3);
 INSERT INTO `bcnm_battlefield` VALUES (0,2,17346563,3);
@@ -3022,15 +3022,5 @@ INSERT INTO `bcnm_battlefield` VALUES (1301,8,16929084,1);
 INSERT INTO `bcnm_battlefield` VALUES (1301,8,16929085,1);
 INSERT INTO `bcnm_battlefield` VALUES (1301,8,16929086,1);
 INSERT INTO `bcnm_battlefield` VALUES (1301,8,16929087,1);
-/*!40000 ALTER TABLE `bcnm_battlefield` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-06-20 16:46:07
+-- Dump completed on 2017-01-31 10:38:38

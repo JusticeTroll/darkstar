@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.10, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dspdb
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version	5.7.10-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,10 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `weapon_skills`
+--
+
+DROP TABLE IF EXISTS `weapon_skills`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `weapon_skills` (
+  `weaponskillid` tinyint(3) unsigned NOT NULL,
+  `name` text NOT NULL,
+  `jobs` binary(22) NOT NULL,
+  `type` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `skilllevel` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `element` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `animation` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `animationTime` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `range` tinyint(2) unsigned NOT NULL DEFAULT '5',
+  `aoe` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `primary_sc` tinyint(4) NOT NULL DEFAULT '0',
+  `secondary_sc` tinyint(4) NOT NULL DEFAULT '0',
+  `tertiary_sc` tinyint(4) NOT NULL DEFAULT '0',
+  `main_only` tinyint(1) NOT NULL DEFAULT '0',
+  `unlock_id` tinyint(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`weaponskillid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `weapon_skills`
 --
--- ORDER BY:  `weaponskillid`
 
+LOCK TABLES `weapon_skills` WRITE;
 /*!40000 ALTER TABLE `weapon_skills` DISABLE KEYS */;
 INSERT INTO `weapon_skills` VALUES (1,'combo',0x02020000000200000000000002000000000202000000,1,5,0,16,2000,5,1,8,0,0,0,0);
 INSERT INTO `weapon_skills` VALUES (2,'shoulder_tackle',0x02020000000200000000000002000000000202000000,1,40,0,17,2000,5,1,5,8,0,0,0);
@@ -229,6 +256,7 @@ INSERT INTO `weapon_skills` VALUES (238,'uriel_blade',0x000000000000000000000000
 INSERT INTO `weapon_skills` VALUES (239,'glory_slash',0x00000000000000000000000000000000000000000000,3,240,0,242,2000,6,2,13,11,0,0,0);
 INSERT INTO `weapon_skills` VALUES (240,'tartarus_torpor',0x00000000000000000000000000000000000000000000,12,240,0,149,2000,10,2,0,0,0,0,0);
 /*!40000 ALTER TABLE `weapon_skills` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -239,4 +267,4 @@ INSERT INTO `weapon_skills` VALUES (240,'tartarus_torpor',0x00000000000000000000
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 16:46:03
+-- Dump completed on 2015-12-13 23:33:37

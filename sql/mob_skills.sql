@@ -1,26 +1,53 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 3.3.8
+-- http://www.phpmyadmin.net
 --
--- Host: localhost    Database: dspdb
--- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server address: localhost
+-- Generated on : Fri, February 3, 2012  22:54
+-- Server Version: 6.0.0
+-- PHP Version: 5.2.9-2
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `mob_skills`
+-- Database: `dspdb`
 --
--- ORDER BY:  `mob_skill_id`
 
-/*!40000 ALTER TABLE `mob_skills` DISABLE KEYS */;
+-- --------------------------------------------------------
+
+--
+-- Table structure for `mob_skills`
+--
+
+DROP TABLE IF EXISTS `mob_skills`;
+CREATE TABLE IF NOT EXISTS `mob_skills` (
+  `mob_skill_id` smallint(4) unsigned NOT NULL,
+  `mob_anim_id` smallint(4) unsigned NOT NULL,
+  `mob_skill_name` varchar(40) CHARACTER SET latin1 NOT NULL,
+  `mob_skill_aoe` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `mob_skill_distance` float(3,1) NOT NULL DEFAULT '6.0',
+  `mob_anim_time` smallint(4) unsigned NOT NULL DEFAULT '2000',
+  `mob_prepare_time` smallint(4) unsigned NOT NULL DEFAULT '1000',
+  `mob_valid_targets` smallint(4) unsigned NOT NULL DEFAULT '4',
+  `mob_skill_flag` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `mob_skill_param` smallint(5) NOT NULL DEFAULT '0',
+  `knockback` tinyint(1) NOT NULL DEFAULT '0',
+  `primary_sc` tinyint(4) NOT NULL DEFAULT '0',
+  `secondary_sc` tinyint(4) NOT NULL DEFAULT '0',
+  `tertiary_sc` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`mob_skill_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table contents for `mob_skills`
+--
+
 INSERT INTO `mob_skills` VALUES (32,1,'fast_blade',0,7.0,2000,0,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (33,2,'burning_blade',0,7.0,2000,0,4,0,0,0,3,0,0);
 INSERT INTO `mob_skills` VALUES (34,3,'red_lotus_blade',0,7.0,2000,0,4,0,0,0,0,0,0);
@@ -1686,15 +1713,3 @@ INSERT INTO `mob_skills` VALUES (3536,163,'hasso',0,5.0,2000,0,1,4,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (3537,11,'sentinel',0,5.0,2000,0,1,4,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (3538,3,'provoke',0,7.0,2000,0,4,4,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (3867,3611,'questionmarks_needles',1,10.0,2000,1500,4,0,0,0,0,0,0);
-/*!40000 ALTER TABLE `mob_skills` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-06-20 16:46:05
