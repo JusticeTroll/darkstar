@@ -2,6 +2,8 @@
 --  MOB: Bloodtear Baldurf
 -- Area: Nyzul Isle
 -- Info: NM
+--   NM: Bloodtear Baldurf
+
 -----------------------------------
 require("scripts/zones/Nyzul_Isle/globals")
 -----------------------------------

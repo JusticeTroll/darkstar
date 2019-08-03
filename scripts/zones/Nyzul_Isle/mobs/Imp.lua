@@ -1,6 +1,7 @@
 -----------------------------------
 --  MOB: Imp
 -- Area: Nyzul Isle
+
 -----------------------------------
 mixins = {require("scripts/mixins/families/imp")}
 local ID = require("scripts/zones/Nyzul_Isle/IDs")

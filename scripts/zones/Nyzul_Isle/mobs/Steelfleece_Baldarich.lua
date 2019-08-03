@@ -2,6 +2,7 @@
 --  MOB: Steelfleece Baldarich
 -- Area: Nyzul Isle
 -- Info: NM
+
 -----------------------------------
 require("scripts/zones/Nyzul_Isle/globals")
 -----------------------------------
