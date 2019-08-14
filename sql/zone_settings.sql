@@ -332,7 +332,7 @@ INSERT INTO `zone_settings` VALUES (283,0,'24.119.124.214',54230,'Silver_Knife',
 INSERT INTO `zone_settings` VALUES (284,1,'24.119.124.214',54230,'Celennia_Memorial_Library',63,63,0,0,0,0.00,32);
 INSERT INTO `zone_settings` VALUES (285,1,'24.119.124.214',54230,'Feretory',0,0,0,0,0,0.00,32);
 INSERT INTO `zone_settings` VALUES (286,0,'24.119.124.214',0,'286',0,0,0,0,0,0.00,32);
-INSERT INTO `zone_settings` VALUES (287,6,'24.119.124.214',54230,'Maquette_Abdhaljs-Legion_B',0,0,143,143,0,0.00,186
+INSERT INTO `zone_settings` VALUES (287,6,'24.119.124.214',54230,'Maquette_Abdhaljs-Legion_B',0,0,143,143,0,0.00,186);
 INSERT INTO `zone_settings` VALUES (288,2,'24.119.124.214',54230,'Escha_ZiTah',80,80,80,80,0,0.00,32);
 INSERT INTO `zone_settings` VALUES (289,2,'24.119.124.214',54230,'Escha_RuAun',80,80,80,80,0,0.00,32);
 INSERT INTO `zone_settings` VALUES (290,0,'24.119.124.214',54230,'Desuetia_Empyreal_Paradox',0,0,0,0,0,0.00,160);
