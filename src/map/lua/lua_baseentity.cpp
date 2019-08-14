@@ -306,6 +306,7 @@ inline int32 CLuaBaseEntity::PrintToArea(lua_State* L)
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
     DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC && m_PBaseEntity->objtype != TYPE_TRUST);
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isstring(L, 1));
+
     CCharEntity* PChar = nullptr;
     CTrustEntity* trust = nullptr;
     if (m_PBaseEntity->objtype == TYPE_PC)
@@ -316,7 +317,10 @@ inline int32 CLuaBaseEntity::PrintToArea(lua_State* L)
         PChar = (CCharEntity*)trust->PMaster;
     }
     else
+    {
         return 0;
+    }
+
     // see scripts\globals\msg.lua or src\map\packets\chat_message.h for values
     CHAT_MESSAGE_TYPE messageLook = (lua_isnil(L, 2) || !lua_isnumber(L, 2)) ? MESSAGE_SYSTEM_1 : (CHAT_MESSAGE_TYPE)lua_tointeger(L, 2);
     uint8 messageRange = (lua_isnil(L, 3) || !lua_isnumber(L, 3)) ? 0 : (CHAT_MESSAGE_TYPE)lua_tointeger(L, 3);
@@ -5825,6 +5829,19 @@ inline int32 CLuaBaseEntity::setRank(lua_State *L)
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
     DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
 
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+    PChar->profile.rank[PChar->profile.nation] = (int32)lua_tointeger(L, 1);;
+    charutils::SaveMissionsList(PChar);
+    return 0;
+}
+
+/*inline int32 CLuaBaseEntity::setRank(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || (!lua_isnumber(L, 1) && !lua_istable(L, 1)));
     if (lua_istable(L, 1))
     {
@@ -5840,7 +5857,7 @@ inline int32 CLuaBaseEntity::setRank(lua_State *L)
     charutils::SaveMissionsList(PChar);
     return 0;
 }
-
+*/
 /************************************************************************
 *  Function: getRankPoints()
 *  Purpose : Returns the current rank points (rank bar) of a player
