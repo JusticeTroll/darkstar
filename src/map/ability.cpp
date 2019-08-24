@@ -247,56 +247,56 @@ void CAbility::setMessage(uint16 message)
 uint16 CAbility::getAoEMsg()
 {
     switch (m_message) {
-        case 185:
-            return 264;
-        case 186:
-            return 266;
-        case 187:
-            return 281;
-        case 188:
-            return 282;
-        case 189:
-            return 283;
-        case 225:
-            return 366;
-        case 226:
-            return 226; //no message for this... I guess there is no aoe TP drain move
-        case 103: //recover hp
-        case 102: //recover hp
-        case 238: //recover hp
-        case 306: //recover hp
-        case 318: //recover hp
-            return 24;
-        case 242:
-            return 277;
-        case 243:
-            return 278;
-        case 284:
-            return 284; //already the aoe message
-        case 370:
-            return 404;
-        case 362:
-            return 363;
-        case 378:
-            return 343;
-        case 224: //recovers mp
-            return 276;
-        case 420:
-        case 424:
-            return 421;
-        case 422:
-        case 425:
-            return 423;
-        case 426:
-            return 427;
-        case 435:
-        case 437:
-        case 439:
-            return m_message + 1;
+    case 185:
+        return 264;
+    case 186:
+        return 266;
+    case 187:
+        return 281;
+    case 188:
+        return 282;
+    case 189:
+        return 283;
+    case 225:
+        return 366;
+    case 226:
+        return 226; //no message for this... I guess there is no aoe TP drain move
+    case 103: //recover hp
+    case 102: //recover hp
+    case 238: //recover hp
+    case 306: //recover hp
+    case 318: //recover hp
+        return 24;
+    case 242:
+        return 277;
+    case 243:
+        return 278;
+    case 284:
+        return 284; //already the aoe message
+    case 370:
+        return 404;
+    case 362:
+        return 363;
+    case 378:
+        return 343;
+    case 224: //recovers mp
+        return 276;
+    case 420:
+    case 424:
+        return 421;
+    case 422:
+    case 425:
+        return 423;
+    case 426:
+        return 427;
+    case 435:
+    case 437:
+    case 439:
+        return m_message + 1;
 
 
-        default:
-            return m_message;
+    default:
+        return m_message;
     }
 }
 
@@ -545,7 +545,7 @@ namespace ability
         return g_PTrustAbilityLists[ListID];
     }
 
-    Charge_t* GetCharge(CBattleEntity* PUser, uint16 chargeID)
+    Charge_t* GetCharge(CBattleEntity * PUser, uint16 chargeID)
     {
         Charge_t* charge = nullptr;
         for (std::vector<Charge_t*>::iterator it = PChargesList.begin(); it != PChargesList.end(); ++it)
@@ -587,62 +587,5 @@ namespace ability
         else if (msg == 264)
             return 263;
         return msg;
-    }
-
-
-    /************************************************************************
-    *                                                                       *
-    *  Trust Functions                                                      *
-    *                                                                       *
-    ************************************************************************/
-
-    void LoadTrustAbilityList()
-    {
-        const char* fmtQuery = "SELECT ability_list_id, ability_id, recastTime, recastId, min_level, max_level \
-        FROM trust_ability_lists;";
-
-        int32 ret = Sql_Query(SqlHandle, fmtQuery);
-
-        if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
-        {
-            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
-            {
-                Trust_ability* PAbility = new Trust_ability;
-                PAbility->trustID = Sql_GetUIntData(SqlHandle, 0);
-                PAbility->abilityID = Sql_GetUIntData(SqlHandle, 1);
-                PAbility->recastTime = Sql_GetUIntData(SqlHandle, 2);
-                PAbility->recastId = Sql_GetUIntData(SqlHandle, 3);
-                PAbility->minLevel = Sql_GetUIntData(SqlHandle, 4);
-                PAbility->maxLevel = Sql_GetUIntData(SqlHandle, 5);
-
-                TrustAbilityList[Sql_GetUIntData(SqlHandle, 0)].push_back(PAbility);
-            }
-        }
-    }
-
-    std::vector<Trust_ability*> GetTrustAbilityLists(uint16 ListID)
-    {
-
-        return TrustAbilityList[ListID];
-    }
-
-    Trust_ability* GetTrustAbility(uint16 ListID, uint16 abilityID)
-    {
-        Trust_ability* ability = nullptr;
-        for (std::vector<Trust_ability*>::iterator it = TrustAbilityList[ListID].begin(); it != TrustAbilityList[ListID].end(); ++it)
-        {
-            Trust_ability* PAbility = *it;
-            if (PAbility->abilityID == abilityID)
-            {
-                ability = PAbility;
-                break;
-            }
-        }
-        return ability;
-    }
-
-    std::vector<uint16>& GetTrustAbilityList(uint16 ListID)
-    {
-        return g_PTrustAbilityLists[ListID];
     }
 };

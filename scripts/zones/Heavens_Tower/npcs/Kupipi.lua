@@ -209,8 +209,6 @@ function onEventFinish(player,csid,option)
     end
 end;
 
-end;
-
 function TrustMemory(player)
 	local memories = 0;
 	--2 - THE_THREE_KINGDOMS

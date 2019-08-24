@@ -103,7 +103,7 @@ struct Trust_t
     // magic stuff
     bool hasSpellScript;
     uint16 spellList;
-    CTrustSpellList*        m_SpellListContainer;        // The spells list container for this mob
+    CTrustSpellList* m_SpellListContainer;        // The spells list container for this mob
     std::map<uint16, uint16>    m_UsedSkillIds;
 
     // resists
@@ -177,9 +177,7 @@ namespace trustutils
                 Slash, Pierce, H2H, Impact, \
                 Fire, Ice, Wind, Earth, Lightning, Water, Light, Dark, \
                 cmbDelay, name_prefix, mob_pools.skill_list_id, \
-
                 trust_list.spellid, mob_pools.behavior, mob_pools.sJob\
-
                 FROM trust_list, mob_pools, mob_family_system \
                 WHERE trust_list.poolid = mob_pools.poolid AND mob_pools.familyid = mob_family_system.familyid";
 
@@ -200,9 +198,7 @@ namespace trustutils
                 Pet->EcoSystem = (ECOSYSTEM)Sql_GetIntData(SqlHandle, 6);
                 Pet->m_Family = (uint16)Sql_GetIntData(SqlHandle, 7);
                 Pet->mJob = (uint8)Sql_GetIntData(SqlHandle, 8);
-
                 Pet->sJob = (uint8)Sql_GetIntData(SqlHandle, 43);
-
                 Pet->m_Element = (uint8)Sql_GetIntData(SqlHandle, 9);
                 Pet->m_Behaviour = (uint16)Sql_GetIntData(SqlHandle, 42);
 
@@ -271,12 +267,12 @@ namespace trustutils
     {
         while (!g_PTrustList.empty())
         {
-            delete *g_PTrustList.begin();
+            delete* g_PTrustList.begin();
             g_PTrustList.erase(g_PTrustList.begin());
         }
     }
 
-    void LoadTrustStats(CTrustEntity* PTrust)
+    void LoadTrustStats(CTrustEntity * PTrust)
     {
         // Cargo cult of PC calculations.
 
@@ -460,7 +456,7 @@ namespace trustutils
         }
     }
 
-    int16 TrustCheck(CCharEntity* PMaster, uint32 TrustID)
+    int16 TrustCheck(CCharEntity * PMaster, uint32 TrustID)
     {
         // TODO: You can only spawn trusts in battle areas, similar to pets. See MSGBASIC_TRUST_NOT_HERE
 
@@ -479,7 +475,7 @@ namespace trustutils
             if (PMaster->PParty->members.size() >= 6)
             {
                 return (int16)MsgStd::TrustLimit;
-            }    
+            }
 
             if (PLeader == nullptr || PLeader->id != PMaster->id)
             {
@@ -535,7 +531,7 @@ namespace trustutils
     }
 
 
-    void SpawnTrust(CCharEntity* PMaster, uint32 TrustID)
+    void SpawnTrust(CCharEntity * PMaster, uint32 TrustID)
     {
         // Make a new party if we weren't in one.
         // TODO: It's actually not a real party: /sea shows your name as grey not yellow, but it shows as a party on the GUI.
@@ -560,7 +556,7 @@ namespace trustutils
         //PMaster->loc.zone->PushPacket(PTrust, CHAR_INZONE, new CTrustSyncPacket(PMaster, PTrust));
     }
 
-    bool HasTrust(CCharEntity* PMaster, uint32 TrustID)
+    bool HasTrust(CCharEntity * PMaster, uint32 TrustID)
     {
         if (PMaster->PTrusts.size() > 0)
         {
@@ -575,7 +571,7 @@ namespace trustutils
         return false;
     }
 
-    CTrustEntity* LoadTrust(CCharEntity* PMaster, uint32 TrustID)
+    CTrustEntity* LoadTrust(CCharEntity * PMaster, uint32 TrustID)
     {
         CTrustEntity* PTrust = new CTrustEntity;
         Trust_t* trust = new Trust_t();
@@ -603,13 +599,11 @@ namespace trustutils
         PTrust->look = trust->look;
         PTrust->name = trust->name;
         PTrust->m_MobSkillList = trust->m_MobSkillList;
-
         PTrust->m_Element = trust->m_Element;
         PTrust->m_TrustID = TrustID;
         PTrust->status = STATUS_NORMAL;
         PTrust->m_name_prefix = trust->name_prefix;
         PTrust->m_ModelSize = trust->size;
-
         PTrust->m_EcoSystem = trust->EcoSystem;
         PTrust->m_Behaviour = trust->m_Behaviour;
         PTrust->m_HasSpellScript = trust->hasSpellScript;
@@ -617,7 +611,6 @@ namespace trustutils
         PTrust->m_TrustWSListContainer = trustWSList::GetTrustWSList(TrustID - 895);
 
         // assume level matches master
-
         PTrust->SetMJob(trust->mJob);
         PTrust->SetSJob(trust->sJob);
         PTrust->SetMLevel(PMaster->GetMLevel());
@@ -650,7 +643,7 @@ namespace trustutils
         return PTrust;
     }
 
-    void RecalculateActionContainer(CTrustEntity* PTrust)
+    void RecalculateActionContainer(CTrustEntity * PTrust)
     {
         // clear spell list
         PTrust->TrustSpellContainer->ClearSpells();
@@ -677,7 +670,7 @@ namespace trustutils
         }
     }
 
-    void GetAvailableSpells(CTrustEntity* PTrust) {
+    void GetAvailableSpells(CTrustEntity * PTrust) {
         //make sure the mob actually has a spell list
         if (PTrust->m_TrustSpellListContainer == nullptr)
         {
@@ -685,13 +678,11 @@ namespace trustutils
         }
 
         // catch all non-defaulted spell chances
-
         PTrust->defaultMobMod(MOBMOD_GA_CHANCE, 35);
         PTrust->defaultMobMod(MOBMOD_NA_CHANCE, 50);
         PTrust->defaultMobMod(MOBMOD_BUFF_CHANCE, 35);
         PTrust->defaultMobMod(MOBMOD_HEAL_CHANCE, 75);
         PTrust->defaultMobMod(MOBMOD_HP_HEAL_CHANCE, 75);
-
 
         PTrust->defaultMobMod(MOBMOD_MAGIC_COOL, 4);
         PTrust->defaultMobMod(MOBMOD_MAGIC_DELAY, 4);
@@ -706,7 +697,6 @@ namespace trustutils
         }
     }
 
-
     bool isValidSelfTargetWeaponskill(int wsid) {
         switch (wsid) {
         case 163: //starlight
@@ -716,7 +706,7 @@ namespace trustutils
         return false;
     }
 
-    void DespawnTrust(CBattleEntity* PMaster, CTrustEntity* PMob)
+    void DespawnTrust(CBattleEntity * PMaster, CTrustEntity * PMob)
     {
 
         CTrustEntity* PTrust = PMob;
