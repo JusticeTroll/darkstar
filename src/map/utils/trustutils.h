@@ -46,8 +46,7 @@ namespace trustutils
     int16 TrustCheck(CCharEntity * PMaster, uint32 TrustID);
     CTrustEntity* LoadTrust(CCharEntity* PMaster, uint32 TrustID);
     void GetAvailableSpells(CTrustEntity* PMob);
-    int32 addTrait(CTrustEntity* PChar, uint8 TraitID, uint8 rank);
-    int32 delTrait(CTrustEntity* PChar, uint8 TraitID, uint8 rank);
+
 };
 
 #endif

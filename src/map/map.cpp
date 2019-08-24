@@ -208,7 +208,8 @@ int32 do_init(int32 argc, char** argv)
     ShowStatus("do_init: loading spells");
     spell::LoadSpellList();
     mobSpellList::LoadMobSpellList();
-    trustSpellList::LoadTrustSpellList();    autoSpell::LoadAutomatonSpellList();
+    trustSpellList::LoadTrustSpellList();
+    autoSpell::LoadAutomatonSpellList();
     ShowMessage("\t\t\t - " CL_GREEN"[OK]" CL_RESET"\n");
 
     guildutils::Initialize();
@@ -218,12 +219,15 @@ int32 do_init(int32 argc, char** argv)
     battleutils::LoadSkillTable();
     meritNameSpace::LoadMeritsList();
     ability::LoadAbilitiesList();
-    ability::LoadTrustAbilityList();    battleutils::LoadWeaponSkillsList();
+    ability::LoadTrustAbilityList();
+    battleutils::LoadWeaponSkillsList();
     battleutils::LoadMobSkillsList();
     battleutils::LoadTrustWeaponSkillsList();
-    trustWSList::LoadTrustWSList();    battleutils::LoadSkillChainDamageModifiers();
+    trustWSList::LoadTrustWSList();
+    battleutils::LoadSkillChainDamageModifiers();
     petutils::LoadPetList();
-    trustutils::LoadTrustList();    mobutils::LoadCustomMods();
+    trustutils::LoadTrustList();
+    mobutils::LoadCustomMods();
 
     ShowStatus("do_init: loading zones");
     zoneutils::LoadZoneList();

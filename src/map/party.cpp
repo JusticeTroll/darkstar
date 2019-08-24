@@ -126,7 +126,7 @@ void CParty::DisbandParty(bool playerInitiated)
         for (uint8 i = 0; i < members.size(); ++i)
         {
             CCharEntity* PChar = (CCharEntity*)members.at(i);
-            if (PChar->PParty->members.size() == 1 && PChar->PTrusts.size() > 0)
+           if (PChar->PParty->members.size() == 1 && PChar->PTrusts.size() > 0)
             {
                 PChar->ClearTrusts();
             }
@@ -272,7 +272,9 @@ void CParty::RemoveMember(CBattleEntity* PEntity)
 
     if (m_PLeader == PEntity)
     {
-        RemovePartyLeader(PEntity);        // Remove their trusts
+        RemovePartyLeader(PEntity);
+        
+// Remove their trusts
         CCharEntity* PChar = (CCharEntity*)PEntity;
         PChar->ClearTrusts();
     }
@@ -766,7 +768,8 @@ void CParty::ReloadParty()
     else
     {
         RefreshFlags(info);
-        CBattleEntity* PLeader = GetLeader();        //regular party
+        CBattleEntity* PLeader = GetLeader();
+        //regular party
         for (uint8 i = 0; i < members.size(); ++i)
         {
             CCharEntity* PChar = (CCharEntity*)members.at(i);

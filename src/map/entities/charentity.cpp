@@ -198,6 +198,7 @@ CCharEntity::CCharEntity()
     m_SaveTime = 0;
     m_reloadParty = 0;
     m_lastWSused = 0;
+
     m_LastYell = 0;
     m_moghouseID = 0;
     m_moghancementID = 0;
@@ -488,6 +489,7 @@ void CCharEntity::RemoveTrust(CTrustEntity* PTrust)
             break;
         }
     }
+
     if (PParty != nullptr)
     {
         if (PParty->members.size() == 1 && PTrusts.size() == 0)
@@ -513,7 +515,9 @@ uint8 CCharEntity::TrustPartyPosition(CTrustEntity* PTrust)
         }
     }
     return 0;
-}void CCharEntity::ClearTrusts()
+}
+
+void CCharEntity::ClearTrusts()
 {
     if (PTrusts.size() == 0)
     {
@@ -526,8 +530,11 @@ uint8 CCharEntity::TrustPartyPosition(CTrustEntity* PTrust)
         RemoveTrust(trust);
         i--;
     }
+
     PTrusts.clear();
-    SpawnTRUSTList.clear();}
+    SpawnTRUSTList.clear();
+}
+
 
 void CCharEntity::Tick(time_point tick)
 {
@@ -718,6 +725,7 @@ bool CCharEntity::OnAttack(CAttackState& state, action_t& action)
             }
         }
     }
+
     if (PTarget->isDead())
     {
         if (this->m_hasAutoTarget && PTarget->objtype == TYPE_MOB) // Auto-Target
@@ -939,7 +947,8 @@ void CCharEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& acti
                 }
             }
         }
-        m_lastWSused = PWeaponSkill->getID();    }
+        m_lastWSused = PWeaponSkill->getID();
+    }
     else
     {
         loc.zone->PushPacket(this, CHAR_INRANGE_SELF, new CMessageBasicPacket(this, this, 0, 0, MSGBASIC_TOO_FAR_AWAY));
@@ -1711,7 +1720,8 @@ void CCharEntity::Die()
                 PParty->ReloadParty();
             }
         }
-    }}
+    }
+}
 
 void CCharEntity::Die(duration _duration)
 {

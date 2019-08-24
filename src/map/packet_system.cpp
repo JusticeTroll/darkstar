@@ -384,7 +384,10 @@ void SmallPacket0x00D(map_session_data_t* session, CCharEntity* PChar, CBasicPac
     if (PChar->PTrusts.size() > 0)
     {
         PChar->ClearTrusts();
-    }    if (PChar->status == STATUS_SHUTDOWN)
+    }
+
+
+    if (PChar->status == STATUS_SHUTDOWN)
     {
         if (PChar->PParty != nullptr)
         {
@@ -552,6 +555,7 @@ void SmallPacket0x015(map_session_data_t* session, CCharEntity* PChar, CBasicPac
         PChar->loc.zone->SpawnMOBs(PChar);
         PChar->loc.zone->SpawnPETs(PChar);
         PChar->loc.zone->SpawnTRUSTs(PChar);
+
         if (PChar->PWideScanTarget != nullptr)
         {
             PChar->pushPacket(new CWideScanTrackPacket(PChar->PWideScanTarget));
@@ -651,10 +655,20 @@ void SmallPacket0x01A(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 
         // Releasing a trust
         // TODO: 0x0c is set to 0x1, not sure if that is relevant or not.
+        for (auto&& PPotentialTarget : PChar->SpawnMOBList)
+        {
+            if (PPotentialTarget.second->animation == ANIMATION_ATTACK &&
+                ((CMobEntity*)PPotentialTarget.second)->HasID(PChar->id))
+            {
+                PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, MSGBASIC_WAIT_LONGER));
+                return;
+            }
+        }
         CBaseEntity* PTrust = PChar->GetEntity(TargID, TYPE_TRUST);
         if (PTrust != nullptr)
         {
-            luautils::OnTrustDespawn(PTrust);            PChar->RemoveTrust((CTrustEntity*)PTrust);
+            luautils::OnTrustDespawn(PTrust);
+            PChar->RemoveTrust((CTrustEntity*)PTrust);
         }
 
         if (PChar->m_event.EventID == -1)
@@ -3076,7 +3090,8 @@ void SmallPacket0x06E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                     break;
                 }
 
-                PChar->m_LastPartyTime = server_clock::now() + std::chrono::milliseconds(120000);                PInvitee->InvitePending.id = PChar->id;
+                PChar->m_LastPartyTime = server_clock::now() + std::chrono::milliseconds(120000);
+                PInvitee->InvitePending.id = PChar->id;
                 PInvitee->InvitePending.targid = PChar->targid;
                 PInvitee->pushPacket(new CPartyInvitePacket(charid, targid, PChar, INVITE_PARTY));
                 ShowDebug(CL_CYAN"Sent party invite packet to %s\n" CL_RESET, PInvitee->GetName());
@@ -3209,10 +3224,13 @@ void SmallPacket0x06F(map_session_data_t* session, CCharEntity* PChar, CBasicPac
             ShowDebug(CL_CYAN"Removing %s from party\n" CL_RESET, PChar->GetName());
             PChar->PParty->RemoveMember(PChar);
             ShowDebug(CL_CYAN"%s is removed from party\n" CL_RESET, PChar->GetName());
+
             if (PChar->PTrusts.size() > 0)
             {
                 PChar->ClearTrusts();
-            }            break;
+            }
+
+            break;
 
         case 5: // alliance - any party leader in alliance may remove their party
             if (PChar->PParty->m_PAlliance && PChar->PParty->GetLeader() == PChar)
@@ -3460,7 +3478,9 @@ void SmallPacket0x074(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                 {
                     PChar->pushPacket(new CMessageStandardPacket(PChar, 0, 0, MsgStd::TrustCannotJoinAlliance));
                     return;
-                }                ShowDebug(CL_CYAN"%s invited %s to an alliance\n" CL_RESET, PInviter->GetName(), PChar->GetName());
+                }
+
+                ShowDebug(CL_CYAN"%s invited %s to an alliance\n" CL_RESET, PInviter->GetName(), PChar->GetName());
                 //the inviter already has an alliance and wants to add another party - only add if they have room for another party
                 if (PInviter->PParty->m_PAlliance)
                 {
@@ -3499,7 +3519,9 @@ void SmallPacket0x074(map_session_data_t* session, CCharEntity* PChar, CBasicPac
             {
                 PChar->pushPacket(new CMessageStandardPacket(PChar, 0, 0, MsgStd::TrustCannotJoinParty));
                 return;
-            }            if (!(PChar->StatusEffectContainer->HasStatusEffect(EFFECT_LEVEL_SYNC) && PChar->StatusEffectContainer->HasStatusEffect(EFFECT_LEVEL_RESTRICTION)))
+            }
+
+            if (!(PChar->StatusEffectContainer->HasStatusEffect(EFFECT_LEVEL_SYNC) && PChar->StatusEffectContainer->HasStatusEffect(EFFECT_LEVEL_RESTRICTION)))
             {
                 ShowDebug(CL_CYAN"%s is not under lvl sync or restriction\n" CL_RESET, PChar->GetName());
                 if (PInviter->PParty == nullptr)
@@ -3572,67 +3594,77 @@ void SmallPacket0x076(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 
 void SmallPacket0x077(map_session_data_t* session, CCharEntity* PChar, CBasicPacket data)
 {
-    bool changed = false;    switch (data.ref<uint8>(0x14))
+    bool changed = false;
+
+    switch (data.ref<uint8>(0x14))
     {
-    	case 0: // party
-	    {
-	        if (PChar->PParty != nullptr && PChar->PParty->GetLeader() == PChar)
-	        {
-	            auto target = PChar->PParty->GetMemberByName((const int8*)data[0x04]);
-	            if (target && target->objtype == TYPE_PC)
-	            {
-	                ShowDebug(CL_CYAN"(Party)Changing leader to %s\n" CL_RESET, data[0x04]);
-	                PChar->PParty->AssignPartyRole(data[0x04], data.ref<uint8>(0x15));
-	                PChar->m_LastPartyTime = server_clock::now();
-	                changed = true;
-	            }
-	        }
-	    }
-	    break;
-	    case 1: // linkshell
-	    {
-	        if (PChar->PLinkshell1 != nullptr)
-	        {
-	            int8 packetData[29] {};
-	            ref<uint32>(packetData, 0) = PChar->id;
-	            memcpy(packetData + 0x04, data[0x04], 20);
-	            ref<uint32>(packetData, 24) = PChar->PLinkshell1->getID();
-	            ref<uint8>(packetData, 28) = data.ref<uint8>(0x15);
-	            message::send(MSG_LINKSHELL_RANK_CHANGE, packetData, sizeof packetData, nullptr);
-	        }
-	    }
-	    break;
-	    case 2: // linkshell2
-	    {
-	        if (PChar->PLinkshell2 != nullptr)
-	        {
-	            int8 packetData[29] {};
-	            ref<uint32>(packetData, 0) = PChar->id;
-	            memcpy(packetData + 0x04, data[0x04], 20);
-	            ref<uint32>(packetData, 24) = PChar->PLinkshell2->getID();
-	            ref<uint8>(packetData, 28) = data.ref<uint8>(0x15);
-	            message::send(MSG_LINKSHELL_RANK_CHANGE, packetData, sizeof packetData, nullptr);
-	        }
-	    }
-	    break;
-	    case 5: //alliance
-	    {
-	        if (PChar->PParty && PChar->PParty->m_PAlliance &&
-	            PChar->PParty->GetLeader() == PChar &&
-	            PChar->PParty->m_PAlliance->getMainParty() == PChar->PParty)
-	        {
-	            ShowDebug(CL_CYAN"(Alliance)Changing leader to %s\n" CL_RESET, data[0x04]);
-	            PChar->PParty->m_PAlliance->assignAllianceLeader((const char*)data[0x04]);
-	            uint8 data[4] {};
-	            ref<uint32>(data, 0) = PChar->PParty->m_PAlliance->m_AllianceID;
-	            message::send(MSG_PT_RELOAD, data, sizeof data, nullptr);
-	        }
-	    }
-	    break;
-	    default:
-	    {
-	        ShowError(CL_RED"SmallPacket0x077 : changing role packet with unknown byte <%.2X>\n" CL_RESET, data.ref<uint8>(0x14));
-	    }
+        case 0: // party
+        {
+            if (PChar->PParty != nullptr && PChar->PParty->GetLeader() == PChar)
+            {
+                auto target = PChar->PParty->GetMemberByName((const int8*)data[0x04]);
+                if (target && target->objtype == TYPE_PC)
+                {
+                    ShowDebug(CL_CYAN"(Party)Changing leader to %s\n" CL_RESET, data[0x04]);
+                    PChar->PParty->AssignPartyRole(data[0x04], data.ref<uint8>(0x15));
+                    PChar->m_LastPartyTime = server_clock::now();
+                    changed = true;
+                }
+            }
+        }
+    break;
+    case 1: // linkshell
+    {
+        if (PChar->PLinkshell1 != nullptr)
+        {
+            int8 packetData[29] {};
+            ref<uint32>(packetData, 0) = PChar->id;
+            memcpy(packetData + 0x04, data[0x04], 20);
+            ref<uint32>(packetData, 24) = PChar->PLinkshell1->getID();
+            ref<uint8>(packetData, 28) = data.ref<uint8>(0x15);
+            message::send(MSG_LINKSHELL_RANK_CHANGE, packetData, sizeof packetData, nullptr);
+        }
+    }
+    break;
+    case 2: // linkshell2
+    {
+        if (PChar->PLinkshell2 != nullptr)
+        {
+            int8 packetData[29] {};
+            ref<uint32>(packetData, 0) = PChar->id;
+            memcpy(packetData + 0x04, data[0x04], 20);
+            ref<uint32>(packetData, 24) = PChar->PLinkshell2->getID();
+            ref<uint8>(packetData, 28) = data.ref<uint8>(0x15);
+            message::send(MSG_LINKSHELL_RANK_CHANGE, packetData, sizeof packetData, nullptr);
+        }
+    }
+    break;
+    case 5: //alliance
+    {
+        if (PChar->PParty && PChar->PParty->m_PAlliance &&
+            PChar->PParty->GetLeader() == PChar &&
+            PChar->PParty->m_PAlliance->getMainParty() == PChar->PParty)
+        {
+            ShowDebug(CL_CYAN"(Alliance)Changing leader to %s\n" CL_RESET, data[0x04]);
+            PChar->PParty->m_PAlliance->assignAllianceLeader((const char*)data[0x04]);
+            uint8 data[4] {};
+            ref<uint32>(data, 0) = PChar->PParty->m_PAlliance->m_AllianceID;
+            message::send(MSG_PT_RELOAD, data, sizeof data, nullptr);
+        }
+    }
+    break;
+    default:
+    {
+        ShowError(CL_RED"SmallPacket0x077 : changing role packet with unknown byte <%.2X>\n" CL_RESET, data.ref<uint8>(0x14));
+    }
+    }
+
+    if (changed)
+    {
+        if (PChar->PTrusts.size() > 0)
+        {
+            PChar->ClearTrusts();
+        }
     }
     return;
 }

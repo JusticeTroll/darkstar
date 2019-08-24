@@ -287,19 +287,22 @@ namespace luautils
 
     void OnFurniturePlaced(CCharEntity* PChar, CItemFurnishing* itemId);
     void OnFurnitureRemoved(CCharEntity* PChar, CItemFurnishing* itemId);
-    int32 OnTrustSpawn(CBaseEntity* PTrust);                                          
-    int32 OnTrustEngaged(CBaseEntity* PTrust, CBaseEntity* PTarget);                  
-    int32 OnTrustDisengage(CBaseEntity* PTrust);                                      
-    int32 OnTrustFight(CBaseEntity* PTrust, CBaseEntity* PTarget);                    
-    int32 OnTrustDeath(CBaseEntity* PTrust, CBaseEntity* PKiller);                 
+
+    int32 OnTrustSpawn(CBaseEntity* PTrust);                                                                                             
+    int32 OnTrustDeath(CBaseEntity* PTrust);                 
     int32 OnTrustDespawn(CBaseEntity* PTrust);
 
-    int32 OnTrustSpellCheck(CBattleEntity* PTrust, CSpell* PSpell);                           // triggered just before casting a spell
-    std::optional<SpellID> OnTrustCast(CBattleEntity* PTrust, CBaseEntity* PTarget);
+    int32 OnTrustEngaged(CBaseEntity* PTrust, CBaseEntity* PTarget);
+    int32 OnTrustFight(CBaseEntity* PTrust, CBaseEntity* PTarget);
+    int32 OnTrustDisengage(CBaseEntity* PTrust);
+
+    int32 OnTrustSpellCheck(CBaseEntity* PTarget, CBattleEntity* PTrust, CSpell* PSpell);                           // triggered just before casting a spell
+    std::tuple<uint16, uint16> OnTrustCast(CBattleEntity* PTrust);
 
     int32 OnTrustWeaponSkillCheck(CBaseEntity* PChar, CBaseEntity* PTrust, CMobSkill* PMobSkill);
     int32 OnTrustSkillCheck(CBaseEntity* PChar, CBaseEntity* PTrust, CAbility* PMobSkill);
-    int32 OnTrustWeaponSkill(CBaseEntity* PChar, CBaseEntity* PTrust, CMobSkill* PMobSkill, action_t* action);
+    int32 OnTrustWeaponSkill(CBaseEntity* PChar, CBaseEntity* PTrust, CMobSkill* PMobSkill);
+
 };
 
 #endif //- _LUAUTILS_H -

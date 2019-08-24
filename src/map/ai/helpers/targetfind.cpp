@@ -95,7 +95,7 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
     m_PTarget = PTarget;
     isPlayer = checkIsPlayer(m_PBattleEntity);
 
-    if (isPlayer){
+    if (isPlayer || m_PTarget->objtype == TYPE_TRUST){
         // handle this as a player
 
         if (m_PMasterTarget->objtype == TYPE_PC)
@@ -127,7 +127,9 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
                             m_targets.push_back((CBattleEntity*)trust);
                         }
                     }
-                }            }
+                }
+            }
+
             else {
                 // just add myself
                 addEntity(m_PMasterTarget, withPet);
@@ -342,8 +344,7 @@ bool CTargetFind::validEntity(CBattleEntity* PTarget)
     }
 
     if (m_PBattleEntity->StatusEffectContainer->GetConfrontationEffect() != PTarget->StatusEffectContainer->GetConfrontationEffect() ||
-        m_PBattleEntity->PBattlefield != PTarget->PBattlefield || m_PBattleEntity->PInstance != PTarget->PInstance)
-    {
+        m_PBattleEntity->PBattlefield != PTarget->PBattlefield || m_PBattleEntity->PInstance != PTarget->PInstance)    {
         return false;
     }
 
@@ -384,7 +385,8 @@ bool CTargetFind::validEntity(CBattleEntity* PTarget)
             if (PTarget->objtype == TYPE_TRUST)
             {
                 return true;
-            }            return false;
+            }
+            return false;
         }
     }
 
@@ -497,7 +499,9 @@ CBattleEntity* CTargetFind::getValidTarget(uint16 actionTargetID, uint16 validTa
         {
             return PTarget;
         }
-    }    if (PTarget->ValidTarget(m_PBattleEntity, validTargetFlags))
+    }
+
+    if (PTarget->ValidTarget(m_PBattleEntity, validTargetFlags))
     {
         return PTarget;
     }

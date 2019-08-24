@@ -32,9 +32,9 @@ end;
 
 function onTrigger(player,npc)
 
-	TrustSandoria = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.TRUST_SANDORIA);
-	TrustBastok   = player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRUST_BASTOK);
-	TrustWindurst = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.TRUST_WINDURST);
+    TrustSandoria = player:getQuestStatus(SANDORIA,TRUST_SANDORIA);
+	TrustBastok   = player:getQuestStatus(BASTOK,TRUST_BASTOK);
+	TrustWindurst = player:getQuestStatus(WINDURST,TRUST_WINDURST);
 	local Level = player:getMainLvl();
 	
 	-- !cs 438 - start Trust quest (not the first)
@@ -75,7 +75,7 @@ end;
 function onEventFinish(player,csid,option)
 	if ((csid == 438 or csid == 434) and option == 2) then
 		player:addKeyItem(dsp.keyItem.BLUE_INSTITUTE_CARD);
-		player:addQuest(BASTOK,dsp.quest.id.bastok.TRUST_BASTOK);
+		player:addQuest(BASTOK,TRUST_BASTOK);
 		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.keyItem.BLUE_INSTITUTE_CARD);
     end
 end;

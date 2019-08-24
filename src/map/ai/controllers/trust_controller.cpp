@@ -260,6 +260,8 @@ void CTrustController::DoRoamTick(time_point tick)
 bool CTrustController::Engage(uint16 targid)
 {
     auto ret = CController::Engage(targid);
+    luautils::OnTrustEngaged(PTrust, PTrust->PMaster->GetBattleTarget());
+
     if (ret)
     {
         m_firstSpell = true;
@@ -267,12 +269,17 @@ bool CTrustController::Engage(uint16 targid)
         // Don't cast magic or use special ability right away
         if (PTrust->getMobMod(MOBMOD_MAGIC_DELAY) != 0)
         {
-            m_LastMagicTime = m_Tick - std::chrono::milliseconds(PTrust->getMobMod(MOBMOD_MAGIC_COOL) + dsprand::GetRandomNumber(PTrust->getMobMod(MOBMOD_MAGIC_DELAY)));
+            m_LastMagicTime = m_Tick - std::chrono::seconds(PTrust->getMobMod(MOBMOD_MAGIC_COOL) + dsprand::GetRandomNumber(PTrust->getMobMod(MOBMOD_MAGIC_DELAY)));
         }
 
         if (PTrust->getMobMod(MOBMOD_SPECIAL_DELAY) != 0)
         {
-            m_LastSpecialTime = m_Tick - std::chrono::milliseconds(PTrust->getMobMod(MOBMOD_SPECIAL_COOL) + dsprand::GetRandomNumber(PTrust->getMobMod(MOBMOD_SPECIAL_DELAY)));
+            m_LastSpecialTime = m_Tick - std::chrono::seconds(PTrust->getMobMod(MOBMOD_SPECIAL_COOL) + dsprand::GetRandomNumber(PTrust->getMobMod(MOBMOD_SPECIAL_DELAY)));
+        }
+
+        if (PTrust->getMobMod(MOBMOD_SPECIAL_DELAY) != 0)
+        {
+            m_LastAbilityTime = m_Tick - std::chrono::seconds(PTrust->getMobMod(MOBMOD_SPECIAL_COOL) + dsprand::GetRandomNumber(PTrust->getMobMod(MOBMOD_SPECIAL_DELAY)));
         }
     }
     return ret;
@@ -308,14 +315,20 @@ bool CTrustController::IsWeaponSkillReady(float currentDistance)
     if (PTrust->getMobMod(MOBMOD_SPECIAL_SKILL) == 0) return false;
     if (PTrust->StatusEffectContainer->HasStatusEffect(EFFECT_CHAINSPELL)) return false;
     if (currentDistance > 5 && PTrust->m_Behaviour != 2) return false;
-
-    time_point time = m_LastWeaponSkillTime + std::chrono::milliseconds(PTrust->getMobMod(MOBMOD_SPECIAL_COOL));
-    return (m_Tick >= time);
-
+    if (PTrust->getLastWs() == 0)
+    {
+        if (m_Tick >= m_LastWeaponSkillTime + std::chrono::seconds(PTrust->getMobMod(MOBMOD_SPECIAL_COOL)))
+        {
+            return true;
+        }
+        return false;
+    }
+    return true;
 }
 
 bool CTrustController::TryWeaponSkill()
 {
+    m_LastWeaponSkillTime = m_Tick;
 
     if (PTrust->getLastWs() == 0)
     {
@@ -356,9 +369,17 @@ bool CTrustController::TryWeaponSkill()
                 PActionTarget = (CBattleEntity*)PTrust;
             }
 
-            if (((CBattleEntity*)PTrust)->health.tp < 3000 && luautils::OnTrustWeaponSkillCheck(PActionTarget, PTrust, PTrustMobSkill) == 0)
+            if (((CBattleEntity*)PTrust)->health.tp < 3000)
             {
-                continue;
+                int result = luautils::OnTrustWeaponSkillCheck(PActionTarget, PTrust, PTrustMobSkill);
+                if (result == 1)
+                {
+                    continue;
+                }
+                else if (result == 2)
+                {                    
+                    return false;
+                }
             }
             PTrust->setLastWs(skillid.wsMobId);
             break;
@@ -486,18 +507,18 @@ bool CTrustController::IsSpellReady(float currentDistance)
         return true;
     }
 
-    //std::chrono::milliseconds cool = std::chrono::milliseconds(PTrust->getMobMod(MOBMOD_MAGIC_COOL));
-    //std::chrono::milliseconds delay = std::chrono::milliseconds(PTrust->getMobMod(MOBMOD_MAGIC_DELAY));
+    if (m_Tick >= m_LastMagicTime + std::chrono::seconds(PTrust->getMobMod(MOBMOD_MAGIC_COOL) - bonusTime))
+    {
+        return true;
+    }
 
-    time_point time = m_LastMagicTime + std::chrono::milliseconds(PTrust->getMobMod(MOBMOD_MAGIC_COOL) - bonusTime);
-
-    bool test = (m_Tick >= time);
-
-    return test;
+    return false;
 }
 
 bool CTrustController::TryCastSpell()
 {
+    m_LastMagicTime = m_Tick - std::chrono::seconds(PTrust->getBigMobMod(MOBMOD_MAGIC_COOL) / 2);
+
     if (!CanCastSpells())
     {
         return false;
@@ -506,10 +527,14 @@ bool CTrustController::TryCastSpell()
     if (PTrust->m_HasSpellScript)
     {
         // skip logic and follow script
-        auto chosenSpellId = luautils::OnTrustCast(PTrust, TTarget);
-        if (chosenSpellId)
+
+        uint16 spellID;
+        uint16 targetID;
+
+        std::tie(spellID, targetID) = luautils::OnTrustCast(PTrust);
+        if (spellID > 0)
         {
-            CastSpell(chosenSpellId.value());
+            Cast(targetID, static_cast<SpellID>(spellID));
             m_LastMagicTime = m_Tick;
             return true;
         }
@@ -527,23 +552,7 @@ bool CTrustController::TryCastSpell()
             return false;
         }
 
-        CSpell* spell = spell::GetSpell(chosenSpellId.value());
-
-        //#TODO: select target based on spell type
-        if (spell::GetEnfeebleEffect(spell) != 0)
-        {
-            if (spell->isBuff() && !spell->isNa() && PTrust->PMaster->StatusEffectContainer->HasStatusEffect((EFFECT)spell::GetEnfeebleEffect(spell)))
-            {
-                return false;
-            }
-            if (spell->canTargetEnemy() && TTarget->StatusEffectContainer->HasStatusEffect((EFFECT)spell::GetEnfeebleEffect(spell)))
-            {
-                return false;
-            }
-        }
-
         CastSpell(chosenSpellId.value());
-        m_LastMagicTime = m_Tick;
         return true;
 
     }
@@ -678,12 +687,21 @@ void CTrustController::CastSpell(SpellID spellid)
                 return;
         }
 
-        if (!PTrust->PMaster->StatusEffectContainer->HasStatusEffect(status))
+        if (!PTrust->StatusEffectContainer->HasStatusEffect(status))
         {
             if (Cast(PTrust->targid, spellid))
                 return;
         }
         return;
+    }
+    else if (PSpell->isDebuff())
+    {
+        EFFECT status = (EFFECT)spell::GetEnfeebleEffect(PSpell);
+        if (!TTarget->StatusEffectContainer->HasStatusEffect(status))
+        {
+            if (Cast(TTarget->targid, spellid))
+                return;
+        }
     }
     else
     {
@@ -697,6 +715,11 @@ bool CTrustController::Cast(uint16 targid, SpellID spellid)
     auto PChar = static_cast<CTrustEntity*>(PTrust);
     if (!PChar->PRecastContainer->HasRecast(RECAST_MAGIC, static_cast<uint16>(spellid), 0))
     {
+        if (luautils::OnTrustSpellCheck(PTrust->GetEntity(targid), PTrust, spell::GetSpell(spellid)) > 0)
+        {
+            return false;
+        }
+
         if (CController::Cast(targid, spellid))
         {
             FaceTarget(targid);
@@ -705,7 +728,6 @@ bool CTrustController::Cast(uint16 targid, SpellID spellid)
     }
     return false;
 }
-
 
 
 //Trust Moving Functions
@@ -828,7 +850,7 @@ bool CTrustController::IsAbilityReady(float currentDistance)
 
     if (PTrust->getMobMod(MOBMOD_SPECIAL_SKILL) == 0) return false;
 
-    if (m_Tick >= m_LastAbilityTime + std::chrono::milliseconds(PTrust->getMobMod(MOBMOD_SPECIAL_COOL)))
+    if (m_Tick >= m_LastAbilityTime + std::chrono::seconds(PTrust->getMobMod(MOBMOD_SPECIAL_COOL)))
     {
         return true;
     }
@@ -838,6 +860,8 @@ bool CTrustController::IsAbilityReady(float currentDistance)
 
 bool CTrustController::TryAbilitySkill()
 {
+    m_LastAbilityTime = m_Tick;
+
     int wsList = PTrust->m_MobSkillList;
     auto skillList{ ability::GetTrustAbilityLists(wsList) };
 
@@ -874,6 +898,7 @@ bool CTrustController::TryAbilitySkill()
         {
             PAbilityTarget = PTrust;
         }
+
         if (luautils::OnTrustSkillCheck(PAbilityTarget, PTrust, PAbilitySkill) != 0)
         {
             continue;

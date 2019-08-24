@@ -459,6 +459,7 @@ int16 CBattleEntity::addTP(int16 tp)
         {
             TPMulti = map_config.player_tp_multiplier;
         }
+
         tp = (int16)(tp * TPMulti);
     }
     if (tp != 0)

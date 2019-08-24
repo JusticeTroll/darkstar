@@ -161,6 +161,14 @@ bool CSpell::isNa()
     return (static_cast<uint16>(m_ID) >= 14 && static_cast<uint16>(m_ID) <= 20) || m_ID == SpellID::Erase;
 }
 
+bool CSpell::isDebuff()
+{
+    return ((getValidTarget() & TARGET_ENEMY) && getSkillType() == SKILL_ENFEEBLING_MAGIC) || m_ID == SpellID::Burn ||
+        m_ID == SpellID::Frost || m_ID == SpellID::Choke || m_ID == SpellID::Rasp || m_ID == SpellID::Shock ||
+        m_ID == SpellID::Drown || m_ID == SpellID::Stun || m_ID == SpellID::Curse || m_ID == SpellID::Bio ||
+        m_ID == SpellID::Bio_II || m_ID == SpellID::Bio_III || m_ID == SpellID::Bio_IV || m_ID == SpellID::Bio_V;
+}
+
 bool CSpell::canHitShadow()
 {
     return m_ID != SpellID::Meteor_II && canTargetEnemy();
@@ -759,4 +767,5 @@ namespace spell
             return EFFECT::EFFECT_BLINDNESS;
         }
         return 0;
-    }};
+    }
+};

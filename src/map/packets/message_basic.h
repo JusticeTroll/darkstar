@@ -48,7 +48,8 @@ enum MSGBASIC_ID : uint16
 	MSGBASIC_NO_NINJA_TOOLS			= 35, /* The <player> lacks the ninja tools to cast (nullptr). */
     MSGBASIC_CANNOT_CAST_SPELL      = 47, /* <player> cannot cast <spell>. */
     MSGBASIC_CANNOT_USE_IN_AREA     = 40, /* cannot use in this area */
-    MSGBASIC_CANNOT_CAST_ON         = 48, /* The <spell> cannot be cast on <target> */	MSGBASIC_UNABLE_TO_CAST_SPELLS  = 49, /* The <player> is unable to cast spells. */
+    MSGBASIC_CANNOT_CAST_ON         = 48, /* The <spell> cannot be cast on <target> */
+	MSGBASIC_UNABLE_TO_CAST_SPELLS  = 49, /* The <player> is unable to cast spells. */
 	MSGBASIC_WAIT_LONGER			= 94, /* You must wait longer to perform that action. */
     MSGBASIC_PLAYER_DEFEATED_BY     = 97, /* <player> was defeated by the <target>. */
 	MSGBASIC_USES_JA				= 100, /* The <player> uses .. */

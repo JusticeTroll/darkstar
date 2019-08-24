@@ -26,6 +26,8 @@ function onTrustSpawn(trust)
 	trust:setMod(dsp.mod.EVA, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.THF, dsp.skill.EVASION));
 	trust:setMod(dsp.mod.DEF, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.THF, dsp.skill.DAGGER));
 	trust:setMod(dsp.mod.MDEF, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.THF, dsp.skill.DAGGER));
+	trust:setMod(dsp.mod.GILFINDER, 1);
+	trust:setMod(dsp.mod.TREASURE_HUNTER, 1);
 
     local master = trust:getMaster();
 	if master:hasTrust(dsp.trust.ROMAA_MIHGO) then

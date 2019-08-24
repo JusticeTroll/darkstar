@@ -22,6 +22,7 @@ This file is part of DarkStar-server source code.
 */
 #include "../../common/socket.h"
 #include "../../common/utils.h"
+
 #include "trust_sync.h"
 
 #include "../entities/charentity.h"
@@ -69,6 +70,5 @@ CTrustSyncPacket::CTrustSyncPacket(CCharEntity* PChar, CTrustEntity* PTrust)
     //memcpy(data + (0x18), PTrust->GetName(), PTrust->name.size());
 
     // Unknown
-    ref<uint8>(0x10) = 0x04;
-
+    //ref<uint8>(0x10) = 0x04;
 }

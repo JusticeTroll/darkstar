@@ -717,7 +717,7 @@ CBaseEntity* CZoneEntities::GetEntity(uint16 targid, uint8 filter)
     }
     else if (targid < 0x800)
     {
-        if (filter & TYPE_PET || filter & TYPE_TRUST)
+        if (filter & TYPE_PET)
         {
             EntityList_t::const_iterator it = m_petList.find(targid);
             if (it != m_petList.end())
@@ -736,7 +736,8 @@ CBaseEntity* CZoneEntities::GetEntity(uint16 targid, uint8 filter)
                 return it->second;
             }
         }
-    }    return nullptr;
+    }
+    return nullptr;
 }
 
 void CZoneEntities::TOTDChange(TIMETYPE TOTD)
@@ -936,10 +937,10 @@ void CZoneEntities::PushPacket(CBaseEntity* PEntity, GLOBAL_MESSAGE_TYPE message
                                             spawnlist = PCurrentChar->SpawnNPCList;
                                         }
                                     }
-                                    else if (entity->targid < 0x800)
-                                    {
-                                        spawnlist = PCurrentChar->SpawnPETList;
-                                    }
+	                                else if (entity->targid < 0x800)
+	                                {
+	                                    spawnlist = PCurrentChar->SpawnPETList;
+	                                }
 	                                else if (entity->targid < 0x900)
 	                                {
 	                                    spawnlist = PCurrentChar->SpawnTRUSTList;
@@ -1134,10 +1135,10 @@ void CZoneEntities::ZoneServer(time_point tick, bool check_regions)
             ++trustit;
         }
     }
+
     for (EntityList_t::const_iterator it = m_charList.begin(); it != m_charList.end(); ++it)
     {
         CCharEntity* PChar = (CCharEntity*)it->second;
-
         if (PChar->status != STATUS_SHUTDOWN)
         {
             PChar->PRecastContainer->Check();

@@ -31,6 +31,8 @@ function onTrustSpawn(trust)
 	trust:setMod(dsp.mod.EVA, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.PLD, dsp.skill.SHIELD));
 	trust:setMod(dsp.mod.DEF, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.PLD, dsp.skill.SHIELD));
 	trust:setMod(dsp.mod.MDEF, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.PLD, dsp.skill.SHIELD));
+	trust:setMod(dsp.mod.UNDEAD_KILLER, 5);
+	trust:setMod(dsp.mod.STORETP, 3);
 	
 	--trust:addTrustTrait(dsp.trait.TRAIT_STORE_TP, 3);
 	--trust:addTrustTrait(dsp.trait.TRAIT_UNDEAD_KILLER, 1);

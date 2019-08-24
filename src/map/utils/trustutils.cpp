@@ -76,6 +76,7 @@ struct Trust_t
     uint32		time;		// время существования (будет использоваться для задания длительности статус эффекта)
 
     uint8		mJob;
+    uint8		sJob;
     uint8		m_Element;
     uint16      m_Behaviour;                // mob behaviour
 
@@ -176,7 +177,9 @@ namespace trustutils
                 Slash, Pierce, H2H, Impact, \
                 Fire, Ice, Wind, Earth, Lightning, Water, Light, Dark, \
                 cmbDelay, name_prefix, mob_pools.skill_list_id, \
-                trust_list.spellid, mob_pools.behavior\
+
+                trust_list.spellid, mob_pools.behavior, mob_pools.sJob\
+
                 FROM trust_list, mob_pools, mob_family_system \
                 WHERE trust_list.poolid = mob_pools.poolid AND mob_pools.familyid = mob_family_system.familyid";
 
@@ -197,6 +200,9 @@ namespace trustutils
                 Pet->EcoSystem = (ECOSYSTEM)Sql_GetIntData(SqlHandle, 6);
                 Pet->m_Family = (uint16)Sql_GetIntData(SqlHandle, 7);
                 Pet->mJob = (uint8)Sql_GetIntData(SqlHandle, 8);
+
+                Pet->sJob = (uint8)Sql_GetIntData(SqlHandle, 43);
+
                 Pet->m_Element = (uint8)Sql_GetIntData(SqlHandle, 9);
                 Pet->m_Behaviour = (uint16)Sql_GetIntData(SqlHandle, 42);
 
@@ -597,13 +603,13 @@ namespace trustutils
         PTrust->look = trust->look;
         PTrust->name = trust->name;
         PTrust->m_MobSkillList = trust->m_MobSkillList;
-        PTrust->SetMJob(trust->mJob);
-        PTrust->SetSJob(trust->mJob); // TODO: This may not be true for some trusts
+
         PTrust->m_Element = trust->m_Element;
         PTrust->m_TrustID = TrustID;
         PTrust->status = STATUS_NORMAL;
-        PTrust->m_ModelSize = trust->size;
         PTrust->m_name_prefix = trust->name_prefix;
+        PTrust->m_ModelSize = trust->size;
+
         PTrust->m_EcoSystem = trust->EcoSystem;
         PTrust->m_Behaviour = trust->m_Behaviour;
         PTrust->m_HasSpellScript = trust->hasSpellScript;
@@ -611,18 +617,25 @@ namespace trustutils
         PTrust->m_TrustWSListContainer = trustWSList::GetTrustWSList(TrustID - 895);
 
         // assume level matches master
+
+        PTrust->SetMJob(trust->mJob);
+        PTrust->SetSJob(trust->sJob);
         PTrust->SetMLevel(PMaster->GetMLevel());
-        PTrust->SetSLevel(PMaster->GetSLevel());
+        PTrust->SetSLevel(PMaster->GetMLevel() / 2);
 
         // TODO: Proper stats per trust
         PTrust->setModifier(Mod::ATT, battleutils::GetMaxSkill(SKILL_CLUB, JOB_WHM, PTrust->GetMLevel()));
         PTrust->setModifier(Mod::ACC, battleutils::GetMaxSkill(SKILL_CLUB, JOB_WHM, PTrust->GetMLevel()));
         PTrust->setModifier(Mod::EVA, battleutils::GetMaxSkill(SKILL_THROWING, JOB_WHM, PTrust->GetMLevel())); // Throwing??
         PTrust->setModifier(Mod::DEF, battleutils::GetMaxSkill(SKILL_THROWING, JOB_WHM, PTrust->GetMLevel()));
+
+        PTrust->defaultMobMod(MOBMOD_SPECIAL_COOL, 4);
+        PTrust->defaultMobMod(MOBMOD_SPECIAL_DELAY, 4);
+        PTrust->defaultMobMod(MOBMOD_TP_USE_CHANCE, 75);
+
         //set C magic evasion
         PTrust->setModifier(Mod::MEVA, battleutils::GetMaxSkill(SKILL_ELEMENTAL_MAGIC, JOB_RDM, PTrust->GetMLevel()));
 
-        //load weapon delay
         ((CItemWeapon*)PTrust->m_Weapons[SLOT_MAIN])->setDelay((trust->cmbDelay * 1000) / 60);
 
         // HP/MP STR/DEX/etc..
@@ -672,17 +685,17 @@ namespace trustutils
         }
 
         // catch all non-defaulted spell chances
-        PTrust->defaultMobMod(MOBMOD_MAGIC_COOL, 300);
+
         PTrust->defaultMobMod(MOBMOD_GA_CHANCE, 35);
         PTrust->defaultMobMod(MOBMOD_NA_CHANCE, 50);
         PTrust->defaultMobMod(MOBMOD_BUFF_CHANCE, 35);
         PTrust->defaultMobMod(MOBMOD_HEAL_CHANCE, 75);
         PTrust->defaultMobMod(MOBMOD_HP_HEAL_CHANCE, 75);
-        PTrust->defaultMobMod(MOBMOD_MAGIC_DELAY, 35);
-        PTrust->defaultMobMod(MOBMOD_TP_USE_CHANCE, 75);
-        PTrust->defaultMobMod(MOBMOD_SPECIAL_COOL, 500);
-        PTrust->defaultMobMod(MOBMOD_MAGIC_DELAY, 500);
-        PTrust->defaultMobMod(MOBMOD_SPECIAL_DELAY, 500);
+
+
+        PTrust->defaultMobMod(MOBMOD_MAGIC_COOL, 4);
+        PTrust->defaultMobMod(MOBMOD_MAGIC_DELAY, 4);
+
 
         RecalculateActionContainer(PTrust);
 

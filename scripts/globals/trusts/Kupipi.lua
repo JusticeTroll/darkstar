@@ -7,27 +7,25 @@ require("scripts/globals/utils")
 require("scripts/globals/trusts")
 require("scripts/globals/msg")
 
-local weaponskill = 0;
-local cureCooldown = 12;
-local debuffCooldown = 10;
-local buffCooldown = 7;
-local ailmentCooldown = 15;
-local paraCooldown = 120;
-local slowCooldown = 180;
-local flashCooldown = 120;
-
+-----------------------------------------------------------------------------------
+--  Spawn/Despawn Functions
+-----------------------------------------------------------------------------------
 function onTrustSpawn(trust)
+
+	-- WINDURST STARTER TRUST QUEST
+	------------------------------------------------
     local master = trust:getMaster();
-	
 	if(master:getVar("WindurstFirstTrust") == 1) then
 		master:setVar("WindurstFirstTrust", 2);
 	end
+	------------------------------------------------
+	
+	master:setVar("KupipiStarterSpell", 1);
 	
 	trust:addMobMod(dsp.mobMod.SKILL_LIST, dsp.trust.KUPIPI);
     trust:addMobMod(dsp.mobMod.SPECIAL_SKILL, dsp.trust.KUPIPI);
+	
 	trust:setDamage(trust:getMainLvl() * 2);
-	--trust:capSkill(dsp.skill.CLUB);
-	--trust:capSkill(dsp.skill.SHIELD);
 	trust:setMod(dsp.mod.STR, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.WHM, dsp.skill.CLUB));
 	trust:setMod(dsp.mod.DEX, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.WHM, dsp.skill.CLUB));
 	trust:setMod(dsp.mod.VIT, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.WHM, dsp.skill.CLUB));
@@ -42,165 +40,252 @@ function onTrustSpawn(trust)
 	trust:setMod(dsp.mod.DEF, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.WHM, dsp.skill.SHIELD));
 	trust:setMod(dsp.mod.MDEF, trust:getMaxSkillLevel(trust:getMainLvl(), dsp.job.WHM, dsp.skill.SHIELD));
 	
-	local kupipi = trust:getID();
-	
 	if master:hasTrust(dsp.trust.SHANTOTTO) then
-	    trust:PrintToArea("Doctor Shantotto is here? For better or worse, this'll be a day to remember-wember!", dsp.msg.channel.PARTY, dsp.msg.area.PARTY, trust:getName());
+		SendPartyMessage(trust, "Doctor Shantotto is here? For better or worse, this'll be a day to remember-wember!");
 	elseif master:hasTrust(dsp.trust.STAR_SIBYL) then
-	    trust:PrintToArea("I-it's the Sta~r Sibyl! Please, bring peace to Windurst!", dsp.msg.channel.PARTY, dsp.msg.area.PARTY, trust:getName());
+		SendPartyMessage(trust, "I-it's the Sta~r Sibyl! Please, bring peace to Windurst!");
 	else
-		trust:PrintToArea("You can entrust e~verything to the meticulous Kupipi!", dsp.msg.channel.PARTY, dsp.msg.area.PARTY, trust:getName());
+		SendPartyMessage(trust, "You can entrust e~verything to the meticulous Kupipi!");
 	end
 end
 
-function onTrustEngaged(trust,target)
-
-end
-
-function onTrustDisengage(trust,target)
-end
-
-function onTrustFight(trust,target)
-	--foreach partymember
-	--if asleep
-	--wake target
-	--foreach trust
-	--if asleep
-	--wake target
-end
-
 function onTrustDeath(trust, player)
-    trust:PrintToArea("These tears...they sting-wing...", dsp.msg.channel.PARTY, dsp.msg.area.PARTY, trust:getName());
+	SendPartyMessage(trust, "These tears...they sting-wing...");
 end
 
 function onTrustDespawn(trust)
-	trust:PrintToArea("What a wo~nderful time I had!", dsp.msg.channel.PARTY, dsp.msg.area.PARTY, trust:getName());
+	SendPartyMessage(trust, "What a wo~nderful time I had!");
+end
+
+
+-----------------------------------------------------------------------------------
+--  Battle Functions
+-----------------------------------------------------------------------------------
+function onTrustEngaged(trust,target)
+    local master = trust:getMaster()
+	local buffSpells = trust:getTrustBuffSpells()
+	
+	if(master:getVar("KupipiStarterSpell") == 1) then
+		for i, spell in ipairs(buffSpells) do
+			local spellId = spell:getSpellID()
+			if(spellId >= 125 and spellId <= 129)then --Protect AOE
+				if(trust:getMP() >= trust:getSpellCost(spellId)) then
+					trust:castSpell(spellId, trust)
+					break
+				end
+			end
+		end
+		for i, spell in ipairs(buffSpells) do
+			local spellId = spell:getSpellID()
+			if(spellId >= 130 and spellId <= 134)then --Shell AOE
+				if(trust:getMP() >= trust:getSpellCost(spellId)) then
+					trust:castSpell(spellId, trust)
+					break
+				end
+			end
+		end
+		master:setVar("KupipiStarterSpell", 0);
+	end
+
+	return 0
+end
+
+function onTrustFight(trust,target)
+	return 0
+end
+
+function onTrustCast(trust)
+    local PMaster = trust:getMaster()
+	local PParty = PMaster:getParty()
+	local PTrusts = PMaster:getPartyTrusts()
+	local healSpells = trust:getTrustHealSpells()
+	local buffSpells = trust:getTrustBuffSpells()
+	local spellId = 0
+	
+	--Check Buff
+	spellId, target = checkBuff(buffSpells, trust, PMaster, PParty, PTrusts)
+	if(spellId > 0) then
+		return spellId, target:getShortID()		
+	end
+	
+	--Check Sleep
+	spellId, target = checkSleep(healSpells, trust, PMaster, PParty, PTrusts)
+	if(spellId > 0) then
+		return spellId, target:getShortID()		
+	end
+	
+	--Check Cure
+	spellId, target = checkCure(healSpells, trust, PMaster, PParty, PTrusts)
+	if(spellId > 0) then
+		return spellId, target:getShortID()		
+	end
+	
+	return 0,0
+end
+
+function onTrustDisengage(trust,target)
+	return 0
+end
+
+
+-----------------------------------------------------------------------------------
+--  Action Check Functions
+-----------------------------------------------------------------------------------
+function onTrustSpellCheck(target, trust, spell)
+    local dMND = trust:getStat(dsp.mod.MND) - target:getStat(dsp.mod.MND)
+	local lvlDiff = trust:getMainLvl() - target:getMainLvl()
+	
+	if(lvlDiff >= -6 and lvlDiff <= 6) then
+		if(spell:getID() == 56) then --Slow
+			if(spellResistCheck(trust, target, spell, dsp.effect.SLOW, dsp.skill.ENFEEBLING_MAGIC, dMND, 0) < 0.5) then
+				return 1
+			end
+		end
+		
+		if(spell:getID() == 58) then --Paralyze
+			if(spellResistCheck(trust, target, spell, dsp.effect.PARALYSIS, dsp.skill.ENFEEBLING_MAGIC, dMND, 0) < 0.5) then
+				return 1
+			end
+		end
+	end
+
+	return 0
 end
 
 function onTrustSkillCheck(target, trust, skill)
 	return 0
-end;
-
-function onSpellPrecast(trust, spell)
-
 end
 
-function doBuff(trust, player)
-	trust:setLocalVar("cureTime",0);
-	trust:setLocalVar("debuffTime",0);
-	trust:setLocalVar("ailmentTime",0);
-	trust:setLocalVar("buffTime",0);
-	trust:setLocalVar("paraTime",0);
-	trust:setLocalVar("slowTime",0);
-	trust:setLocalVar("flashTime",0);
+function onTrustWeaponSkillCheck(target, trust, wskill)
+	return 0
+end
+
+function checkSleep(healSpells, trust, master, party, trusts)
+	if (not trust:hasStatusEffect(dsp.effect.SLEEP_I) and not trust:hasStatusEffect(dsp.effect.SLEEP_II)) then
+		for i, spell in ipairs(healSpells) do
+			local spellId = spell:getSpellID()
+			if(spellId == 1 and trust:getMP() >= trust:getSpellCost(spellId)) then
+			
+				if (master:hasStatusEffect(dsp.effect.SLEEP_I) or master:hasStatusEffect(dsp.effect.SLEEP_II)) then
+					return spellId, master
+				end
+				for i, PMember in pairs(party) do
+					if(not PMember == master) then
+						if (PMember:hasStatusEffect(dsp.effect.SLEEP_I) or PMember:hasStatusEffect(dsp.effect.SLEEP_II)) then
+							return spellId, PMember
+						end
+					end
+				end
+				for i, PTrust in pairs(trusts) do
+					if (PTrust:hasStatusEffect(dsp.effect.SLEEP_I) or PTrust:hasStatusEffect(dsp.effect.SLEEP_II)) then
+						return spellId, PTrust
+					end
+				end
+				break
+			end
+		end
+	end
+
+	return 0, 0
+end
+
+function checkBuff(buffSpells, trust, master, party, trusts)
+	for i, spell in ipairs(buffSpells) do
+		local spellId = spell:getSpellID()
+		
+		if(spellId >= 125 and spellId <= 129)then --Protect AOE
+			if (not trust:hasStatusEffect(dsp.effect.PROTECT)) then
+				if(trust:getMP() >= trust:getSpellCost(spellId)) then
+					return spellId, trust
+				end
+			end
+		end
+		if(spellId >= 130 and spellId <= 134)then --Shell AOE
+			if(not trust:hasStatusEffect(dsp.effect.SHELL)) then
+				if(trust:getMP() >= trust:getSpellCost(spellId)) then
+					trust:castSpell(spellId, trust)
+					break
+				end
+			end
+		end
+		
+		if(spellId >= 43 and spellId <= 47)then --Protect Single
+			if(trust:getMP() >= trust:getSpellCost(spellId)) then
+				if (not master:hasStatusEffect(dsp.effect.PROTECT)) then
+					return spellId, master
+				end
+				for i, PMember in pairs(party) do
+					if(not PMember == master) then
+						if (not PMember:hasStatusEffect(dsp.effect.PROTECT)) then
+							return spellId, PMember
+						end
+					end
+				end
+				for i, PTrust in pairs(trusts) do
+					if (not PTrust:hasStatusEffect(dsp.effect.PROTECT)) then
+						return spellId, PTrust
+					end
+				end
+			end
+		end
+		if(spellId >= 48 and spellId <= 52)then --Shell Single
+			if(trust:getMP() >= trust:getSpellCost(spellId)) then
+				if (not master:hasStatusEffect(dsp.effect.SHELL)) then
+					return spellId, master
+				end
+				for i, PMember in pairs(party) do
+					if(not PMember == master) then
+						if (not PMember:hasStatusEffect(dsp.effect.SHELL)) then
+							return spellId, PMember
+						end
+					end
+				end
+				for i, PTrust in pairs(trusts) do
+					if (not PTrust:hasStatusEffect(dsp.effect.SHELL)) then
+						return spellId, PTrust
+					end
+				end
+			end
+		end
+	end
 	
-    local proRaList = {{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
-    local proList = {{63,65,46}, {47,46,45}, {27,28,44}, {7,9,43}}
-    local shellRaList = {{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}	
-    local shellList = {{68,75,51}, {57,56,50}, {37,37,49}, {17,18,48}}
-	local battletime = os.time()
-	local mp = trust:getMP()
-	local lvl = trust:getMainLvl()
-	local party = player:getParty()
-	local pro = 0
-	local shell = 0
-	local procount = 0
-	local shellcount = 0
-    for i,member in pairs(party) do
-        if (not member:hasStatusEffect(dsp.effect.PROTECT)) then
-            procount = procount + 1
-            if (procount >= 2) then -- do protectra instead
-	            for i = 1, #proRaList do
-		            if (lvl >= proRaList[i][1] and mp >= proRaList[i][2]) then
-			            pro = proRaList[i][3]
-			            break
-		            end
-	            end
-				if(trust:hasSpell(pro)) then
-					trust:castSpell(pro, trust)
-					trust:setLocalVar("buffTime",battletime)
-					break
-				end
-            end
-		end
-	end
-
-	if (procount == 1) then
-        for i,member in pairs(party) do
-            if (not member:hasStatusEffect(dsp.effect.PROTECT)) then
-                for i = 1, #proList do
-		            if (lvl >= proList[i][1] and mp >= proList[i][2]) then
-			            pro = proList[i][3]
-			            break
-		            end
-	            end
-				if(trust:hasSpell(pro)) then
-					trust:castSpell(pro, member)
-					trust:setLocalVar("buffTime",battletime)
-					break
-				end
-		    end
-	    end
-	end
-
-    for i,member in pairs(party) do
-        if (not member:hasStatusEffect(dsp.effect.SHELL)) then
-            shellcount = shellcount + 1
-            if (shellcount >= 2) then
-	            for i = 1, #shellRaList do
-		            if (lvl >= shellRaList[i][1] and mp >= shellRaList[i][2]) then
-			            shell = shellRaList[i][3]
-			            break
-		            end
-	            end
-				if(trust:hasSpell(shell)) then
-					trust:castSpell(shell, trust)
-					trust:setLocalVar("buffTime",battletime)
-					break
-				end
-            end
-		end
-	end
-
-	if (shellcount == 1) then
-        for i,member in pairs(party) do
-            if (not member:hasStatusEffect(dsp.effect.SHELL)) then
-                for i = 1, #proList do
-		            if (lvl >= shellList[i][1] and mp >= shellList[i][2]) then
-			            shell = shellList[i][3]
-			            break
-		            end
-	            end
-				if(trust:hasSpell(shell)) then
-					trust:castSpell(shell, member)
-					trust:setLocalVar("buffTime",battletime)
-					break
-				end
-		    end
-	    end
-	end
+	return 0,0
 end
 
-function doDebuff(trust, target)
+function checkCure(healSpells, trust, master, party, trusts)
+	local healPercent = trust:getMobMod(dsp.mobMod.HP_HEAL_CHANCE)	
+	for i, spell in ipairs(healSpells) do
+		local spellId = spell:getSpellID()
+		if(trust:getMP() >= trust:getSpellCost(spellId)) then
+			if(master:getHPP() <= healPercent) then
+				return spellId, master
+			end
+			
+			if(trust:getHPP() <= healPercent) then
+				return spellId, trust
+			end
+			
+			for i, PMember in pairs(party) do
+				if(PMember:getHPP() <= healPercent) then
+					return spellId, PMember
+				end
+			end
 
-    local battletime = os.time()
-    local paraTime = trust:getLocalVar("paraTime")
-	local slowTime = trust:getLocalVar("slowTime")
-	local flashTime = trust:getLocalVar("flashTime")
-	local mp = trust:getMP()
-	local lvl = trust:getMainLvl()
-	local debuff = 0
+			for i, Ptrust in pairs(trusts) do
+				if(Ptrust:getHPP() <= healPercent) then
+					return spellId, Ptrust
+				end
+			end
+		end
+	end
+	return 0, 0
+end
 
-	if ((battletime > paraTime + paraCooldown) and not target:hasStatusEffect(dsp.effect.PARALYSIS) and lvl >= 4 and mp >= 6) then
-		trust:setLocalVar("paraTime",battletime)
-	    debuff = 58
-	elseif ((battletime > slowTime + slowCooldown) and not target:hasStatusEffect(dsp.effect.SLOW) and lvl >= 13 and mp >= 15) then
-		trust:setLocalVar("slowTime",battletime)
-	    debuff = 56
-	elseif ((battletime > flashTime + flashCooldown) and not target:hasStatusEffect(dsp.effect.FLASH) and lvl >= 45 and mp >= 25) then
-		trust:setLocalVar("flashTime",battletime)
-	    debuff = 112
-    end
-
-    return debuff
+function spellResistCheck(caster, target, spell, effect, skillType, diff, bonus)
+    local params = {}
+    params.diff = diff
+    params.skillType = skillType
+    params.bonus = bonus
+    params.effect = effect
+    return applyResistanceEffect(caster, target, spell, params)
 end

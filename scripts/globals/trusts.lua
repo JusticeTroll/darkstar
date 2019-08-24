@@ -141,13 +141,16 @@ dsp.trust =
 }
 
 function SendPartyMessage(trust, msg)
-    local master = trust:getMaster();
-	local party = master:getParty();
-
-	for i, member in ipairs(party) do
-		if (member:isPC()) then
-			member:PrintToArea(msg, dsp.msg.channel.PARTY, dsp.msg.area.PARTY, trust:getName());
-		end
-    end
-	
+	trust:PrintToArea(msg, dsp.msg.channel.PARTY, dsp.msg.area.PARTY, trust:getName());	
 end;
+
+function getLevelDif(trust, target)
+	return trust:getMainLvl() - target:getMainLvl()
+end;
+
+--function orderDamageSpells(damageSpells, order)
+	--local newArray
+	--for i, spell in ipairs(damageSpells) do
+	--end
+	--return newArray
+--end

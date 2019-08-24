@@ -264,7 +264,9 @@ void CZoneInstance::SpawnTRUSTs(CCharEntity* PChar)
     {
         PChar->PInstance->SpawnTRUSTs(PChar);
     }
-}void CZoneInstance::SpawnNPCs(CCharEntity* PChar)
+}
+
+void CZoneInstance::SpawnNPCs(CCharEntity* PChar)
 {
     if (PChar->PInstance)
     {

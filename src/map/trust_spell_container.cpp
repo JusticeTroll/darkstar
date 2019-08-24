@@ -40,6 +40,7 @@ void CTrustSpellContainer::ClearSpells()
     m_gaList.clear();
     m_damageList.clear();
     m_buffList.clear();
+    m_debuffList.clear();
     m_healList.clear();
     m_naList.clear();
     m_hasSpells = false;
@@ -74,10 +75,13 @@ void CTrustSpellContainer::AddSpell(SpellID spellId)
         m_gaList.push_back(spellId);
 
     }
-    else if(spell->canTargetEnemy()){
+    else if(spell->canTargetEnemy() && !spell->isDebuff()){
         // add to damage list
         m_damageList.push_back(spellId);
-
+    }
+    else if (spell->isDebuff()) {
+        // add to damage list
+        m_debuffList.push_back(spellId);
     }
     else if(spell->isNa()){
         // na spell and erase
@@ -231,10 +235,13 @@ std::optional<SpellID> CTrustSpellContainer::GetSpell()
     }
 
     // Grab whatever spell can be found
-    // starting from damage spell
+    // starting from debuff spell
+    if (HasDebuffSpells()) {
+        return GetDebuffSpell();
+    }
+
     if(HasDamageSpells())
     {
-        // try damage spell
         return GetDamageSpell();
     }
 
@@ -255,6 +262,13 @@ std::optional<SpellID> CTrustSpellContainer::GetDamageSpell()
     return m_damageList[dsprand::GetRandomNumber(m_damageList.size())];
 }
 
+std::optional<SpellID> CTrustSpellContainer::GetDebuffSpell()
+{
+    if (m_debuffList.empty()) return {};
+
+    return m_debuffList[dsprand::GetRandomNumber(m_debuffList.size())];
+}
+
 std::optional<SpellID> CTrustSpellContainer::GetBuffSpell()
 {
     if(m_buffList.empty()) return {};
@@ -264,7 +278,7 @@ std::optional<SpellID> CTrustSpellContainer::GetBuffSpell()
 
 std::optional<SpellID> CTrustSpellContainer::GetHealSpell()
 {
-    if(m_PTrust->m_EcoSystem == SYSTEM_UNDEAD || m_healList.empty()) return {};
+    if(m_healList.empty()) return {};
 
     return m_healList[dsprand::GetRandomNumber(m_healList.size())];
 }
@@ -313,6 +327,11 @@ bool CTrustSpellContainer::HasGaSpells() const
 bool CTrustSpellContainer::HasDamageSpells() const
 {
     return !m_damageList.empty();
+}
+
+bool CTrustSpellContainer::HasDebuffSpells() const
+{
+    return !m_debuffList.empty();
 }
 
 bool CTrustSpellContainer::HasBuffSpells() const

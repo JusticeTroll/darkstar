@@ -109,7 +109,7 @@ void CTrustEntity::FadeOut()
 void CTrustEntity::Die()
 {
     PAI->Internal_Die(0s);
-    luautils::OnTrustDeath(this, nullptr);
+    luautils::OnTrustDeath(this);
     ((CCharEntity*)PMaster)->RemoveTrust(this);
     CBattleEntity::Die();
 }
@@ -283,21 +283,30 @@ void CTrustEntity::OnTrustSkillFinished(CTrustSkillState& state, action_t& actio
         target.animation = animationId;
         target.messageID = 0;
 
-        damage = luautils::OnTrustWeaponSkill(PTarget, this, PSkill, &action);
+        damage = luautils::OnTrustWeaponSkill(PTarget, this, PSkill);
+
+        if (PSkill->getMsg() != 185)
+        {
+            target.messageID = PSkill->getMsg();
+            target.param = damage;
+        }
 
         this->PAI->EventHandler.triggerListener("WEAPONSKILL_USE", this, PTarget, skillId, state.GetSpentTP(), &action);
         PTarget->PAI->EventHandler.triggerListener("WEAPONSKILL_TAKE", PTarget, this, skillId, state.GetSpentTP(), &action);
 
-        if (msg == 0)
+        if (target.messageID == 0)
         {
-            msg = defaultMessage;
-        }
-        else
-        {
-            msg = msgAoe;
-        }
+            if (msg == 0)
+            {
+                msg = defaultMessage;
+            }
+            else
+            {
+                msg = msgAoe;
+            }
 
-        target.messageID = msg;
+            target.messageID = msg;
+        }
 
         if (hasMissMsg)
         {

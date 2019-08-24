@@ -139,6 +139,7 @@ bool CAIContainer::TrustAbility(uint16 targid, uint16 abilityid)
     }
     return false;
 }
+
 bool CAIContainer::Ability(uint16 targid, uint16 abilityid)
 {
     if (Controller)
@@ -268,7 +269,9 @@ bool CAIContainer::Internal_TrustSkill(uint16 targid, uint16 wsid)
     if (entity)
         return ChangeState<CTrustSkillState>(entity, targid, wsid);
     return false;
-}bool CAIContainer::Internal_MobSkill(uint16 targid, uint16 wsid)
+}
+
+bool CAIContainer::Internal_MobSkill(uint16 targid, uint16 wsid)
 {
     auto entity {dynamic_cast<CMobEntity*>(PEntity)};
     if (entity)
@@ -290,7 +293,9 @@ bool CAIContainer::Internal_TrustAbility(uint16 targetid, uint16 abilityid)
     if (entity)
         return ChangeState<CTrustAbilityState>(entity, targetid, abilityid);
     return false;
-}bool CAIContainer::Internal_RangedAttack(uint16 targetid)
+}
+
+bool CAIContainer::Internal_RangedAttack(uint16 targetid)
 {
     auto entity {dynamic_cast<CCharEntity*>(PEntity)};
     if (entity)

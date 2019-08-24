@@ -12,5 +12,4 @@ end
 
 function onUseAbility(trust,target,ability)
     target:addEnmity(trust, 1, 1800)
-	ability:setMsg(119)
 end

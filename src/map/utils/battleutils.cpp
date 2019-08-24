@@ -89,7 +89,9 @@ std::array<CWeaponSkill*, MAX_WEAPONSKILL_ID> g_PWeaponSkillList;           // H
 std::array<CMobSkill*, 4096> g_PMobSkillList;                   // List of mob skills
 std::array<CTrustWeaponSkill*, 4096> g_PTrustWeaponSkillList;
 std::array<CTrustWeaponSkill*, 4096> g_PTrustAbilityList;
+
 std::array<std::list<CWeaponSkill*>, MAX_SKILLTYPE> g_PWeaponSkillsList;
+
 std::unordered_map<uint16, std::vector<uint16>>  g_PMobSkillLists;  // List of mob skills defined from mob_skill_lists.sql
 std::unordered_map<uint16, std::vector<uint16>>  g_PTrustWeaponSkillLists;  // List of mob skills defined from mob_skill_lists.sql
 std::unordered_map<uint16, std::vector<uint16>>  g_PTrustAbilityLists;  // List of mob skills defined from mob_skill_lists.sql
@@ -273,7 +275,9 @@ namespace battleutils
                 g_PTrustWeaponSkillList[PTrustWeaponSkill->getID()] = PTrustWeaponSkill;
             }
         }
-    }    void LoadSkillChainDamageModifiers()
+    }
+
+    void LoadSkillChainDamageModifiers()
     {
         const char* fmtQuery = "SELECT chain_level, chain_count, initial_modifier, magic_burst_modifier \
                            FROM skillchain_damage_modifiers \
@@ -363,6 +367,7 @@ namespace battleutils
         }
         return false;
     }
+
     bool CanUseWeaponskill(CTrustEntity* PTrust, CWeaponSkill* PSkill)
     {
         if (PSkill->getSkillLevel() > 0)
@@ -377,7 +382,9 @@ namespace battleutils
             }
         }
         return false;
-    }    /************************************************************************
+    }
+
+    /************************************************************************
     *                                                                       *
     *  Get Enmity Modifier                                                  *
     *                                                                       *
@@ -456,7 +463,10 @@ namespace battleutils
         {
             return nullptr;
         }
-    }    /************************************************************************
+
+    }
+
+    /************************************************************************
     *                                                                       *
     *  Get Mob Skills by list id                                          *
     *                                                                       *
@@ -471,6 +481,7 @@ namespace battleutils
     {
         return g_PTrustWeaponSkillLists[ListID];
     }
+
     int32 CalculateEnspellDamage(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 Tier, uint8 element) {
         int32 damage = 0;
 
@@ -3214,6 +3225,11 @@ namespace battleutils
         {
             return (((CCharEntity*)PEntity)->getEquip(Slot));
         }
+        else if (PEntity->objtype == TYPE_NPC)
+        {
+            return nullptr;
+        }
+
         return nullptr;
     }
 
@@ -3691,6 +3707,9 @@ namespace battleutils
 
         return shotCount;
     }
+
+
+
 
     /************************************************************************
     *                                                                       *

@@ -22,9 +22,9 @@ end;
 
 function onTrigger(player,npc)
 
-	local TrustSandoria = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.TRUST_SANDORIA);
-	local TrustBastok   = player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRUST_BASTOK);
-	local TrustWindurst = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.TRUST_WINDURST);
+    TrustSandoria = player:getQuestStatus(SANDORIA,TRUST_SANDORIA);
+	TrustBastok   = player:getQuestStatus(BASTOK,TRUST_BASTOK);
+	TrustWindurst = player:getQuestStatus(WINDURST,TRUST_WINDURST);
 	local Level = player:getMainLvl();
 	
 	--0x0363 - quest starter but not first
@@ -66,7 +66,7 @@ function onEventFinish(player,csid,option)
     --printf("RESULT: %u",option1);
 	if ((csid == 0x035f or csid == 0x0363) and option == 2) then
 		player:addKeyItem(dsp.keyItem.GREEN_INSTITUTE_CARD);
-		player:addQuest(WINDURST,dsp.quest.id.windurst.TRUST_WINDURST);
+		player:addQuest(WINDURST,TRUST_WINDURST);
 		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.keyItem.GREEN_INSTITUTE_CARD);
     end
 end;

@@ -45,6 +45,7 @@ public:
   std::optional<SpellID> GetGaSpell(); // AoE damage spells, stonega, diaga
   std::optional<SpellID> GetDamageSpell(); // Single target damage spells, stone
   std::optional<SpellID> GetBuffSpell(); // stoneskin, utsusemi, blink
+  std::optional<SpellID> GetDebuffSpell(); // 
   std::optional<SpellID> GetHealSpell(); // cures, regen, armys paeon
   std::optional<SpellID> GetNaSpell(CBattleEntity* target); // silena, blindna etc
   std::optional<SpellID> GetSpell(); // return a random spell
@@ -53,6 +54,7 @@ public:
   bool HasMPSpells() const;
   bool HasNaSpell(SpellID spellId) const;
   bool HasGaSpells() const;
+  bool HasDebuffSpells() const;
   bool HasDamageSpells() const;
   bool HasBuffSpells() const;
   bool HasHealSpells() const;
@@ -66,6 +68,7 @@ public:
 
   std::vector<SpellID> m_gaList;
   std::vector<SpellID> m_damageList;
+  std::vector<SpellID> m_debuffList;
   std::vector<SpellID> m_buffList;
   std::vector<SpellID> m_healList;
   std::vector<SpellID> m_naList;

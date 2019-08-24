@@ -67,7 +67,8 @@ public:
     uint16    m_Behaviour;                // mob behaviour
     uint16    m_MobSkillList;             // Mob skill list defined from mob_pools
 
-    uint32    m_flags;                                 // includes the CFH flag and whether the HP bar should be shown or not (e.g. Yilgeban doesnt)
+    uint8     m_name_prefix;
+    //uint32    m_flags;                                 // includes the CFH flag and whether the HP bar should be shown or not (e.g. Yilgeban doesnt)
     string_t  packetName;                              // Used for battle allies
 
     virtual void OnEngage(CAttackState&) override;

@@ -58,6 +58,11 @@ function onTrigger(player,npc)
         player:startEvent(498)
     elseif (player:getQuestStatus(WINDURST,dsp.quest.id.windurst.CLASS_REUNION) == QUEST_ACCEPTED and player:getVar("ClassReunionProgress") == 3) then
         player:startEvent(409) -- she mentions that Sunny-Pabonny left for San d'Oria
+
+    -- AMK
+    elseif player:getCurrentMission(AMK) == dsp.mission.id.amk.CURSES_A_HORRIFICALLY_HARROWING_HEX then
+        player:startEvent(506)
+
     -------------------------------------------------------
     -- Curses Foiled Again!
     elseif (foiledAgain == QUEST_AVAILABLE) then
@@ -189,8 +194,12 @@ function onEventFinish(player,csid,option)
 	elseif (csid == 529 and option == 2) then
 		player:addSpell(dsp.trust.SHANTOTTO, true);
 		player:PrintToPlayer("You learned Trust: Shantotto!", 0xD);
+    elseif csid == 506 then
+        player:completeMission(AMK,dsp.mission.id.amk.CURSES_A_HORRIFICALLY_HARROWING_HEX)
+        player:addMission(AMK,dsp.mission.id.amk.AN_ERRAND_THE_PROFESSORS_PRICE)
 
-	else
+    else
+
         dsp.wsquest.handleEventFinish(wsQuest,player,csid,option,ID.text.RETRIBUTION_LEARNED)
 	
 	end

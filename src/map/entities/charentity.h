@@ -204,9 +204,10 @@ public:
     void					resetPetZoningInfo();			// reset pet zoning info (when changing job ect)
     uint8					m_SetBlueSpells[20];			// The 0x200 offsetted blue magic spell IDs which the user has set. (1 byte per spell)
     uint16                  m_lastWSused;
+
     UnlockedAttachments_t	m_unlockedAttachments;			// Unlocked Automaton Attachments (1 bit per attachment)
     CAutomatonEntity*       PAutomaton;                     // Automaton statistics
-
+    
     std::vector<CTrustEntity*> PTrusts; // Active trusts
 
 
@@ -258,6 +259,7 @@ public:
     SpawnIDList_t	  SpawnPETList;					// список видимых питомцев
     SpawnIDList_t	  SpawnNPCList;					// список видимых npc
     SpawnIDList_t	  SpawnTRUSTList;					// список видимых монстров
+
     void			  SetName(int8* name);			// устанавливаем имя персонажа (имя ограничивается 15-ю символами)
 
     EntityID_t        TradePending;                 // ID персонажа, предлагающего обмен
@@ -304,6 +306,7 @@ public:
     bool              m_EffectsChanged;
     time_point        m_LastSynthTime;
     time_point        m_LastPartyTime;
+
     int16 addTP(int16 tp) override;
     int32 addHP(int32 hp) override;
     int32 addMP(int32 mp) override;
@@ -322,6 +325,7 @@ public:
     void        ClearTrusts();
     void        RemoveTrust(CTrustEntity*);
     uint8       TrustPartyPosition(CTrustEntity* PTrust);
+
     virtual void Tick(time_point) override;
     void        PostTick() override;
 

@@ -196,6 +196,7 @@ inline int32 CLuaInstance::getTrusts(lua_State* L)
 
     return 1;
 }
+
 inline int32 CLuaInstance::getTimeLimit(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PLuaInstance == nullptr);
@@ -425,7 +426,8 @@ Lunar<CLuaInstance>::Register_t CLuaInstance::methods[] =
     LUNAR_DECLARE_METHOD(CLuaInstance, getMobs),
     LUNAR_DECLARE_METHOD(CLuaInstance, getNpcs),
     LUNAR_DECLARE_METHOD(CLuaInstance, getPets),
-    LUNAR_DECLARE_METHOD(CLuaInstance, getTrusts),    LUNAR_DECLARE_METHOD(CLuaInstance, getTimeLimit),
+    LUNAR_DECLARE_METHOD(CLuaInstance, getTrusts),
+    LUNAR_DECLARE_METHOD(CLuaInstance, getTimeLimit),
     LUNAR_DECLARE_METHOD(CLuaInstance, getEntryPos),
     LUNAR_DECLARE_METHOD(CLuaInstance, getLastTimeUpdate),
     LUNAR_DECLARE_METHOD(CLuaInstance, setLastTimeUpdate),

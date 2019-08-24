@@ -36,17 +36,48 @@ function onInstanceProgressUpdate(instance, progress)
     local stage = instance:getStage()
     local ELIMINATE = instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):getLocalVar("Eliminate")
 
+    if (stage == nyzul.objective.FREE_FLOOR or stage == nyzul.objective.ELIMINATE_ENEMY_LEADER or stage == nyzul.objective.ELIMINATE_SPECIFIED_ENEMY) and progress == 15 then
+        instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER, 0xFFF), dsp.objType.NPC):AnimationSub(1)
+        for i,v in ipairs(chars) do
+            v:messageSpecial(ID.text.OBJECTIVE_COMPLETE, instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):getLocalVar("Nyzul_Current_Floor"))
+        end
+    elseif (stage == nyzul.objective.ELIMINATE_ALL_ENEMIES or stage == nyzul.objective.ELIMINATE_SPECIFIED_ENEMIES) and progress == ELIMINATE then
+        instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER, 0xFFF), dsp.objType.NPC):AnimationSub(1)
+        instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):setLocalVar("Eliminate", 0)
+        for i,v in ipairs(chars) do
+            v:messageSpecial(ID.text.OBJECTIVE_COMPLETE, instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):getLocalVar("Nyzul_Current_Floor"))
+        end
+    end
+end
+
+--[[
+function onInstanceProgressUpdate(instance, progress)
+    local chars = instance:getChars()
+    local stage = instance:getStage()
+    local ELIMINATE = instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):getLocalVar("Eliminate")
+
 -- original
 --    if stage == (nyzul.objective.FREE_FLOOR or stage == nyzul.objective.ELIMINATE_ENEMY_LEADER or stage == nyzul.objective.ELIMINATE_SPECIFIED_ENEMY) and progress == 15 then
 --       instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER, 0xFFF), dsp.objType.NPC):AnimationSub(1)
 --        for i,v in ipairs(chars) do
 --            v:messageSpecial(ID.text.OBJECTIVE_COMPLETE, instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):getLocalVar("Nyzul_Current_Floor"))
 --        end
+
+--   elseif stage == (nyzul.objective.ELIMINATE_ALL_ENEMIES or stage == nyzul.objective.ELIMINATE_SPECIFIED_ENEMIES) and progress == ELMINATE then
+--       instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER, 0xFFF), dsp.objType.NPC):AnimationSub(1)
+--       instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):setLocalVar("Eliminate", 0)
+--       for i,v in ipairs(chars) do
+--           v:messageSpecial(ID.text.OBJECTIVE_COMPLETE, instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):getLocalVar("Nyzul_Current_Floor"))
+--       end
+--   end
+
+
 	if stage == (nyzul.objective.FREE_FLOOR or stage == nyzul.objective.ACTIVATE_ALL_LAMPS) and progress == 15 then
         instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER, 0xFFF), dsp.objType.NPC):AnimationSub(1)
         for i,v in ipairs(chars) do
 			v:messageSpecial(ID.text.OBJECTIVE_COMPLETE, instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):getLocalVar("Nyzul_Current_Floor"))
 		end
+
 			-- original		
 			--   elseif stage == (nyzul.objective.ELIMINATE_ALL_ENEMIES or stage == nyzul.objective.ELIMINATE_SPECIFIED_ENEMIES) and progress == ELMINATE then
 			--       instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER, 0xFFF), dsp.objType.NPC):AnimationSub(1)
@@ -55,6 +86,7 @@ function onInstanceProgressUpdate(instance, progress)
 			--           v:messageSpecial(ID.text.OBJECTIVE_COMPLETE, instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):getLocalVar("Nyzul_Current_Floor"))
 			--       end
 			--   end
+
 	elseif stage == (nyzul.objective.ACTIVATE_ALL_LAMPS) and progress <= 35 then
        instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER, 0xFFF), dsp.objType.NPC):AnimationSub(1)
        instance:getEntity(bit.band(ID.npc.RUNE_TRANSFER_START, 0xFFF), dsp.objType.NPC):setLocalVar("Eliminate", 0)
@@ -89,6 +121,9 @@ function onInstanceProgressUpdate(instance, progress)
         end
     end
 end
+
+--]]
+
 
 function onInstanceComplete(instance)
 
