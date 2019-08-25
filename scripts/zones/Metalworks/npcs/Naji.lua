@@ -48,7 +48,7 @@ function onTrigger(player,npc)
             player:startEvent(982);
         end
 
-    if (player:hasKeyItem(dsp.ki.YASINS_SWORD)) then -- The Doorman, WAR AF1
+    elseif (player:hasKeyItem(dsp.ki.YASINS_SWORD)) then -- The Doorman, WAR AF1
         player:startEvent(750);
     elseif (player:getCurrentMission(BASTOK) ~= dsp.mission.id.bastok.NONE) then
         local currentMission = player:getCurrentMission(BASTOK);
