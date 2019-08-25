@@ -17,7 +17,7 @@ end
 function onTrigger(player, target)
     local ValidSpells =
     {
-        896,887,898,899,900,901,902,905,1019
+        896,887,898,899,900,901,902,903,904,905,1019
     }
 --896 Shantotto
 --897 Naji
@@ -26,6 +26,8 @@ function onTrigger(player, target)
 --900 Ayame
 --901 Nanaa_Mihgo
 --902 Curilla
+--903 Volker
+--904 Ajido
 --905 Trion
 --1019 Shantotto 2
 
