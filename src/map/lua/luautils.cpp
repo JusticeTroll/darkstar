@@ -314,18 +314,18 @@ namespace luautils
     {
         switch (lua_gettop(L))
         {
-        case 0:
-            lua_pushnumber(L, dsprand::GetRandomNumber(1.));
-            break;
-        case 1:
-            luaL_checkinteger(L, 1);
-            lua_pushinteger(L, dsprand::GetRandomNumber<lua_Integer>(1, lua_tointeger(L, 1) + 1));
-            break;
-        default:
-            luaL_checkinteger(L, 1);
-            luaL_checkinteger(L, 2);
-            lua_pushinteger(L, dsprand::GetRandomNumber<lua_Integer>(lua_tointeger(L, 1), lua_tointeger(L, 2) + 1));
-            break;
+            case 0:
+                lua_pushnumber(L, dsprand::GetRandomNumber(1.));
+                break;
+            case 1:
+                luaL_checkinteger(L, 1);
+                lua_pushinteger(L, dsprand::GetRandomNumber<lua_Integer>(1, lua_tointeger(L, 1) + 1));
+                break;
+            default:
+                luaL_checkinteger(L, 1);
+                luaL_checkinteger(L, 2);
+                lua_pushinteger(L, dsprand::GetRandomNumber<lua_Integer>(lua_tointeger(L, 1), lua_tointeger(L, 2) + 1));
+                break;
         }
         return 1;
     }
@@ -386,8 +386,8 @@ namespace luautils
         if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
         {
             uint32 mobid = (uint32)lua_tointeger(L, 1);
-            CInstance* PInstance{ nullptr };
-            CBaseEntity* PMob{ nullptr };
+            CInstance* PInstance {nullptr};
+            CBaseEntity* PMob {nullptr};
 
             if (!lua_isnil(L, 2) && lua_isuserdata(L, 2))
             {
@@ -478,22 +478,22 @@ namespace luautils
         uint8 balance = conquest::GetBalance();
         switch (lua_tointeger(L, 1))
         {
-        case SANDORIA:
-            balance &= 0x3U;
-            lua_pushinteger(L, balance);
-            return 1;
-        case BASTOK:
-            balance &= 0xCU;
-            balance >>= 2;
-            lua_pushinteger(L, balance);
-            return 1;
-        case WINDURST:
-            balance >>= 4;
-            lua_pushinteger(L, balance);
-            return 1;
-        default:
-            lua_pushinteger(L, 0);
-            return 1;
+            case SANDORIA:
+                balance &= 0x3U;
+                lua_pushinteger(L, balance);
+                return 1;
+            case BASTOK:
+                balance &= 0xCU;
+                balance >>= 2;
+                lua_pushinteger(L, balance);
+                return 1;
+            case WINDURST:
+                balance >>= 4;
+                lua_pushinteger(L, balance);
+                return 1;
+            default:
+                lua_pushinteger(L, 0);
+                return 1;
         }
     }
 
@@ -766,26 +766,26 @@ namespace luautils
 
         switch (CVanaTime::getInstance()->getMoonDirection())
         {
-        case 0: // None
-            if (phase == 0)
-            {
-                lua_pushboolean(L, true);
-                return 1;
-            }
+            case 0: // None
+                if (phase == 0)
+                {
+                    lua_pushboolean(L, true);
+                    return 1;
+                }
 
-        case 1: // Waning (decending)
-            if (phase <= 10 && phase >= 0)
-            {
-                lua_pushboolean(L, true);
-                return 1;
-            }
+            case 1: // Waning (decending)
+                if (phase <= 10 && phase >= 0)
+                {
+                    lua_pushboolean(L, true);
+                    return 1;
+                }
 
-        case 2: // Waxing (increasing)
-            if (phase >= 0 && phase <= 5)
-            {
-                lua_pushboolean(L, true);
-                return 1;
-            }
+            case 2: // Waxing (increasing)
+                if (phase >= 0 && phase <= 5)
+                {
+                    lua_pushboolean(L, true);
+                    return 1;
+                }
         }
         lua_pushboolean(L, false);
         return 1;
@@ -807,26 +807,26 @@ namespace luautils
 
         switch (CVanaTime::getInstance()->getMoonDirection())
         {
-        case 0: // None
-            if (phase == 100)
-            {
-                lua_pushboolean(L, true);
-                return 1;
-            }
+            case 0: // None
+                if (phase == 100)
+                {
+                    lua_pushboolean(L, true);
+                    return 1;
+                }
 
-        case 1: // Waning (decending)
-            if (phase >= 95 && phase <= 100)
-            {
-                lua_pushboolean(L, true);
-                return 1;
-            }
+            case 1: // Waning (decending)
+                if (phase >= 95 && phase <= 100)
+                {
+                    lua_pushboolean(L, true);
+                    return 1;
+                }
 
-        case 2: // Waxing (increasing)
-            if (phase >= 90 && phase <= 100)
-            {
-                lua_pushboolean(L, true);
-                return 1;
-            }
+            case 2: // Waxing (increasing)
+                if (phase >= 90 && phase <= 100)
+                {
+                    lua_pushboolean(L, true);
+                    return 1;
+                }
         }
         lua_pushboolean(L, false);
         return 1;
@@ -2135,6 +2135,7 @@ namespace luautils
 
     int32 OnSpellPrecast(CBattleEntity* PCaster, CSpell* PSpell)
     {
+
         int8 File[255];
         PCaster->objtype == TYPE_TRUST ? snprintf((char*)File, sizeof(File), "scripts/globals/spells/trust/%s.lua", PCaster->GetName()) :
             snprintf((char*)File, sizeof(File), "scripts/zones/%s/mobs/%s.lua", PCaster->loc.zone->GetName(), PCaster->GetName());
@@ -4391,6 +4392,7 @@ namespace luautils
         }
     }
 
+
     /************************************************************************
     *                                                                       *
     *  TRUST LUA SCRIPTS                                                    *
@@ -4404,7 +4406,6 @@ namespace luautils
         int8 File[255];
         memset(File, 0, sizeof(File));
         snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
-
         if (prepFile(File, "onTrustDespawn")) { return -1; }
 
         CLuaBaseEntity LuaTrustEntity(PTrust);
@@ -4426,7 +4427,6 @@ namespace luautils
         int8 File[255];
         memset(File, 0, sizeof(File));
         snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
-
         if (prepFile(File, "onTrustSpawn")) { return -1; }
 
         CLuaBaseEntity LuaTrustEntity(PTrust);
@@ -4449,7 +4449,6 @@ namespace luautils
         int8 File[255];
         memset(File, 0, sizeof(File));
         snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
-
         if (prepFile(File, "onTrustDeath")) { return -1; }
 
         CLuaBaseEntity LuaTrustEntity(PTrust);
@@ -4464,7 +4463,6 @@ namespace luautils
         return 0;
 
         /*lua_pushnil(LuaHandle);
-
         lua_setglobal(LuaHandle, "onTrustDeath");
 
         CLuaBaseEntity LuaMobEntity(PTrust);
@@ -4613,10 +4611,10 @@ namespace luautils
         snprintf((char*)File, sizeof(File), "scripts/globals/trusts/%s.lua", PTrust->GetName());
         if (prepFile(File, "onTrustSkillCheck")) { return -1; }
 
-        CLuaBaseEntity LuaTrustEntity(PTrust);
-        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaTrustEntity);
         CLuaBaseEntity LuaBaseEntity(PTarget);
         Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaBaseEntity);
+        CLuaBaseEntity LuaTrustEntity(PTrust);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaTrustEntity);
         CLuaAbility LuaAbility(PSkill);
         Lunar<CLuaAbility>::push(LuaHandle, &LuaAbility);
 

@@ -302,7 +302,6 @@ namespace luautils
     int32 OnTrustWeaponSkillCheck(CBaseEntity* PChar, CBaseEntity* PTrust, CMobSkill* PMobSkill);
     int32 OnTrustSkillCheck(CBaseEntity* PChar, CBaseEntity* PTrust, CAbility* PMobSkill);
     int32 OnTrustWeaponSkill(CBaseEntity* PChar, CBaseEntity* PTrust, CMobSkill* PMobSkill);
-
 };
 
 #endif //- _LUAUTILS_H -

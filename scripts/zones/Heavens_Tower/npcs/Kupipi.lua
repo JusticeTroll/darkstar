@@ -36,9 +36,9 @@ function onTrigger(player,npc)
     local pNation = player:getNation();
     local currentMission = player:getCurrentMission(pNation);
     local MissionStatus = player:getVar("MissionStatus");
-    TrustSandoria = player:getQuestStatus(SANDORIA,TRUST_SANDORIA);
-    TrustBastok   = player:getQuestStatus(BASTOK,TRUST_BASTOK);
-    TrustWindurst = player:getQuestStatus(WINDURST,TRUST_WINDURST);
+    TrustSandoria = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.TRUST_SANDORIA);
+    TrustBastok   = player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRUST_BASTOK);
+    TrustWindurst = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.TRUST_WINDURST);
     local Level = player:getMainLvl();
     local rank3 = player:getRank(BASTOK) >= 3 and 1 or player:getRank(SANDORIA) >= 3 and 1 or player:getRank(WINDURST) >= 3 and 1 or 0;
 
