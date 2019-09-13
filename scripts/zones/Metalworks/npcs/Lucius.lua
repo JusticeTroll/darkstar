@@ -28,7 +28,7 @@ end;
 function onTrigger(player,npc)
 	local rank6 = player:getRank(BASTOK) >= 6 and 1 or player:getRank(SANDORIA) >= 6 and 1 or player:getRank(WINDURST) >= 6 and 1 or 0;
 
-    if (player:getCurrentMission(BASTOK) == dsp.mission.id.bastok.JEUNO_MISSION and player:getVar("MissionStatus") == 0) then
+    if (player:getCurrentMission(BASTOK) == dsp.mission.id.bastok.JEUNO and player:getVar("MissionStatus") == 0) then
         player:startEvent(322);
     
     --TRUST VOLKER
